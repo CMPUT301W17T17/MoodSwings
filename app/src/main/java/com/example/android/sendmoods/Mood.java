@@ -1,6 +1,5 @@
 package com.example.android.sendmoods;
 
-import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -8,7 +7,7 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
-public class Mood extends Activity implements Parcelable{
+public class Mood implements Parcelable{
     private Date dateTime;
     private String reason;
     private String username;

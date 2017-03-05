@@ -1,12 +1,12 @@
 package com.example.android.sendmoods;
 
-import static android.R.id.edit;
+import android.app.Activity;
 
 /**
  *
  */
 
-public class EditMoodActivity {
+public class EditMoodActivity extends Activity{
 
     Mood mood = new Mood();
 }

@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
 /**
  * Created by erasseli on 3/4/17.
  */
 
-public class MoodListActivity {
+public class MoodListActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

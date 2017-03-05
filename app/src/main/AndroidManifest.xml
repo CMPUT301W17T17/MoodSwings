@@ -21,6 +21,11 @@
             android:name=".MoodPopupActivity"
             android:theme="@style/popupDialog">
         </activity>
+
+        <activity
+            android:name=".EditMoodActivity">
+        </activity>
+
     </application>
 
 </manifest>

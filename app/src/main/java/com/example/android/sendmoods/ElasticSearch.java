@@ -4,7 +4,7 @@ package com.example.android.sendmoods;
  *
  */
 
-public class elasticSearch {
+public class ElasticSearch {
 
     String serverAddress;
 

@@ -1,7 +1,5 @@
 package com.example.android.sendmoods;
 
-import java.security.cert.CertPathValidatorException;
-
 /**
  *
  */
@@ -12,36 +10,36 @@ public class EditMoodActivityTest extends {
     }
 
     public void testAddMood() {
-        Mood mood = new Mood();
+        MoodEvent moodEvent = new MoodEvent();
         MoodList moodList = new MoodList();
-        moodList.add(mood);
+        moodList.add(moodEvent);
 
         try {
-            moodList.add(mood);
+            moodList.add(moodEvent);
         }
         catch (IllegalArgumentException e){
             RuntimeException();
 
         }
-        assertTrue(moodList.hasMood(mood));
+        assertTrue(moodList.hasMood(moodEvent));
     }
 
     public void testHasMood() {
-        Mood mood = new Mood();
+        MoodEvent moodEvent = new MoodEvent();
         MoodList moodList = new MoodList();
 
-        assertFalse(moodList.hasMood(mood));
-        moodList.add(mood);
+        assertFalse(moodList.hasMood(moodEvent));
+        moodList.add(moodEvent);
 
-        assertTrue(moodList.hasUserName(mood));
+        assertTrue(moodList.hasUserName(moodEvent));
     }
 
     public void testDeleteMood() {
-        Mood mood = new Mood();
+        MoodEvent moodEvent = new MoodEvent();
         MoodList moodList = new MoodList();
-        moodList.add(mood);
-        moodList.delete(mood);
-        assertFalse(moodList.hasTweet(mood));
+        moodList.add(moodEvent);
+        moodList.delete(moodEvent);
+        assertFalse(moodList.hasTweet(moodEvent));
     }
 
     public void testAddReason() {

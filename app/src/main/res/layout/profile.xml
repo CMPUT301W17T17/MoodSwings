@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#757575"
-    tools:context="com.example.android.sendmoods.Mood">
+    tools:context="com.example.android.sendmoods.MoodEvent">
 
 
     <EditText
@@ -39,7 +39,6 @@
         android:textStyle="bold"
         android:textSize="22sp"
         android:gravity="center"
-        android:layout_below="@id/imageView"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"/>

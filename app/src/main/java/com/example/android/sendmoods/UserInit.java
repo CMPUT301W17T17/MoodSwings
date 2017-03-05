@@ -11,7 +11,7 @@ public class UserInit extends AppCompatActivity {
 
     String userName;
 
-    @Override
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
@@ -26,6 +26,6 @@ public class UserInit extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-    }
+    }*/
 
 }

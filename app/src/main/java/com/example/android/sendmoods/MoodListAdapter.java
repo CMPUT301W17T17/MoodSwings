@@ -15,21 +15,23 @@ import java.util.ArrayList;
  */
 
 public class MoodListAdapter extends BaseAdapter {
-    private static ArrayList<Mood> moodList;
+    private static ArrayList<MoodEvent> moodEventList;
 
     private LayoutInflater mInflater;
+    private Context context;
 
-    public MoodListAdapter(Context context, ArrayList<Mood> list) {
-        moodList = list;
+    public MoodListAdapter(Context context, ArrayList<MoodEvent> list) {
+        moodEventList = list;
         mInflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     public int getCount() {
-        return moodList.size();
+        return moodEventList.size();
     }
 
     public Object getItem(int position) {
-        return moodList.get(position);
+        return moodEventList.get(position);
     }
 
     public long getItemId(int position) {
@@ -40,31 +42,26 @@ public class MoodListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.list_entry, null);
+            convertView = mInflater.inflate(R.layout.list_item_history, null);
             holder = new ViewHolder();
-            holder.nameEntry = (TextView) convertView.findViewById(R.id.entry_name);
-            holder.chestEntry = (TextView) convertView.findViewById(R.id.entry_chest);
-            holder.bustEntry = (TextView)convertView.findViewById(R.id.entry_bust);
-            holder.waistEntry = (TextView) convertView.findViewById(R.id.entry_waist);
-            holder.inseamEntry = (TextView) convertView.findViewById(R.id.entry_inseam);
-            convertView.setTag(holder); //set the tag
+            holder.usernameEntry = (TextView) convertView.findViewById(R.id.user_name);
+            holder.moodWordEntry = (TextView) convertView.findViewById(R.id.mood_word);
+            holder.dateTimeEntry = (TextView) convertView.findViewById(R.id.mood_date_time);
+            convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Log.d("ADAPTERLOOP", moodList.get(position).toString());
-        holder.nameEntry.setText(moodList.get(position).getUsername());
-        holder.chestEntry.setText(String.format("Chest: %.1fin", moodList.get(position).getDateTime()));
-        holder.bustEntry.setText(String.format("Bust: %.1fin", moodList.get(position).getAddress()));
-        holder.waistEntry.setText(String.format("Waist: %.1fin", moodList.get(position).getReason()));
-        holder.inseamEntry.setText(String.format("Inseam: %.1fin", moodList.get(position).getEmotion()));
+        Log.d("ADAPTERLOOP", moodEventList.get(position).toString());
+        holder.usernameEntry.setText(moodEventList.get(position).getUsername());
+        holder.moodWordEntry.setText(moodEventList.get(position).getEmotion());
+        holder.dateTimeEntry.setText(moodEventList.get(position).getDateTime().toString());
+        convertView.setBackground(moodEventList.get(position).getListBox(context));
         return convertView;
     }
 
     static class ViewHolder {
-        TextView nameEntry;
-        TextView chestEntry;
-        TextView bustEntry;
-        TextView waistEntry;
-        TextView inseamEntry;
+        TextView usernameEntry;
+        TextView moodWordEntry;
+        TextView dateTimeEntry;
     }
 }

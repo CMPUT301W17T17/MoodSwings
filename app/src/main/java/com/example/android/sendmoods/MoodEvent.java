@@ -1,26 +1,51 @@
 package com.example.android.sendmoods;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 
 import java.util.Date;
 
-public class Mood implements Parcelable{
+public class MoodEvent implements Parcelable{
     private Date dateTime;
     private String reason;
     private String username;
     private Location address;
-    private Emotion emotion;
-    //image
+    private String emotion;
+    private int popupShape;
+    private String color;
 
-    public Mood(Date dateTime, String reason, String username, Location address, Emotion emotion) {
+    public MoodEvent(){}
+
+    public MoodEvent(Date dateTime, String reason, String username, Location address, String emotion) {
         this.dateTime = dateTime;
         this.reason = reason;
         this.username = username;
         this.address = address;
         this.emotion = emotion;
+    }
+
+    public Drawable getListBox(Context context){
+        return ContextCompat.getDrawable(context, R.drawable.list_box_pink);
+    }
+
+    public int getPopupShape(){
+        return popupShape;
+    }
+
+    public void setPopupShape(int popupShape){
+        this.popupShape = popupShape;
+    }
+
+    public void setColor(String color){
+        this.color = color;
+    }
+
+    public String getColor(){
+        return color;
     }
 
     public Date getDateTime() {
@@ -55,22 +80,16 @@ public class Mood implements Parcelable{
         this.address = address;
     }
 
-    public Emotion getEmotion() {
+    public String getEmotion() {
         return emotion;
     }
 
-    public void setEmotion(Emotion emotion) {
+    public void setEmotion(String emotion) {
         this.emotion = emotion;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_mood);
-    }
-
-    public Mood(Parcel in){
-        this.message = in.readString();
+    public MoodEvent(Parcel in){
+        this.popupShape = in.readInt();
     }
 
     @Override
@@ -81,20 +100,21 @@ public class Mood implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.write(this.message);
+        dest.writeInt(popupShape);
+        /*dest.write(this.message);
         dest.writeString(this.message);
         dest.writeString(this.message);
         dest.writeString(this.message);
         dest.writeString(this.message);
-        dest.writeString(this.message);
+        dest.writeString(this.message);*/
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-        public Mood createFromParcel(Parcel in) {
-            return new Mood(in);
+        public MoodEvent createFromParcel(Parcel in) {
+            return new MoodEvent(in);
         }
 
-        public Mood[] newArray(int size) {
-            return new Mood[size];
+        public MoodEvent[] newArray(int size) {
+            return new MoodEvent[size];
         }
     };
 }

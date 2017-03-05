@@ -9,15 +9,15 @@ public class ElasticSearch {
     String serverAddress;
 
 
-    public void getFollowedMoods() {
+    /*public void getFollowedMoods() {
 
     }
 
-    public void setRecentMood(Mood) {
+    public void setRecentMood(MoodEvent) {
 
     }
 
-    public void setRecentMood(Mood) {
+    public void setRecentMood(MoodEvent) {
 
-    }
+    }*/
 }

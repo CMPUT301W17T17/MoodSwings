@@ -8,5 +8,5 @@ import android.app.Activity;
 
 public class EditMoodActivity extends Activity{
 
-    Mood mood = new Mood();
+    //MoodEvent mood = new MoodEvent();
 }

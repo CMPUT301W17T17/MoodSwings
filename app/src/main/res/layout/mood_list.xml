@@ -1,159 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#757575"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <TableLayout
+    <LinearLayout
+        android:id="@+id/mood_list_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:stretchColumns="1">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#757575">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="12dp"
+            android:src="@drawable/profile"
+            android:id="@+id/ppic"/>
 
-            <TextView
-                android:id="@+id/sub1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="17dp"
-                android:paddingBottom="17dp"
-                android:background="@drawable/back5"
-                android:text="Date time:time
-Mood Subject"
-                android:fontFamily="sans-serif-thin"
-                android:textSize="16sp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginBottom="1dp"
-                android:textStyle="bold"
-                android:paddingLeft="12dp"
-                android:layout_marginTop="150dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:layout_marginLeft="47dp"
+            android:layout_marginTop="110dp"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-thin"
+            android:textStyle="bold"/>
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/sub2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="17dp"
-                android:paddingBottom="17dp"
-                android:background="@drawable/back4"
-                android:text="Date time:time
-Mood Subject"
-                android:fontFamily="sans-serif-thin"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginBottom="1dp"
-                android:paddingLeft="12dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_below="@+id/sub1"/>
+    <ListView
+        android:id="@+id/mood_list"
+        android:layout_below="@id/mood_list_header"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
 
-            <TextView
-                android:id="@+id/sub3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/sub2"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:background="@drawable/back3"
-                android:text="Date time:time
-Mood Subject"
-                android:fontFamily="sans-serif-thin"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginBottom="1dp"
-                android:paddingLeft="12dp"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+    <android.support.design.widget.FloatingActionButton
+        app:fabSize="auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/add"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:id="@+id/floatingActionButton" />
 
-            <TextView
-                android:id="@+id/sub4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="17dp"
-                android:paddingBottom="17dp"
-                android:background="@drawable/back2"
-                android:text="Date time:time
-Mood Subject"
-                android:fontFamily="sans-serif-thin"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginBottom="1dp"
-                android:paddingLeft="12dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_below="@+id/sub3"/>
-
-            <TextView
-                android:id="@+id/sub5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="17dp"
-                android:paddingBottom="17dp"
-                android:text="Date time:time
-Mood Subject"
-                android:fontFamily="sans-serif-thin"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginBottom="1dp"
-                android:paddingLeft="12dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_below="@+id/sub4"
-                android:background="@drawable/back"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/greyback"
-                android:text="filter by..."
-                android:textSize="20sp"
-                android:padding="4dp"
-                android:textColor="#FDD835"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="32dp" />
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_margin="12dp"
-                android:src="@drawable/profile"
-                android:id="@+id/ppic"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:layout_marginLeft="47dp"
-                android:layout_marginTop="110dp"
-                android:textSize="16sp"
-                android:fontFamily="sans-serif-thin"
-                android:textStyle="bold"/>
-
-            <android.support.design.widget.FloatingActionButton
-                app:fabSize="auto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/add"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_margin="16dp"
-                android:id="@+id/floatingActionButton" />
-
-            <Button
-                android:text="Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/ppic"
-                android:layout_toStartOf="@+id/floatingActionButton"
-                android:id="@+id/popbutt" />
-
-
-        </RelativeLayout>
-
-    </TableLayout>
-</ScrollView>
+</RelativeLayout>

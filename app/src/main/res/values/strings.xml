@@ -2,5 +2,5 @@
     <string name="app_name">Send Moods</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_uswr_init">uswrInit</string>
-    <string name="somestring">somestring</string>
+    <string name="some_string">somestring</string>
 </resources>

@@ -3,10 +3,13 @@ package com.example.android.sendmoods;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by erasseli on 3/4/17.
@@ -14,17 +17,37 @@ import android.os.Bundle;
 
 public class MoodListActivity extends AppCompatActivity{
 
+    private ListView moodListView;
+    private ArrayList<MoodEvent> moodEventList = new ArrayList<>();
+    private MoodListAdapter adapter;
+
+    private MoodEvent testMoodEvent = new MoodEvent();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mood_list);
 
-        Button popButt = (Button) findViewById(R.id.popbutt);
-        popButt.setOnClickListener(new View.OnClickListener() {
+        moodListView = (ListView) findViewById(R.id.mood_list);
+        adapter = new MoodListAdapter(this, moodEventList);
+        moodListView.setAdapter(adapter);
+
+        testMoodEvent.setDateTime(new Date());
+        testMoodEvent.setUsername("Mohamad");
+        testMoodEvent.setEmotion("Happy");
+        testMoodEvent.setColor("#F06292");
+        testMoodEvent.setPopupShape(R.drawable.popup_shape_pink);
+
+        moodEventList.add(testMoodEvent);
+        adapter.notifyDataSetChanged();
+
+        moodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                MoodEvent moodEvent = (MoodEvent) moodListView.getItemAtPosition(position);
                 Intent myIntent = new Intent(MoodListActivity.this, MoodPopupActivity.class);
-                startActivity(myIntent);
+                myIntent.putExtra("MoodEvent", moodEvent);
+                startActivityForResult(myIntent, 0);
             }
         });
     }

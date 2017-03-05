@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Also find the drawable for rounded corners, and the style xml for notitle for export -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/popup"
     android:orientation="vertical"
@@ -16,16 +15,17 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <RelativeLayout android:id="@+id/paper"
+            <RelativeLayout
+                android:id="@+id/popup_box"
                 android:layout_margin="50dp"
-                android:background="@drawable/popup_shape"
+                android:background="@drawable/popup_shape_blue"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/somestring"/>
+                    android:text="@string/some_string"/>
 
             </RelativeLayout>
         </LinearLayout>

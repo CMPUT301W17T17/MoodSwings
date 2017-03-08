@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Date;
+import static com.example.android.sendmoods.Constants.*;
 
 /**
  * Created by erasseli on 3/4/17.
@@ -32,11 +32,14 @@ public class MoodListActivity extends AppCompatActivity{
         adapter = new MoodListAdapter(this, moodEventList);
         moodListView.setAdapter(adapter);
 
-        testMoodEvent.setDateTime(new Date());
         testMoodEvent.setUsername("Mohamad");
-        testMoodEvent.setEmotion("Happy");
-        testMoodEvent.setColor("#F06292");
-        testMoodEvent.setPopupShape(R.drawable.popup_shape_pink);
+        testMoodEvent.setEmotion(HAPPY_WORD);
+        testMoodEvent.setDate("February 02, 2017");
+        testMoodEvent.setTime("11:11");
+        testMoodEvent.setReason("Harder Better Faster");
+        testMoodEvent.setAddress("123 Fakestreet, WA");
+        testMoodEvent.setColor(HAPPY_COLOR);
+        testMoodEvent.setPopupShape(HAPPY_POPUP_BOX);
 
         moodEventList.add(testMoodEvent);
         adapter.notifyDataSetChanged();

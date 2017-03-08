@@ -7,19 +7,11 @@ import android.text.TextUtils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by Etiennera on 2017-02-05.
- * Sourced from: http://stackoverflow.com/questions/5357455/limit-decimal-places-in-android-edittext/24632346#24632346
- * Credit to user: android_dev
- *
- * This class acts only as a filter which is used to ensure numeric fields resemble XY.Z.
- */
-
 public class TextInputFilter implements InputFilter {
     private Pattern mPattern;
 
     public TextInputFilter() {
-        mPattern = Pattern.compile("-?^(?=.{1,20}$)([A-z0-9]{1,20}[^\\S\\n]?){1,3}?");
+        mPattern = Pattern.compile("-?^(?=.{0,20}$)([A-z0-9]{1,20}[^\\S\\n]?){0,3}?");
     }
 
     @Override

@@ -10,23 +10,17 @@ import android.support.v4.content.ContextCompat;
 import java.util.Date;
 
 public class MoodEvent implements Parcelable{
-    private Date dateTime;
+    private String date;
+    private String time;
     private String reason;
     private String username;
-    private Location address;
+    private Location addressGPS;
+    private String address;
     private String emotion;
     private int popupShape;
     private String color;
 
     public MoodEvent(){}
-
-    public MoodEvent(Date dateTime, String reason, String username, Location address, String emotion) {
-        this.dateTime = dateTime;
-        this.reason = reason;
-        this.username = username;
-        this.address = address;
-        this.emotion = emotion;
-    }
 
     public Drawable getListBox(Context context){
         return ContextCompat.getDrawable(context, R.drawable.list_box_pink);
@@ -48,12 +42,20 @@ public class MoodEvent implements Parcelable{
         return color;
     }
 
-    public Date getDateTime() {
-        return dateTime;
+    public String getDate() {
+        return date;
     }
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public String getTime() {
+        return time;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getReason() {
@@ -72,11 +74,11 @@ public class MoodEvent implements Parcelable{
         this.username = username;
     }
 
-    public Location getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Location address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -90,6 +92,12 @@ public class MoodEvent implements Parcelable{
 
     public MoodEvent(Parcel in){
         this.popupShape = in.readInt();
+        this.username = in.readString();
+        this.emotion = in.readString();
+        this.date = in.readString();
+        this.time = in.readString();
+        this.address = in.readString();
+        this.reason = in.readString();
     }
 
     @Override
@@ -97,16 +105,15 @@ public class MoodEvent implements Parcelable{
         return 0;
     }
 
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(popupShape);
-        /*dest.write(this.message);
-        dest.writeString(this.message);
-        dest.writeString(this.message);
-        dest.writeString(this.message);
-        dest.writeString(this.message);
-        dest.writeString(this.message);*/
+        dest.writeString(username);
+        dest.writeString(emotion);
+        dest.writeString(date);
+        dest.writeString(time);
+        dest.writeString(address);
+        dest.writeString(reason);
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MoodEvent createFromParcel(Parcel in) {

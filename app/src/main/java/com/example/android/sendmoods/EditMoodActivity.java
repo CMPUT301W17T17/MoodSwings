@@ -19,4 +19,5 @@ public class EditMoodActivity extends Activity {
         EditText ReasonEdit = (EditText) findViewById(R.id.editText2);
         ReasonEdit.setFilters(new InputFilter[]{new TextInputFilter()});
     }
+
 }

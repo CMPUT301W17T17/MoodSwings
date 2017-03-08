@@ -9,7 +9,7 @@
         android:id="@+id/datetime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date time:time"
+        android:hint="Date time:time"
         android:layout_alignParentRight="true"
         android:layout_marginTop="75dp"
         android:layout_marginRight="16dp"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/datetime"
-        android:text="Status (Mood)"
+        android:hint="Status (Mood)"
         android:layout_marginRight="16dp"
         android:textStyle="italic"
         android:gravity="center"
@@ -35,20 +35,6 @@
         android:text="Reason:"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="125dp"
-        android:layout_marginLeft="16dp"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-thin"
-        android:textSize="25sp"/>
-
-    <TextView
-        android:id="@+id/situation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reason:"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="125dp"
-        android:layout_marginBottom="100dp"
         android:layout_marginLeft="16dp"
         android:textStyle="bold"
         android:fontFamily="sans-serif-thin"
@@ -110,14 +96,13 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:text="Add Reason"
+        android:hint="Add Reason"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:gravity="center"
         android:textStyle="italic"
         android:layout_below="@+id/editText"
-        android:layout_alignEnd="@+id/threepeeps"
-        android:layout_marginEnd="18dp"
+        android:layout_marginEnd="0dp"
         android:id="@+id/editText2" />
 
 </RelativeLayout>

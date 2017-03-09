@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#81C784">
+
+    <TextView
+        android:id="@+id/datetime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Date time:time"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="75dp"
+        android:layout_marginRight="16dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-thin"
+        android:textSize="25sp"/>
+
+    <EditText
+        android:layout_width="164dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/datetime"
+        android:hint="Status (Mood)"
+        android:layout_marginRight="16dp"
+        android:textStyle="italic"
+        android:gravity="center"
+        android:id="@+id/editText" />
+
+    <TextView
+        android:id="@+id/reason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reason:"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="125dp"
+        android:layout_marginLeft="16dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-thin"
+        android:textSize="25sp"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/profile"
+        android:layout_margin="8dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/save"
+        app:fabSize="auto"
+        android:onClick="saveMood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/save"
+        android:layout_toLeftOf="@+id/delete"
+        android:layout_margin="8dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/delete"
+        app:fabSize="auto"
+        android:onClick="deleteMood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/delete"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="16dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:hint="Add Reason"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:layout_below="@+id/editText"
+        android:layout_marginEnd="0dp"
+        android:id="@+id/editText2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <ImageButton
+            android:id="@+id/person"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/person"
+            android:background="@null"
+            android:layout_marginRight="70dp"
+            android:layout_alignStart="@+id/situation"
+            android:layout_marginLeft="35dp"
+            android:onClick="shareOne"/>
+
+        <ImageButton
+            android:id="@+id/two"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:src="@drawable/two"
+            android:onClick="shareTwo"/>
+        <ImageButton
+            android:id="@+id/crowd"
+            android:background="@null"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="60dp"
+            android:src="@drawable/crowd"
+            android:onClick="shareThree"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -18,6 +18,7 @@ public class MoodEvent implements Parcelable{
     private int popupShape;
     private String color;
 
+    //what is this
     public MoodEvent(){}
 
     public MoodEvent(Date dateTime, String reason, String username, Location address, String emotion) {

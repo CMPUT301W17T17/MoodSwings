@@ -32,5 +32,5 @@ public class MoodEventTest extends ActivityInstrumentationTestCase2{
     public void testsetColor() {
         /*same as testgetColor()?*/
     }
-    
+
 }

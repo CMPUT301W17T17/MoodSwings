@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+<<<<<<< HEAD
     android:fontFamily="sans-serif-thin"
     android:background="@drawable/list_box_purple"
     android:textSize="16sp"
@@ -14,10 +15,25 @@
     android:paddingTop="17dp"
     android:paddingBottom="17dp"
     android:layout_alignParentTop="true" >
+=======
+    android:layout_alignParentTop="true"
+    android:layout_marginBottom="1dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginTop="150dp"
+    android:background="@drawable/list_box_purple"
+    android:fontFamily="sans-serif-thin"
+    android:paddingBottom="17dp"
+    android:paddingLeft="12dp"
+    android:paddingTop="17dp"
+    android:textSize="16sp"
+    android:textStyle="bold">
+>>>>>>> jamaledd
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:orientation="horizontal" >
@@ -43,5 +59,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true" />
+=======
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:height="35dp"
+            android:textSize="24dp" />
+
+        <TextView
+            android:id="@+id/mood_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:height="35dp"
+            android:textSize="24dp" />
+
+        <TextView
+            android:id="@+id/mood_date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:height="35dp"
+            android:textSize="24dp" />
+>>>>>>> jamaledd
     </LinearLayout>
 </RelativeLayout>

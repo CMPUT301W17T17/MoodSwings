@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">Send Moods</string>
     <string name="title_activity_main">MainActivity</string>
+<<<<<<< HEAD
     <string name="title_activity_uswr_init">uswrInit</string>
     <string name="some_string">somestring</string>
 </resources>
+=======
+    <string name="title_activity_user_init">userInit</string>
+    <string name="username_text_popup_default">Some name</string>
+    <string name="situation_text_default">Social: </string>
+    <string name="mood_text_popup_default">Happy</string>
+    <string name="date_popup_default">On: March 3, 2017</string>
+    <string name="time_popup_default">At: 11:11</string>
+    <string name="description_text_popup_default">Solemn swear no-good</string>
+    <string name="address_text_popup_default">123 Fakestreet, Springfield WA</string>
+</resources>
+>>>>>>> jamaledd

@@ -2,9 +2,15 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+<<<<<<< HEAD
     android:background="#757575"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+=======
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#757575"
+>>>>>>> jamaledd
     android:fillViewport="true">
 
     <LinearLayout
@@ -14,25 +20,43 @@
         android:orientation="horizontal">
 
         <ImageView
+<<<<<<< HEAD
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="12dp"
             android:src="@drawable/profile"
             android:id="@+id/ppic"/>
+=======
+            android:id="@+id/ppic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="12dp"
+            android:src="@drawable/profile" />
+>>>>>>> jamaledd
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:text="Edit"
             android:layout_marginLeft="47dp"
             android:layout_marginTop="110dp"
             android:textSize="16sp"
             android:fontFamily="sans-serif-thin"
             android:textStyle="bold"/>
+=======
+            android:layout_marginLeft="47dp"
+            android:layout_marginTop="110dp"
+            android:fontFamily="sans-serif-thin"
+            android:text="Edit"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+>>>>>>> jamaledd
     </LinearLayout>
 
     <ListView
         android:id="@+id/mood_list"
+<<<<<<< HEAD
         android:layout_below="@id/mood_list_header"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -49,5 +73,23 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:id="@+id/floatingActionButton" />
+=======
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mood_list_header"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"></ListView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:onClick="editMood"
+        android:src="@drawable/add"
+        app:fabSize="auto" />
+>>>>>>> jamaledd
 
 </RelativeLayout>

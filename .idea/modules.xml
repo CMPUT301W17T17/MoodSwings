@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MoodSwings.iml" filepath="$PROJECT_DIR$/MoodSwings.iml" />
+<<<<<<< HEAD
+=======
+      <module fileurl="file://$PROJECT_DIR$/MoodSwings-editfields.iml" filepath="$PROJECT_DIR$/MoodSwings-editfields.iml" />
+>>>>>>> jamaledd
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

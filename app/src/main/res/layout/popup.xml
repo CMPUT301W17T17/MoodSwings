@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/popup"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,15 +18,15 @@
 
             <RelativeLayout
                 android:id="@+id/popup_box"
-                android:layout_margin="50dp"
-                android:background="@drawable/popup_shape_blue"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent">
+                android:layout_margin="50dp"
+                android:background="@drawable/popup_shape_blue">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/some_string"/>
+                    android:text="@string/some_string" />
 
             </RelativeLayout>
         </LinearLayout>
@@ -34,21 +34,21 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/edit"
-        android:onClick="editMood"
-        app:fabSize="mini"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/edit"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="60dp"
-        android:layout_marginTop="60dp"/>
+        android:layout_marginTop="60dp"
+        android:onClick="editMood"
+        android:src="@drawable/edit"
+        app:fabSize="mini" />
 
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_margin="25dp"
         android:layout_gravity="center"
-        android:src="@drawable/happy"
-        android:id="@+id/imageView2" />
+        android:layout_margin="25dp"
+        android:src="@drawable/happy" />
 </RelativeLayout>

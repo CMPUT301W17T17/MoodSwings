@@ -58,7 +58,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
-        android:src="@drawable/rightarrowyellow"
+        android:src="@drawable/rightarrow"
         app:fabSize="auto" />
 
 </RelativeLayout>

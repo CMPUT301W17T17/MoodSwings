@@ -22,6 +22,7 @@ public class MoodListActivity extends AppCompatActivity{
     private MoodListAdapter adapter;
 
     private MoodEvent testMoodEvent = new MoodEvent();
+    private MoodEvent testMoodEvent2 = new MoodEvent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,16 @@ public class MoodListActivity extends AppCompatActivity{
         moodEventList.add(testMoodEvent);
         adapter.notifyDataSetChanged();
 
+        testMoodEvent2.setDateTime(new Date());
+        testMoodEvent2.setUsername("Matt");
+        testMoodEvent2.setEmotion("Angry");
+        testMoodEvent2.setColor("#F62478");
+        testMoodEvent2.setPopupShape(R.drawable.popup_shape_pink);
+
+        moodEventList.add(testMoodEvent2);
+        adapter.notifyDataSetChanged();
+
+
         moodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
@@ -51,4 +62,10 @@ public class MoodListActivity extends AppCompatActivity{
             }
         });
     }
+
+    public void editMood(View view) {
+        Intent intent = new Intent(this, EditMoodActivity.class);
+        startActivity(intent);
+    }
+
 }

@@ -4,6 +4,7 @@ package com.example.android.sendmoods;
  * Created by erasseli on 3/4/17.
  */
 
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,5 +26,10 @@ public class MoodPopupActivity extends AppCompatActivity {
 
         View view = findViewById(R.id.popup_box);
         view.setBackground(ContextCompat.getDrawable(this, moodEvent.getPopupShape()));
+    }
+
+    public void editMood(View view) {
+        Intent intent = new Intent(this, EditMoodActivity.class);
+        startActivity(intent);
     }
 }

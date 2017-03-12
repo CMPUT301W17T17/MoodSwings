@@ -8,6 +8,15 @@ import android.widget.AdapterView;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import static com.example.android.sendmoods.Constants.*;
 
@@ -18,8 +27,9 @@ import static com.example.android.sendmoods.Constants.*;
 public class MoodListActivity extends AppCompatActivity{
 
     private ListView moodListView;
-    private ArrayList<MoodEvent> moodEventList = new ArrayList<>();
+    private MoodList moodEventList
     private MoodListAdapter adapter;
+    private String FILENAME = "local.sav";
 
     private MoodEvent testMoodEvent = new MoodEvent();
 
@@ -34,7 +44,7 @@ public class MoodListActivity extends AppCompatActivity{
 
         testMoodEvent.setUsername("Mohamad");
         testMoodEvent.setEmotion(HAPPY_WORD);
-        testMoodEvent.setDate("February 02, 2017");
+        testMoodEvent.setDate("February 02, 2017");//http://stackoverflow.com/questions/9945072/convert-string-to-date-in-java This will help sort by date
         testMoodEvent.setTime("11:11");
         testMoodEvent.setReason("Harder Better Faster");
         testMoodEvent.setAddress("123 Fakestreet, WA");
@@ -53,5 +63,27 @@ public class MoodListActivity extends AppCompatActivity{
                 startActivityForResult(myIntent, 0);
             }
         });
+    }
+
+    private void loadFromFile() {
+        try {
+            FileInputStream fis = openFileInput(FILENAME);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+            moodEventList.fromGson(in);
+        } catch (FileNotFoundException e) {
+            moodEventList = new MoodList();
+        }
+    }
+
+    private void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME,0);
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
+            Gson gson = new Gson();
+            gson.toJson(moodEventList, writer);
+            writer.flush();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
     }
 }

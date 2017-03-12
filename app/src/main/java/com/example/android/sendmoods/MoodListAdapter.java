@@ -46,11 +46,7 @@ public class MoodListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.usernameEntry = (TextView) convertView.findViewById(R.id.user_name);
             holder.moodWordEntry = (TextView) convertView.findViewById(R.id.mood_word);
-<<<<<<< HEAD
-            holder.dateTimeEntry = (TextView) convertView.findViewById(R.id.mood_date_time);
-=======
             holder.dateEntry = (TextView) convertView.findViewById(R.id.mood_date_time);
->>>>>>> jamaledd
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -58,11 +54,7 @@ public class MoodListAdapter extends BaseAdapter {
         Log.d("ADAPTERLOOP", moodEventList.get(position).toString());
         holder.usernameEntry.setText(moodEventList.get(position).getUsername());
         holder.moodWordEntry.setText(moodEventList.get(position).getEmotion());
-<<<<<<< HEAD
-        holder.dateTimeEntry.setText(moodEventList.get(position).getDateTime().toString());
-=======
         holder.dateEntry.setText(moodEventList.get(position).getDate());
->>>>>>> jamaledd
         convertView.setBackground(moodEventList.get(position).getListBox(context));
         return convertView;
     }
@@ -70,10 +62,6 @@ public class MoodListAdapter extends BaseAdapter {
     static class ViewHolder {
         TextView usernameEntry;
         TextView moodWordEntry;
-<<<<<<< HEAD
-        TextView dateTimeEntry;
-=======
         TextView dateEntry;
->>>>>>> jamaledd
     }
 }

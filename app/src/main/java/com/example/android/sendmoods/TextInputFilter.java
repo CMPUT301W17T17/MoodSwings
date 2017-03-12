@@ -19,11 +19,7 @@ public class TextInputFilter implements InputFilter {
     private Pattern mPattern;
 
     public TextInputFilter() {
-<<<<<<< HEAD
-        mPattern = Pattern.compile("-?^(?=.{1,20}$)([A-z0-9]{1,20}[^\\S\\n]?){1,3}?");
-=======
         mPattern = Pattern.compile("-?^(?=.{0,20}$)([A-z0-9]{1,20}[^\\S\\n]?){0,3}?");
->>>>>>> jamaledd
     }
 
     @Override

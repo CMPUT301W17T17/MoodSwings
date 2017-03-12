@@ -9,17 +9,6 @@
         android:id="@+id/datetime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:hint="Date time:time"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="75dp"
-        android:layout_marginRight="16dp"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-thin"
-        android:textSize="25sp"/>
-
-    <EditText
-=======
         android:layout_alignParentRight="true"
         android:layout_marginRight="16dp"
         android:layout_marginTop="75dp"
@@ -30,37 +19,19 @@
 
     <EditText
         android:id="@+id/editText"
->>>>>>> jamaledd
         android:layout_width="164dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/datetime"
-<<<<<<< HEAD
-        android:hint="Status (Mood)"
-        android:layout_marginRight="16dp"
-        android:textStyle="italic"
-        android:gravity="center"
-        android:id="@+id/editText" />
-=======
         android:layout_marginRight="16dp"
         android:gravity="center"
         android:hint="Status (Mood)"
         android:textStyle="italic" />
->>>>>>> jamaledd
 
     <TextView
         android:id="@+id/reason"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:text="Reason:"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="125dp"
-        android:layout_marginLeft="16dp"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-thin"
-        android:textSize="25sp"/>
-=======
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="125dp"
@@ -68,74 +39,10 @@
         android:text="Reason:"
         android:textSize="25sp"
         android:textStyle="bold" />
->>>>>>> jamaledd
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-<<<<<<< HEAD
-        android:src="@drawable/profile"
-        android:layout_margin="8dp"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/edit"
-        app:fabSize="mini"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/edit"
-        android:layout_toLeftOf="@+id/deletee"
-        android:layout_margin="8dp"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/deletee"
-        app:fabSize="mini"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_delete"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="16dp"/>
-
-    <ImageView
-        android:src="@drawable/crowd"
-        android:id="@+id/threepeeps"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/editText"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="38dp" />
-
-    <ImageView
-        android:src="@drawable/ic_people_black_24dp"
-        android:id="@+id/twopeeps"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/threepeeps"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:id="@+id/person"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_person_black_24dp"
-        android:layout_alignTop="@+id/twopeeps"
-        android:layout_alignStart="@+id/situation"
-        android:layout_marginStart="17dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:hint="Add Reason"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:gravity="center"
-        android:textStyle="italic"
-        android:layout_below="@+id/editText"
-        android:layout_marginEnd="0dp"
-        android:id="@+id/editText2" />
-=======
         android:layout_margin="8dp"
         android:src="@drawable/profile" />
 
@@ -211,6 +118,5 @@
             android:src="@drawable/crowd" />
     </LinearLayout>
 
->>>>>>> jamaledd
 
 </RelativeLayout>

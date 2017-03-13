@@ -71,8 +71,8 @@ public class MoodListActivity extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Constants.INTENT_REQUEST_CODE){
-            Intent intent = getIntent(); /*might not be necessary*/
-            Bundle extras = intent.getExtras();
+            //Intent intent = getIntent(); /*might not be necessary*/
+            Bundle extras = data.getExtras();
 
             String date = extras.getString("EXTRA_DATE");
             String time = extras.getString("EXTRA_TIME");

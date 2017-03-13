@@ -32,7 +32,8 @@ public class MoodPopupActivity extends AppCompatActivity {
 
     public void onStart(){
         super.onStart();
-        moodEvent = getIntent().getParcelableExtra("MoodEvent");
+        Intent intent = getIntent();
+        moodEvent = intent.getExtras().getParcelable("MoodEvent");
 
         View view = findViewById(R.id.popup_box);
         view.setBackground(ContextCompat.getDrawable(this, moodEvent.getPopupShape()));

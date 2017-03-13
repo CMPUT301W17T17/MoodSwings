@@ -7,6 +7,8 @@ package com.example.android.sendmoods;
         import android.view.View;
         import android.widget.EditText;
 
+        import static android.R.attr.x;
+
 /**
  *
  */

@@ -14,13 +14,14 @@ public class MoodEvent implements Parcelable{
     private String time;
     private String reason;
     private String username;
-    private Location addressGPS;
+    //private Location addressGPS;
     private String address;
     private String emotion;
     private int popupShape;
     private String color;
 
-    public MoodEvent(){}
+    public MoodEvent(String date, String time, String reason, String username, String address,
+                     String emotion, int popupShape, String color){}
 
     public Drawable getListBox(Context context){
         return ContextCompat.getDrawable(context, R.drawable.list_box_pink);
@@ -91,13 +92,13 @@ public class MoodEvent implements Parcelable{
     }
 
     public MoodEvent(Parcel in){
-        this.popupShape = in.readInt();
-        this.username = in.readString();
-        this.emotion = in.readString();
         this.date = in.readString();
         this.time = in.readString();
-        this.address = in.readString();
         this.reason = in.readString();
+        this.username = in.readString();
+        this.address = in.readString();
+        this.emotion = in.readString();
+        this.popupShape = in.readInt();
     }
 
     @Override
@@ -107,13 +108,13 @@ public class MoodEvent implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(popupShape);
-        dest.writeString(username);
-        dest.writeString(emotion);
         dest.writeString(date);
         dest.writeString(time);
-        dest.writeString(address);
         dest.writeString(reason);
+        dest.writeString(username);
+        dest.writeString(address);
+        dest.writeString(emotion);
+        dest.writeInt(popupShape);
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MoodEvent createFromParcel(Parcel in) {

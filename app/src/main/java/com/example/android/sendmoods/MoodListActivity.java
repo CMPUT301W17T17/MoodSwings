@@ -21,8 +21,8 @@ public class MoodListActivity extends AppCompatActivity{
     private ArrayList<MoodEvent> moodEventList = new ArrayList<>();
     private MoodListAdapter adapter;
 
-    private MoodEvent testMoodEvent = new MoodEvent();
-
+    private MoodEvent testMoodEvent = new MoodEvent("February 02, 2017","11:11","Harder", "Etienne", "1 Infinite Loop",
+            "SUPER SAD", 35, "Blue");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +32,14 @@ public class MoodListActivity extends AppCompatActivity{
         adapter = new MoodListAdapter(this, moodEventList);
         moodListView.setAdapter(adapter);
 
-        testMoodEvent.setUsername("Mohamad");
+        /*testMoodEvent.setUsername("Mohamad");
         testMoodEvent.setEmotion(HAPPY_WORD);
         testMoodEvent.setDate("February 02, 2017");
         testMoodEvent.setTime("11:11");
         testMoodEvent.setReason("Harder Better Faster");
         testMoodEvent.setAddress("123 Fakestreet, WA");
         testMoodEvent.setColor(HAPPY_COLOR);
-        testMoodEvent.setPopupShape(HAPPY_POPUP_BOX);
+        testMoodEvent.setPopupShape(HAPPY_POPUP_BOX);*/
 
         moodEventList.add(testMoodEvent);
         adapter.notifyDataSetChanged();

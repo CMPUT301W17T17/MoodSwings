@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/popup"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/popup_box"
+                android:layout_margin="25dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/popup_shape_blue"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+                <TextView
+                    android:text="@string/username_text_popup_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="50dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:id="@+id/username_text_popup" />
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_below="@id/username_text_popup"
+                    android:background="@mipmap/user_image_default"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/user_image_popup" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/situation_layout_popup"
+                    android:layout_below="@id/user_image_popup">
+                    <TextView
+                        android:text="@string/situation_text_default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:id="@+id/situation_text_popup" />
+                    <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@mipmap/situation_image_person"
+                    android:id="@+id/situation_image_popup1" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@mipmap/situation_image_person"
+                        android:id="@+id/situation_image_popup2" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@mipmap/situation_image_person"
+                        android:id="@+id/situation_image_popup3" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@mipmap/situation_image_person"
+                        android:id="@+id/situation_image_popup4" />
+                </LinearLayout>
+                <TextView
+                    android:text="@string/mood_text_popup_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/situation_layout_popup"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
+                    android:id="@+id/mood_text_popup" />
+                <TextView
+                    android:text="@string/date_popup_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mood_text_popup"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:id="@+id/date_text_popup" />
+                <TextView
+                    android:text="@string/time_popup_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/date_text_popup"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:id="@+id/time_text_popup" />
+                <TextView
+                    android:text="@string/description_text_popup_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/time_text_popup"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="3dp"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:id="@+id/description_text_popup" />
+                <TextView
+                    android:text="@string/address_text_popup_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:layout_marginBottom="25dp"
+                    android:paddingTop="3dp"
+                    android:layout_below="@id/description_text_popup"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:textSize="18sp"
+                    android:id="@+id/address_text_popup" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/edit"
+        android:onClick="editMood"
+        app:fabSize="mini"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/edit"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="60dp"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="0dp"
+        android:layout_gravity="center"
+        android:src="@drawable/happy"
+        android:id="@+id/imageView2" />
+</RelativeLayout>

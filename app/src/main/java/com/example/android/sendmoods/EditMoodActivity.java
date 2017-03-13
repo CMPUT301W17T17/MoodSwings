@@ -1,6 +1,7 @@
 package com.example.android.sendmoods;
 
         import android.app.Activity;
+        import android.content.Intent;
         import android.os.Bundle;
         import android.text.InputFilter;
         import android.view.View;
@@ -25,7 +26,8 @@ public class EditMoodActivity extends Activity {
      * Implement save Button
      */
     public void saveMood(View view) {
-
+        Intent intent = new Intent(this, MoodListActivity.class);
+        startActivity(intent);
     }
 
     /**

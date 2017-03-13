@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#757575"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:padding="16dp">
 
     <LinearLayout
         android:id="@+id/mood_list_header"
@@ -13,31 +14,32 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/ppic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="12dp"
-            android:src="@drawable/profile" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="47dp"
-            android:layout_marginTop="110dp"
-            android:fontFamily="sans-serif-thin"
-            android:text="Edit"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:text="HELLO"
+            android:textSize="30sp"
+            android:paddingTop="6dp"
+            android:layout_marginBottom="24dp"/>
+
     </LinearLayout>
 
     <ListView
         android:id="@+id/mood_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/mood_list_header"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"></ListView>
+        android:layout_below="@id/mood_list_header"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/reset_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="4dp"
+        android:onClick="resetFilter"
+        android:src="@drawable/reset"
+        app:fabSize="auto" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -45,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="16dp"
+        android:layout_margin="4dp"
         android:onClick="editMood"
         android:src="@drawable/add"
         app:fabSize="auto" />

@@ -1,5 +1,6 @@
 package com.example.android.sendmoods;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,11 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class UserInit extends AppCompatActivity {
+public class User extends AppCompatActivity {
 
-    String userName;
+    /*public String userName;
 
-    /*@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
@@ -26,6 +27,10 @@ public class UserInit extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-    }*/
+    }
 
+    public void nextStep(View v) {
+        Intent intent = new Intent(this, MoodListActivity.class);
+        startActivity(intent);
+    }*/
 }

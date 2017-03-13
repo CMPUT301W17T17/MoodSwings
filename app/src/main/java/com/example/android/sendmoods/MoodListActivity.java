@@ -59,4 +59,9 @@ public class MoodListActivity extends AppCompatActivity{
         Intent intent = new Intent(this, EditMoodActivity.class);
         startActivity(intent);
     }
+
+    public void resetFilter(View v){
+
+    }
+
 }

@@ -59,6 +59,7 @@
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
         android:src="@drawable/rightarrow"
-        app:fabSize="auto" />
+        app:fabSize="auto"
+        android:id="@+id/nextStep"/>
 
 </RelativeLayout>

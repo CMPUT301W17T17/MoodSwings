@@ -4,9 +4,9 @@ package com.example.android.sendmoods;
  *
  */
 
-public class userInitTest extends UserInit {
+public class userTest extends User {
 
-    public userInitTest () {super(UserInit.class);
+    public userTest() {super(User.class);
     }
 
     public void testAddUserName() {

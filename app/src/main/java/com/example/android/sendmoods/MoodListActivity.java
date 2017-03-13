@@ -1,6 +1,7 @@
 package com.example.android.sendmoods;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,7 +25,8 @@ public class MoodListActivity extends AppCompatActivity{
     private ArrayList<MoodEvent> moodEventList = new ArrayList<>();
     private MoodListAdapter adapter;
 
-    private MoodEvent testMoodEvent = new MoodEvent();
+    Location location = new Location("defaultlocation");
+    private MoodEvent testMoodEvent = new MoodEvent("default", "default", "default", "default", location, "default", "default", 0, "default");
 
 
     @Override
@@ -63,6 +65,11 @@ public class MoodListActivity extends AppCompatActivity{
         Intent intent = new Intent(this, EditMoodActivity.class);
         startActivity(intent);
     }
+
+    public void addMood(MoodEvent moodevent){
+
+    }
+
 
 }
 

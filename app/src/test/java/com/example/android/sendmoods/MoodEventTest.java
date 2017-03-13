@@ -9,6 +9,7 @@ import java.util.Date;
  * Created by ahua on 3/9/17.
  */
 
+//update for string date and time
 public class MoodEventTest extends ActivityInstrumentationTestCase2{
 
     public MoodEventTest(){
@@ -21,21 +22,28 @@ public class MoodEventTest extends ActivityInstrumentationTestCase2{
         location.setLatitude(53.5443d);
         location.setLongitude(-113.4909d);
 
-        Date date = new Date();
 
-        MoodEvent moodevent = new MoodEvent(date, "bought an ice cream", "hobiehobie", location, "Happy");
+        MoodEvent moodevent = new MoodEvent("2017-03-12", "17:54:20", "bought an ice cream", "hobiehobie", location, "address", "Happy", 7, "Green");
 
-        Date mooddate = moodevent.getDateTime();
+        String mooddate = moodevent.getDate();
+        String moodtime = moodevent.getTime();
         String moodreason = moodevent.getReason();
         String mooduser = moodevent.getUsername();
-        Location moodlocation = moodevent.getAddress();
+        Location moodlocation = moodevent.getAddressGPS();
+        String moodaddress = moodevent.getAddress();
         String moodmood = moodevent.getEmotion();
+        int moodpopupshape = moodevent.getPopupShape();
+        String moodcolor = moodevent.getColor();
 
-        assertEquals(mooddate, date);
+        assertEquals(mooddate, "2017-03-12");
+        assertEquals(moodtime, "17:54:20");
         assertEquals(moodreason, "bought an ice cream");
         assertEquals(mooduser, "hobiehobie");
         assertEquals(moodlocation, location);
+        assertEquals(moodaddress, "address");
         assertEquals(moodmood, "Happy");
+        assertEquals(moodpopupshape, 7);
+        assertEquals(moodcolor, "Green");
     }
 
     /*add testing for parcelable functionality*/

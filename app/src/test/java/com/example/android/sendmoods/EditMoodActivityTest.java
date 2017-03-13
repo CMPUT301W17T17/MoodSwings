@@ -1,26 +1,29 @@
 package com.example.android.sendmoods;
 
+import android.location.Location;
+import android.test.ActivityInstrumentationTestCase;
+import android.test.ActivityInstrumentationTestCase2;
+
+import java.util.ArrayList;
+
 /**
  *
  */
 
-public class EditMoodActivityTest extends {
+public class EditMoodActivityTest extends ActivityInstrumentationTestCase2<EditMoodActivity> {
 
     public EditMoodActivityTest() { super(EditMoodActivity.class):
     }
 
     public void testAddMood() {
-        MoodEvent moodEvent = new MoodEvent();
-        MoodList moodList = new MoodList();
+        Location location = new Location("defaultlocation");
+
+        MoodEvent moodEvent = new MoodEvent("default", "default", "default", "default", location, "default", "default", 0, "default");
+        ArrayList moodList = new ArrayList<MoodEvent>();
         moodList.add(moodEvent);
 
-        try {
-            moodList.add(moodEvent);
-        }
-        catch (IllegalArgumentException e){
-            RuntimeException();
 
-        }
+        moodList.add(moodEvent);
         assertTrue(moodList.hasMood(moodEvent));
     }
 

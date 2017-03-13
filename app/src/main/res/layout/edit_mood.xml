@@ -18,7 +18,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/moodText"
         android:layout_width="164dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -69,10 +69,10 @@
         app:fabSize="auto" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/reasonText"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/moodText"
         android:layout_marginEnd="0dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"

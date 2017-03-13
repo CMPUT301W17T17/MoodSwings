@@ -15,18 +15,18 @@ public class MoodEvent implements Parcelable{
     private String time;
     private String reason;
     private String username;
-    private Location addressGPS;
+    //private Location addressGPS;
     private String address;
     private String emotion;
     private int popupShape;
     private String color;
 
-    public MoodEvent(String date, String time, String reason, String username, Location addressGPS, String address, String emotion, int popupShape, String color){
+    public MoodEvent(String date, String time, String reason, String username, String address, String emotion, int popupShape, String color){
         this.date = date;
         this.time = time;
         this.reason = reason;
         this.username = username;
-        this.addressGPS = addressGPS;
+        //this.addressGPS = addressGPS;
         this.address = address;
         this.emotion = emotion;
         this.popupShape = popupShape;
@@ -102,13 +102,13 @@ public class MoodEvent implements Parcelable{
         this.emotion = emotion;
     }
 
-    public Location getAddressGPS() {
+    /*public Location getAddressGPS() {
         return addressGPS;
     }
 
     public void setAddressGPS(Location addressGPS) {
         this.addressGPS = addressGPS;
-    }
+    }*/
 
     public MoodEvent(Parcel in){
         this.popupShape = in.readInt();

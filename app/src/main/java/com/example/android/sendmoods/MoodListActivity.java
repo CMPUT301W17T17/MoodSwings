@@ -26,7 +26,9 @@ public class MoodListActivity extends AppCompatActivity{
     private MoodListAdapter adapter;
 
     Location location = new Location("defaultlocation");
-    private MoodEvent testMoodEvent = new MoodEvent("default", "default", "default", "default", location, "default", "default", 0, "default");
+    //private MoodEvent testMoodEvent = new MoodEvent("default", "default", "default", "default", location, "default", "default", 0, "default");
+    private MoodEvent testMoodEvent = new MoodEvent("February 02, 2017", "11:11", "Harder Better Faster", "Mohamad", "123 Fakestreet, WA", HAPPY_WORD, HAPPY_POPUP_BOX, HAPPY_COLOR);
+    private MoodEvent newMoodEvent;
 
 
     @Override
@@ -38,14 +40,14 @@ public class MoodListActivity extends AppCompatActivity{
         adapter = new MoodListAdapter(this, moodEventList);
         moodListView.setAdapter(adapter);
 
-        testMoodEvent.setUsername("Mohamad");
+        /*testMoodEvent.setUsername("Mohamad");
         testMoodEvent.setEmotion(HAPPY_WORD);
         testMoodEvent.setDate("February 02, 2017");
         testMoodEvent.setTime("11:11");
         testMoodEvent.setReason("Harder Better Faster");
         testMoodEvent.setAddress("123 Fakestreet, WA");
         testMoodEvent.setColor(HAPPY_COLOR);
-        testMoodEvent.setPopupShape(HAPPY_POPUP_BOX);
+        testMoodEvent.setPopupShape(HAPPY_POPUP_BOX);*/
 
         moodEventList.add(testMoodEvent);
         adapter.notifyDataSetChanged();
@@ -63,12 +65,36 @@ public class MoodListActivity extends AppCompatActivity{
 
     public void editMood(View view) {
         Intent intent = new Intent(this, EditMoodActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, Constants.INTENT_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Constants.INTENT_REQUEST_CODE){
+            Intent intent = getIntent(); /*might not be necessary*/
+            Bundle extras = intent.getExtras();
+
+            String date = extras.getString("EXTRA_DATE");
+            String time = extras.getString("EXTRA_TIME");
+            String reason = extras.getString("EXTRA_REASON");
+            String username = extras.getString("EXTRA_USER");
+            String address = extras.getString("EXTRA_ADDRESS");
+            String emotion = extras.getString("EXTRA_EMOTION");
+            int popupshape = extras.getInt("EXTRA_POPUP");
+            String color = extras.getString("EXTRA_COLOR");
+
+            newMoodEvent = new MoodEvent(date, time, reason, username, address, emotion, popupshape, color);
+            moodEventList.add(newMoodEvent);
+            adapter.notifyDataSetChanged();
+
+        }
     }
 
     public void addMood(MoodEvent moodevent){
 
     }
+
+
 
 
 }

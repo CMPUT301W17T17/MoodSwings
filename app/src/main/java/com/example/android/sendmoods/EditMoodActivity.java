@@ -35,19 +35,19 @@ public class EditMoodActivity extends Activity {
     /**
      * Implement delete Button
      */
-    public void deleteMood(View view) {
+    public void deleteMood(View v) {
 
     }
 
-    public void shareOne(View view) {
+    public void shareOne(View v) {
 
     }
 
-    public void shareTwo(View view) {
+    public void shareTwo(View v) {
 
     }
 
-    public void shareThree(View view) {
+    public void shareThree(View v) {
 
     }
 }

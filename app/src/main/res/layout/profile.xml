@@ -18,15 +18,16 @@
         android:layout_marginBottom="100dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="#BDBDBD"
+        android:background="@drawable/greyback"
         android:fontFamily="sans-serif-thin"
+        android:hint="Username"
         android:paddingBottom="16dp"
         android:paddingLeft="8dp"
         android:paddingTop="16dp"
-        android:text="Username"
         android:textColor="#FDD835"
+        android:textColorHint="#FDD835"
         android:textSize="22dp"
-        android:textStyle="italic|bold" />
+        android:textStyle="italic|bold"/>
 
     <TextView
         android:id="@+id/header"
@@ -53,13 +54,13 @@
         android:src="@drawable/wink" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/nextStep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
         android:src="@drawable/rightarrow"
-        app:fabSize="auto"
-        android:id="@+id/nextStep"/>
+        app:fabSize="auto" />
 
 </RelativeLayout>

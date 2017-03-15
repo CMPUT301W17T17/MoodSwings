@@ -20,9 +20,8 @@ import java.io.OutputStreamWriter;
 import static com.example.android.sendmoods.Constants.*;
 
 /**
- * Created by erasseli on 3/4/17.
+ *
  */
-
 public class MoodListActivity extends AppCompatActivity{
 
     private ListView moodListView;
@@ -35,6 +34,9 @@ public class MoodListActivity extends AppCompatActivity{
     private MoodEvent testMoodEvent = new MoodEvent("February 02, 2017", "11:11", "Harder Better Faster", "Mohamad", "123 Fakestreet, WA", HAPPY_WORD, HAPPY_POPUP_BOX, HAPPY_COLOR);
     private MoodEvent newMoodEvent;
 
+    /**
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,9 @@ public class MoodListActivity extends AppCompatActivity{
         });
     }
 
+    /**
+     *
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQ_CODE_NEW && resultCode == RES_CODE_NEW){//The whole purpose of static imports it to not need to use "Constants."
@@ -85,6 +90,9 @@ public class MoodListActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     *
+     */
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(FILENAME);
@@ -95,6 +103,9 @@ public class MoodListActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     *
+     */
     private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(FILENAME,0);

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by Etiennera on 2017-03-04.
+ *
  */
 
 public class MoodListAdapter extends BaseAdapter {
@@ -20,6 +20,9 @@ public class MoodListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Context context;
 
+    /**
+     *
+     */
     public MoodListAdapter(Context context, ArrayList<MoodEvent> list) {
         moodEventList = list;
         mInflater = LayoutInflater.from(context);
@@ -38,6 +41,9 @@ public class MoodListAdapter extends BaseAdapter {
         return position;
     }
 
+    /**
+     *
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
@@ -59,6 +65,9 @@ public class MoodListAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     *
+     */
     static class ViewHolder {
         TextView usernameEntry;
         TextView moodWordEntry;

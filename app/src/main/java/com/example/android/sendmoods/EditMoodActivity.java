@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+
+/**
+ *
+ */
 public class EditMoodActivity extends Activity {
     //Please pay attention to  proper class organization. Views must be declared
     //as private variables.
@@ -46,6 +50,10 @@ public class EditMoodActivity extends Activity {
             }
         });*/
     }
+
+    /**
+     *
+     */
     public void onStart(){
         super.onStart();
         moodEvent = getIntent().getParcelableExtra("MoodEvent");

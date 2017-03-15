@@ -18,6 +18,10 @@ import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
 import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
 import static com.example.android.sendmoods.Constants.RES_CODE_NOCHANGE;
 
+
+/**
+ *
+ */
 public class MoodPopupActivity extends AppCompatActivity {
 
     private MoodEvent moodEvent;
@@ -32,6 +36,9 @@ public class MoodPopupActivity extends AppCompatActivity {
     private RelativeLayout popupMargin;
     private Intent resultIntent;
 
+    /**
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +73,9 @@ public class MoodPopupActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     */
     public void onStart(){
         super.onStart();
         moodEvent = getIntent().getParcelableExtra("MoodEvent");
@@ -97,6 +107,10 @@ public class MoodPopupActivity extends AppCompatActivity {
     }
 
     //Since we are now using this code twice, I have made a function for it
+
+    /**
+     *
+     */
     protected void updateFields(){
         usernameText.setText(moodEvent.getUsername());
         moodText.setText(moodEvent.getEmotion());

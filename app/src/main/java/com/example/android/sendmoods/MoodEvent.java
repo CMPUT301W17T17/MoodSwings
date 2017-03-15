@@ -6,6 +6,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 
+
+/**
+ *
+ */
 public class MoodEvent implements Parcelable{
 
     private String date;
@@ -30,6 +34,9 @@ public class MoodEvent implements Parcelable{
         this.color = color;
     }
 
+    /**
+     *
+     */
     public Drawable getListBox(Context context){
         return ContextCompat.getDrawable(context, R.drawable.list_box_pink);
     }
@@ -106,6 +113,9 @@ public class MoodEvent implements Parcelable{
         this.addressGPS = addressGPS;
     }*/
 
+    /**
+     *
+     */
     public MoodEvent(Parcel in){
         this.popupShape = in.readInt();
         this.username = in.readString();
@@ -116,12 +126,17 @@ public class MoodEvent implements Parcelable{
         this.reason = in.readString();
     }
 
+    /**
+     *
+     */
     @Override
     public int describeContents(){
         return 0;
     }
 
-
+    /**
+     *
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(popupShape);
@@ -132,6 +147,10 @@ public class MoodEvent implements Parcelable{
         dest.writeString(address);
         dest.writeString(reason);
     }
+
+    /**
+     *
+     */
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MoodEvent createFromParcel(Parcel in) {
             return new MoodEvent(in);

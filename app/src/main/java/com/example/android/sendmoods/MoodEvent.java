@@ -2,12 +2,9 @@ package com.example.android.sendmoods;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
-
-import java.util.Date;
 
 public class MoodEvent implements Parcelable{
 
@@ -32,7 +29,6 @@ public class MoodEvent implements Parcelable{
         this.popupShape = popupShape;
         this.color = color;
     }
-
 
     public Drawable getListBox(Context context){
         return ContextCompat.getDrawable(context, R.drawable.list_box_pink);

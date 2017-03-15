@@ -1,0 +1,28 @@
+## General behaviour
+Upon entering any given activity, a default sequence of tooltips will apear in a specific order.
+Each one can be interacted with in three ways:
+      Dismiss (Or alternatively, "Got it", which may be more fitting of the UI)
+      Don't show this again
+      [X]
+Although the [X] and Dismiss are separate buttons, both accomplish the same purpose:
+Closing the popup and moving forward in the tutorial sequence.
+
+"Don't show this again" will be a toggle below the body but above the dismiss button.
+
+/ /================================================[X]
+| | SAMPLE TOOLTIP                                 | |
+| |                                                | |
+| |                     [_] Don't show this again  | |
+| |                                     | Dismiss || |
+\ \================================================/ /
+
+# Homepage
+1. "Welcome to Send Moods, in order to ease your experience using Send Moods, these tips will guide you through how to use our app.
+    After clicking "Don't show this again" if you would not like to see a certain tip again, click on Dismiss to see the next tip."
+
+# Popup
+1. "Click anywhere to close the Mood Card"
+2. "Click here to Edit the details of the Mood"
+
+# Edit
+1. "Enter a reason for why you think this mood occured. Remember, keep it short! No more than three words, and 20 character max."

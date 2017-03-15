@@ -67,11 +67,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/edit"
-        android:layout_toLeftOf="@+id/deletee"
+        android:layout_toLeftOf="@+id/delete"
         android:layout_margin="8dp"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/deletee"
+        android:id="@+id/delete"
+        android:onClick="deleteMood"
         app:fabSize="mini"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

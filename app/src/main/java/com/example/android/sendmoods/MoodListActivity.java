@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -48,7 +49,7 @@ public class MoodListActivity extends AppCompatActivity{
         moodListView = (ListView) findViewById(R.id.mood_list);
         moodListView.setAdapter(adapter);
 
-        testMoodEvent.setUsername("Mohamad");
+        /*testMoodEvent.setUsername("Mohamad");
         testMoodEvent.setEmotion(HAPPY_WORD);
         testMoodEvent.setDate("February 02, 2017");//http://stackoverflow.com/questions/9945072/convert-string-to-date-in-java This will help sort by date
         testMoodEvent.setTime("11:11");
@@ -58,7 +59,7 @@ public class MoodListActivity extends AppCompatActivity{
         testMoodEvent.setPopupShape(HAPPY_POPUP_BOX);
 
         moodEventList.add(testMoodEvent);
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();*/
 
         moodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,7 +67,7 @@ public class MoodListActivity extends AppCompatActivity{
                 MoodEvent moodEvent = (MoodEvent) moodListView.getItemAtPosition(position);
                 Intent myIntent = new Intent(MoodListActivity.this, MoodPopupActivity.class);
                 myIntent.putExtra("MoodEvent", moodEvent);
-                startActivityForResult(myIntent, 0);
+                startActivityForResult(myIntent, REQ_CODE_EXISTING);
             }
         });
 
@@ -82,39 +83,32 @@ public class MoodListActivity extends AppCompatActivity{
                 startActivityForResult(myIntent, REQ_CODE_NEW);
             }
         });
-
-
-        moodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Object o = moodListView.getItemAtPosition(position);
-                testMoodEvent = (MoodEvent)o;
-                pos = position;
-                myIntent = new Intent(MoodListActivity.this, EditMoodActivity.class);
-                myIntent.putExtra("MoodEvent", testMoodEvent);
-                startActivityForResult(myIntent, REQ_CODE_EXISTING);
-            }
-        });
     }
 
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode == REQ_CODE_EXISTING && resultCode == 1) {
-            testMoodEvent = data.getExtras().getParcelable("updatedtestMoodEvent");
+            testMoodEvent = data.getExtras().getParcelable("MoodEvent");
             moodEventList.set(pos, testMoodEvent);
             adapter.notifyDataSetChanged();
+            Toast.makeText(getApplicationContext(), "resultcode1reqcodeexisting", Toast.LENGTH_LONG).show();
         }
         if (requestCode == REQ_CODE_EXISTING && resultCode == 0) {
             moodEventList.remove(pos);
             adapter.notifyDataSetChanged();
+            Toast.makeText(getApplicationContext(), "resultcode0reqcodeexisting", Toast.LENGTH_LONG).show();
         }
         if (requestCode == REQ_CODE_NEW && resultCode == 1) {
-            testMoodEvent = data.getExtras().getParcelable("updatedtestMoodEvent");
+            testMoodEvent = data.getExtras().getParcelable("MoodEvent");
             //moodEventList.set(moodEventList.size() - 1, testMoodEvent);
+            moodEventList.add(testMoodEvent);
             adapter.notifyDataSetChanged();
+            Toast.makeText(getApplicationContext(), "resultcode1reqcodenew", Toast.LENGTH_LONG).show();
+
         }
         if (requestCode == REQ_CODE_NEW && resultCode == 0) {
             //moodEventList.remove(moodEventList.size() - 1);
             adapter.notifyDataSetChanged();
+            Toast.makeText(getApplicationContext(), "resultcode1reqcodenew", Toast.LENGTH_LONG).show();
         }
     }
 

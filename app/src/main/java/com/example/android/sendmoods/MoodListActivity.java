@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -35,7 +36,7 @@ public class MoodListActivity extends AppCompatActivity{
     //Location location = new Location("defaultLocation");
     //private MoodEvent testMoodEvent = new MoodEvent("February 02, 2017", "11:11", "Harder Better Faster", "Mohamad", "123 Fakestreet, WA", HAPPY_WORD, HAPPY_POPUP_BOX, HAPPY_COLOR);
 
-    private MoodEvent newMoodEvent = new MoodEvent();
+    private MoodEvent newMoodEvent;
     private Intent changeIntent;
 
     @Override
@@ -52,13 +53,28 @@ public class MoodListActivity extends AppCompatActivity{
         //adapter.notifyDataSetChanged();
 
         moodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
+                @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 MoodEvent moodEvent = (MoodEvent) moodListView.getItemAtPosition(position);
                 pos = position;
                 Intent myIntent = new Intent(MoodListActivity.this, MoodPopupActivity.class);
                 myIntent.putExtra("MoodEvent", moodEvent);
-                startActivityForResult(myIntent, REQ_CODE_POPUP);
+
+                startActivity(myIntent);
+            }
+        });
+
+        moodListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                changeIntent = new Intent(MoodListActivity.this, EditMoodActivity.class);
+
+                newMoodEvent= (MoodEvent) moodListView.getItemAtPosition(position);
+
+                changeIntent.putExtra("MoodEvent", newMoodEvent);
+                changeIntent.putExtra("Type","OLD");
+                startActivityForResult(changeIntent, REQ_CODE_EDIT);
+                return true;
             }
         });
 
@@ -66,10 +82,11 @@ public class MoodListActivity extends AppCompatActivity{
 
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                newMoodEvent=new MoodEvent();
 
                 changeIntent = new Intent(MoodListActivity.this, EditMoodActivity.class);
                 changeIntent.putExtra("MoodEvent", newMoodEvent);
+                changeIntent.putExtra("Type","NEW");
                 startActivityForResult(changeIntent, REQ_CODE_NEW);
             }
         });
@@ -78,26 +95,32 @@ public class MoodListActivity extends AppCompatActivity{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
         if(requestCode == REQ_CODE_NEW && resultCode == RES_CODE_NEW){//The whole purpose of static imports it to not need to use "Constants."
             //Get the new MoodEvent and append it to the list
             newMoodEvent = data.getExtras().getParcelable("updatedMood");
             moodEventList.add(newMoodEvent);
             adapter.notifyDataSetChanged();
         }
-        if(requestCode == REQ_CODE_NEW && resultCode == RES_CODE_DELETED){
+        /*if(requestCode == REQ_CODE_NEW && resultCode == RES_CODE_DELETED){
             //Delete the candidate MoodEvent
             moodEventList.deleteLast();
             adapter.notifyDataSetChanged();
-        }
-        if(requestCode == REQ_CODE_POPUP && resultCode == RES_CODE_DELETED){
+        }*/
+        if(requestCode == REQ_CODE_EDIT && resultCode == RES_CODE_DELETED){
             //Delete the viewed MoodEvent
             moodEventList.delete(pos);
+            adapter.notifyDataSetChanged();
         }
-        if(requestCode == REQ_CODE_POPUP && resultCode == RES_CODE_EDITED){
+        if(requestCode == REQ_CODE_EDIT && resultCode == RES_CODE_EDITED){
             //Update the viewed MoodEvent
             MoodEvent newMoodEvent = data.getExtras().getParcelable("updatedMood");
             moodEventList.set(pos, newMoodEvent);
             adapter.notifyDataSetChanged();
+
+
+
         }
     }
 

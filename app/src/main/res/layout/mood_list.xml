@@ -37,7 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/mood_list_header"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"></ListView>
+        android:layout_marginRight="10dp"
+        android:longClickable="true">
+    </ListView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"

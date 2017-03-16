@@ -8,6 +8,7 @@ import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import static com.example.android.sendmoods.Constants.HAPPY_COLOR;
 import static com.example.android.sendmoods.Constants.HAPPY_POPUP_BOX;
@@ -43,15 +44,48 @@ public class EditMoodActivity extends Activity {
         //backgroundView = findViewById(R.id.edit_background);
 
         //Save button parcels the mood Event
+
+    }
+    public void onStart(){
+        super.onStart();
+
+        moodEvent = getIntent().getParcelableExtra("MoodEvent");
+
+        try {
+            reasonText.setText(moodEvent.getReason());
+        }catch (Exception e){
+            reasonText.setText("UNKNOWN");
+        }
+        try {
+            moodText.setText(moodEvent.getEmotion());
+        }catch (Exception e){
+            moodText.setText("UNKNOWN");
+        }
+
+
         FloatingActionButton saveButton = (FloatingActionButton) findViewById(R.id.save);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
+                String type;
+                type=getIntent().getStringExtra("Type");
 
                 moodEvent.setUsername("machung");
-                moodEvent.setReason(reasonText.getText().toString());
-                moodEvent.setEmotion(moodText.getText().toString());
+
+                try {
+                    moodEvent.setReason(reasonText.getText().toString());
+                } catch(Exception e){
+                    moodEvent.setReason("UNKNOWN");
+                }
+
+                try {
+                    moodEvent.setEmotion(moodText.getText().toString());
+                }catch (Exception e) {
+                    moodEvent.setEmotion("UNKNOWN");
+                }
+
                 moodEvent.setDate("February 02, 2017");
+
                 moodEvent.setTime("11:11");
                 moodEvent.setAddress("123 Fakestreet, WA");
                 moodEvent.setColor(HAPPY_COLOR);
@@ -60,8 +94,15 @@ public class EditMoodActivity extends Activity {
                 Intent resultIntent = new Intent(EditMoodActivity.this, MoodListActivity.class);
                 resultIntent.putExtra("updatedMood", moodEvent);
 
-                setResult(RES_CODE_NEW, resultIntent);
-                finish();
+                if (type.matches("OLD")){
+                    setResult(RES_CODE_EDITED, resultIntent);
+                    finish();
+                }
+                else{
+                    setResult(RES_CODE_NEW, resultIntent);
+                    finish();
+                }
+
             }
         });
 
@@ -71,27 +112,9 @@ public class EditMoodActivity extends Activity {
             public void onClick(View v){
                 Intent resultIntent = new Intent(EditMoodActivity.this, MoodListActivity.class);
                 setResult(RES_CODE_DELETED, resultIntent);
+                resultIntent.putExtra("updatedMood", moodEvent);
                 finish();
             }
         });
-    }
-    public void onStart(){
-        super.onStart();
-        moodEvent = getIntent().getParcelableExtra("MoodEvent");
-        //backgroundView.setBackground();
-
-        String nullString = "";
-
-        try {
-            moodText.setText(moodEvent.getEmotion());
-        } catch (Exception e) {
-            moodText.setText(nullString);
-        }
-
-        try {
-            reasonText.setText(moodEvent.getReason());
-        } catch (Exception e) {
-            reasonText.setText(nullString);
-        }
     }
 }

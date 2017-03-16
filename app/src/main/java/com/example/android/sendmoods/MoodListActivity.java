@@ -31,11 +31,11 @@ public class MoodListActivity extends AppCompatActivity{
     private MoodListAdapter adapter;
     private String FILENAME = "local.sav";
     private int pos;
-
+    
     //Location location = new Location("defaultLocation");
     //private MoodEvent testMoodEvent = new MoodEvent("February 02, 2017", "11:11", "Harder Better Faster", "Mohamad", "123 Fakestreet, WA", HAPPY_WORD, HAPPY_POPUP_BOX, HAPPY_COLOR);
 
-    private MoodEvent newMoodEvent = new MoodEvent();
+    private MoodEvent newMoodEvent;
     private Intent changeIntent;
 
     @Override
@@ -66,10 +66,13 @@ public class MoodListActivity extends AppCompatActivity{
 
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                newMoodEvent = new MoodEvent();
 
 
                 changeIntent = new Intent(MoodListActivity.this, EditMoodActivity.class);
                 changeIntent.putExtra("MoodEvent", newMoodEvent);
+
+
                 startActivityForResult(changeIntent, REQ_CODE_NEW);
             }
         });
@@ -122,9 +125,6 @@ public class MoodListActivity extends AppCompatActivity{
             throw new RuntimeException();
         }
     }
-
-
-
 
 }
 

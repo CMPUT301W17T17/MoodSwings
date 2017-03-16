@@ -8,6 +8,7 @@ import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import static com.example.android.sendmoods.Constants.HAPPY_COLOR;
 import static com.example.android.sendmoods.Constants.HAPPY_POPUP_BOX;
@@ -20,6 +21,7 @@ public class EditMoodActivity extends Activity {
     //as private variables.
     private EditText reasonText;
     private EditText moodText;
+    private TextView userName;
 
     private MoodEvent moodEvent;
 
@@ -37,7 +39,7 @@ public class EditMoodActivity extends Activity {
 
         reasonText = (EditText) findViewById(R.id.reason_text);
         moodText = (EditText) findViewById(R.id.mood_text);
-
+        userName = (TextView) findViewById(R.id.username);
 
 
         //backgroundView = findViewById(R.id.edit_background);
@@ -60,6 +62,7 @@ public class EditMoodActivity extends Activity {
                 Intent resultIntent = new Intent(EditMoodActivity.this, MoodListActivity.class);
                 resultIntent.putExtra("updatedMood", moodEvent);
 
+
                 setResult(RES_CODE_NEW, resultIntent);
                 finish();
             }
@@ -78,6 +81,7 @@ public class EditMoodActivity extends Activity {
     public void onStart(){
         super.onStart();
         moodEvent = getIntent().getParcelableExtra("MoodEvent");
+
         //backgroundView.setBackground();
 
         String nullString = "";
@@ -92,6 +96,12 @@ public class EditMoodActivity extends Activity {
             reasonText.setText(moodEvent.getReason());
         } catch (Exception e) {
             reasonText.setText(nullString);
+        }
+
+        try {
+            userName.setText(moodEvent.getUsername());
+        } catch (Exception e) {
+            userName.setText("Username");
         }
     }
 }

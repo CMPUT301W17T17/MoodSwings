@@ -21,6 +21,7 @@ import static com.example.android.sendmoods.Constants.RES_CODE_NOCHANGE;
 public class MoodPopupActivity extends AppCompatActivity {
 
     private MoodEvent moodEvent;
+    private int code;
     private TextView usernameText;
     private TextView moodText;
     private TextView dateText;
@@ -53,6 +54,7 @@ public class MoodPopupActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent myIntent = new Intent(MoodPopupActivity.this, EditMoodActivity.class);
                 myIntent.putExtra("MoodEvent", moodEvent);
+                myIntent.putExtra("resCode", RES_CODE_EDITED);
                 startActivityForResult(myIntent, REQ_CODE_EDIT);
             }
         });

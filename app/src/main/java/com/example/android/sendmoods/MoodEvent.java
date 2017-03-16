@@ -18,19 +18,11 @@ public class MoodEvent implements Parcelable{
     private int popupShape;
     private String color;
 
-    /*public MoodEvent(String date, String time, String reason, String username, String address, String emotion, int popupShape, String color){
-        this.date = date;
-        this.time = time;
-        this.reason = reason;
-        this.username = username;
-        //this.addressGPS = addressGPS;
-        this.address = address;
-        this.emotion = emotion;
-        this.popupShape = popupShape;
-        this.color = color;
-    }*/
+
 
     public MoodEvent(){}
+
+
 
     public Drawable getListBox(Context context){
         return ContextCompat.getDrawable(context, R.drawable.list_box_pink);

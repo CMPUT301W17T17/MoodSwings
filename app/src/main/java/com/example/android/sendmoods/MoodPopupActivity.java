@@ -62,6 +62,7 @@ public class MoodPopupActivity extends AppCompatActivity {
     public void onStart(){
         super.onStart();
         moodEvent = getIntent().getParcelableExtra("MoodEvent");
+
         popupBox.setBackground(ContextCompat.getDrawable(this, moodEvent.getPopupShape()));
 
 
@@ -100,6 +101,7 @@ public class MoodPopupActivity extends AppCompatActivity {
 
 
     }
+
 
 
 }

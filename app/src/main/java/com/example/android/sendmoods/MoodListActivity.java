@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -39,6 +38,7 @@ public class MoodListActivity extends AppCompatActivity{
     private MoodEvent newMoodEvent;
     private Intent changeIntent;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,16 +49,19 @@ public class MoodListActivity extends AppCompatActivity{
         moodListView = (ListView) findViewById(R.id.mood_list);
         moodListView.setAdapter(adapter);
 
+
         //moodEventList.add(testMoodEvent);
         //adapter.notifyDataSetChanged();
 
         moodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
+
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 MoodEvent moodEvent = (MoodEvent) moodListView.getItemAtPosition(position);
                 pos = position;
                 Intent myIntent = new Intent(MoodListActivity.this, MoodPopupActivity.class);
                 myIntent.putExtra("MoodEvent", moodEvent);
+
 
                 startActivity(myIntent);
             }
@@ -91,6 +94,7 @@ public class MoodListActivity extends AppCompatActivity{
             }
         });
 
+
     }
 
     @Override
@@ -114,12 +118,11 @@ public class MoodListActivity extends AppCompatActivity{
             adapter.notifyDataSetChanged();
         }
         if(requestCode == REQ_CODE_EDIT && resultCode == RES_CODE_EDITED){
+
             //Update the viewed MoodEvent
             MoodEvent newMoodEvent = data.getExtras().getParcelable("updatedMood");
             moodEventList.set(pos, newMoodEvent);
             adapter.notifyDataSetChanged();
-
-
 
         }
     }

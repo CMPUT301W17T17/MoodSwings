@@ -1,10 +1,12 @@
 package com.example.android.sendmoods;
 
+
+/**
+ * Created by Moe on 2017-03-11.
+ */
+
 public class Constants {
 
-    /**
-     * Constants for Happy Mood
-     */
     public static final int HAPPY_POPUP_BOX = R.drawable.popup_shape_pink;
     public static final String HAPPY_WORD = "Happy";
     public static final String HAPPY_COLOR = "#F06292";
@@ -62,6 +64,7 @@ public class Constants {
     //Please read up on Request codes.
 
     //
+
     public static final int REQ_CODE_POPUP = 1;
     public static final int REQ_CODE_NEW = 0;
     public static final int REQ_CODE_EDIT = 2;

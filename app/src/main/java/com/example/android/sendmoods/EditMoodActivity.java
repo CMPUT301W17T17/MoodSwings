@@ -1,13 +1,16 @@
 package com.example.android.sendmoods;
 
 import android.app.Activity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+
 import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import android.widget.Toast;
 
 import static com.example.android.sendmoods.Constants.HAPPY_COLOR;
@@ -16,13 +19,16 @@ import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
 import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
 import static com.example.android.sendmoods.Constants.RES_CODE_NEW;
 
+
 public class EditMoodActivity extends Activity {
     //Please pay attention to  proper class organization. Views must be declared
     //as private variables.
+
     private EditText reasonText;
     private EditText moodText;
 
     private MoodEvent moodEvent;
+
 
     private Button saveButton;
     private Button deleteButton;
@@ -116,5 +122,6 @@ public class EditMoodActivity extends Activity {
                 finish();
             }
         });
+
     }
 }

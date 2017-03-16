@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -17,6 +18,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import static com.example.android.sendmoods.Constants.*;
 
@@ -29,7 +32,7 @@ public class MoodListActivity extends AppCompatActivity{
     private ListView moodListView;
     private MoodList moodEventList;
     private MoodListAdapter adapter;
-    private String FILENAME = "local.sav";
+
     private int pos;
 
     //Location location = new Location("defaultLocation");
@@ -38,6 +41,8 @@ public class MoodListActivity extends AppCompatActivity{
     private MoodEvent newMoodEvent;
     private Intent changeIntent;
 
+    //added by amy
+    public ListView getOldMoodList() { return moodListView; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +54,10 @@ public class MoodListActivity extends AppCompatActivity{
         moodListView = (ListView) findViewById(R.id.mood_list);
         moodListView.setAdapter(adapter);
 
+        moodEventList.loadFromFile(this);
 
         //moodEventList.add(testMoodEvent);
-        //adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
 
         moodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -106,6 +112,8 @@ public class MoodListActivity extends AppCompatActivity{
             newMoodEvent = data.getExtras().getParcelable("updatedMood");
             moodEventList.add(newMoodEvent);
             adapter.notifyDataSetChanged();
+            //added by amy
+            moodEventList.saveInFile(this);
         }
         /*if(requestCode == REQ_CODE_NEW && resultCode == RES_CODE_DELETED){
             //Delete the candidate MoodEvent
@@ -116,6 +124,7 @@ public class MoodListActivity extends AppCompatActivity{
             //Delete the viewed MoodEvent
             moodEventList.delete(pos);
             adapter.notifyDataSetChanged();
+            moodEventList.saveInFile(this);
         }
         if(requestCode == REQ_CODE_EDIT && resultCode == RES_CODE_EDITED){
 
@@ -123,31 +132,12 @@ public class MoodListActivity extends AppCompatActivity{
             MoodEvent newMoodEvent = data.getExtras().getParcelable("updatedMood");
             moodEventList.set(pos, newMoodEvent);
             adapter.notifyDataSetChanged();
+            moodEventList.saveInFile(this);
 
         }
     }
 
-    private void loadFromFile() {
-        try {
-            FileInputStream fis = openFileInput(FILENAME);
-            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-            moodEventList.fromGson(in);
-        } catch (FileNotFoundException e) {
-            moodEventList = new MoodList(this);
-        }
-    }
 
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME,0);
-            OutputStreamWriter writer = new OutputStreamWriter(fos);
-            Gson gson = new Gson();
-            gson.toJson(moodEventList, writer);
-            writer.flush();
-        } catch (IOException e) {
-            throw new RuntimeException();
-        }
-    }
 
 
 

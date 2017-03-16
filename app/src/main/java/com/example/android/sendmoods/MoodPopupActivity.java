@@ -1,9 +1,5 @@
 package com.example.android.sendmoods;
 
-/**
- * Created by erasseli on 3/4/17.
- */
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +14,11 @@ import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
 import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
 import static com.example.android.sendmoods.Constants.RES_CODE_NOCHANGE;
 
+
+/**
+ * This class allows popup layout to show the edited information for an existing mood.
+ * Shows the views similarly to edit_mood.
+ */
 public class MoodPopupActivity extends AppCompatActivity {
 
     private MoodEvent moodEvent;
@@ -49,6 +50,14 @@ public class MoodPopupActivity extends AppCompatActivity {
         popupMargin = (RelativeLayout) findViewById(R.id.popup);
 
 
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                resultIntent = new Intent(MoodPopupActivity.this, EditMoodActivity.class);
+                resultIntent.putExtra("MoodEvent", moodEvent);
+                startActivityForResult(resultIntent, REQ_CODE_EDIT);
+            }
+        });
 
         //OnClick for outside the popup to close that activity
         popupMargin.setOnClickListener(new View.OnClickListener() {
@@ -59,10 +68,12 @@ public class MoodPopupActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method contains try/catch blocks to ensure correct input in the EditTexts and TextViews.
+     */
     public void onStart(){
         super.onStart();
         moodEvent = getIntent().getParcelableExtra("MoodEvent");
-
         popupBox.setBackground(ContextCompat.getDrawable(this, moodEvent.getPopupShape()));
 
 
@@ -101,7 +112,6 @@ public class MoodPopupActivity extends AppCompatActivity {
 
 
     }
-
 
 
 }

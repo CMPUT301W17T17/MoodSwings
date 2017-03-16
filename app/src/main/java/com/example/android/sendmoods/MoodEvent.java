@@ -18,11 +18,23 @@ public class MoodEvent implements Parcelable{
     private int popupShape;
     private String color;
 
+    /*public MoodEvent(String date, String time, String reason, String username, String address, String emotion, int popupShape, String color){
+        this.date = date;
+        this.time = time;
+        this.reason = reason;
+        this.username = username;
+        //this.addressGPS = addressGPS;
+        this.address = address;
+        this.emotion = emotion;
+        this.popupShape = popupShape;
+        this.color = color;
+    }*/
 
 
+    /**
+     * Getters and setters for all the objects that make up the mood.
+     */
     public MoodEvent(){}
-
-
 
     public Drawable getListBox(Context context){
         return ContextCompat.getDrawable(context, R.drawable.list_box_pink);
@@ -100,6 +112,10 @@ public class MoodEvent implements Parcelable{
         this.addressGPS = addressGPS;
     }*/
 
+    /**
+     * @param in
+     * The form in which the objects will be read by parcel, int or String.
+     */
     public MoodEvent(Parcel in){
         this.popupShape = in.readInt();
         this.username = in.readString();
@@ -116,6 +132,11 @@ public class MoodEvent implements Parcelable{
     }
 
 
+    /**
+     * @param dest
+     * @param flags
+     * The parcel in which the objects will be written, int or String.
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(popupShape);

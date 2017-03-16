@@ -10,10 +10,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Etiennera on 2017-03-04.
- */
-
 public class MoodListAdapter extends BaseAdapter {
     private static ArrayList<MoodEvent> moodEventList;
 

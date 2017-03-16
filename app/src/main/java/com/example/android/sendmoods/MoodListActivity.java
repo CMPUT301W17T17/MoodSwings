@@ -2,6 +2,7 @@ package com.example.android.sendmoods;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,8 +33,10 @@ public class MoodListActivity extends AppCompatActivity{
     private int pos;
 
     //Location location = new Location("defaultLocation");
-    private MoodEvent testMoodEvent = new MoodEvent("February 02, 2017", "11:11", "Harder Better Faster", "Mohamad", "123 Fakestreet, WA", HAPPY_WORD, HAPPY_POPUP_BOX, HAPPY_COLOR);
-    private MoodEvent newMoodEvent;
+    //private MoodEvent testMoodEvent = new MoodEvent("February 02, 2017", "11:11", "Harder Better Faster", "Mohamad", "123 Fakestreet, WA", HAPPY_WORD, HAPPY_POPUP_BOX, HAPPY_COLOR);
+
+    private MoodEvent newMoodEvent = new MoodEvent();
+    private Intent changeIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +48,8 @@ public class MoodListActivity extends AppCompatActivity{
         moodListView = (ListView) findViewById(R.id.mood_list);
         moodListView.setAdapter(adapter);
 
-        moodEventList.add(testMoodEvent);
-        adapter.notifyDataSetChanged();
+        //moodEventList.add(testMoodEvent);
+        //adapter.notifyDataSetChanged();
 
         moodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -58,13 +61,26 @@ public class MoodListActivity extends AppCompatActivity{
                 startActivityForResult(myIntent, REQ_CODE_POPUP);
             }
         });
+
+        FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+
+                changeIntent = new Intent(MoodListActivity.this, EditMoodActivity.class);
+                changeIntent.putExtra("MoodEvent", newMoodEvent);
+                startActivityForResult(changeIntent, REQ_CODE_NEW);
+            }
+        });
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQ_CODE_NEW && resultCode == RES_CODE_NEW){//The whole purpose of static imports it to not need to use "Constants."
             //Get the new MoodEvent and append it to the list
-            MoodEvent newMoodEvent = data.getExtras().getParcelable("updatedMood");
+            newMoodEvent = data.getExtras().getParcelable("updatedMood");
             moodEventList.add(newMoodEvent);
             adapter.notifyDataSetChanged();
         }

@@ -31,7 +31,7 @@ public class MoodPopupActivity extends AppCompatActivity {
     private View popupBox;
     private FloatingActionButton editButton;
     private RelativeLayout popupMargin;
-    private Intent resultIntent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +45,9 @@ public class MoodPopupActivity extends AppCompatActivity {
         reasonText = (TextView) findViewById(R.id.description_text_popup);
         addressText = (TextView) findViewById(R.id.address_text_popup);
 
-        editButton = (FloatingActionButton) findViewById(R.id.edit_mood_button);
         popupBox = findViewById(R.id.popup_box);
         popupMargin = (RelativeLayout) findViewById(R.id.popup);
 
-
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                resultIntent = new Intent(MoodPopupActivity.this, EditMoodActivity.class);
-                resultIntent.putExtra("MoodEvent", moodEvent);
-                startActivityForResult(resultIntent, REQ_CODE_EDIT);
-            }
-        });
 
         //OnClick for outside the popup to close that activity
         popupMargin.setOnClickListener(new View.OnClickListener() {

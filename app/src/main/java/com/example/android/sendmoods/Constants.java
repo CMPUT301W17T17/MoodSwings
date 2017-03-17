@@ -3,6 +3,7 @@ package com.example.android.sendmoods;
 
 /**
  * Created by Moe on 2017-03-11.
+ * This class contains the constants
  */
 
 public class Constants {
@@ -29,7 +30,7 @@ public class Constants {
      * Constants for Disgusted Mood
      */
     public static final int DISGUSTED_POPUP_BOX = R.drawable.popup_shape_green;
-    public static final String DSIGUSTED_WORD = "Disgusted";
+    public static final String DISGUSTED_WORD = "Disgusted";
     public static final String DISGUSTED_COLOR = "#81C784";
 
     /**
@@ -49,14 +50,14 @@ public class Constants {
     /**
      * Constants for surprised Mood
      */
-    public static final int SURPRISED_POPUP_BOX = R.drawable.popup_shape_blue;
+    public static final int SURPRISED_POPUP_BOX = R.drawable.popup_shape_yellow;
     public static final String SURPRISED_WORD = "Surprised";
     public static final String SURPRISED_COLOR = "#FFF176";
 
     /**
      * Constants for shame Mood
      */
-    public static final int SHAME_POPUP_BOX = R.drawable.popup_shape_blue;
+    public static final int SHAME_POPUP_BOX = R.drawable.popup_shape_orange;
     public static final String SHAME_WORD = "Ashamed";
     public static final String SHAME_COLOR = "#FFB74D";
 

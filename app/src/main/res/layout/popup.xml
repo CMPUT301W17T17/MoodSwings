@@ -130,17 +130,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/edit_mood_button"
-        app:fabSize="mini"
-        android:backgroundTint="#BDBDBD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/edit"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginTop="60dp"/>
 
     <ImageView
         android:layout_width="100dp"

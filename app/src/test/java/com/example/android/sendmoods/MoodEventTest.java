@@ -3,8 +3,6 @@ package com.example.android.sendmoods;
 import android.location.Location;
 import android.test.ActivityInstrumentationTestCase2;
 
-import java.util.Date;
-
 /**
  * Created by ahua on 3/9/17.
  */

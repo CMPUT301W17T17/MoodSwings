@@ -27,7 +27,7 @@ public class MoodListActivity extends AppCompatActivity{
     private ListView moodListView;
     private MoodList moodEventList;
     private MoodListAdapter adapter;
-    private String FILENAME = "local.sav";
+    final private String FILENAME = "local.sav";
     private int pos;
 
     //Location location = new Location("defaultLocation");

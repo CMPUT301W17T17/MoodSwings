@@ -19,7 +19,7 @@ public class EditMoodActivityTest extends ActivityInstrumentationTestCase2<EditM
         Location location = new Location("defaultlocation");
 
         MoodEvent moodEvent = new MoodEvent("default", "default", "default", "default", location, "default", "default", 0, "default");
-        ArrayList moodList = new ArrayList<MoodEvent>();
+        ArrayList moodList = new ArrayList<>();
         moodList.add(moodEvent);
 
 

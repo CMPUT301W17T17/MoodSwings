@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/edit_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#81C784">
@@ -31,16 +33,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="60dp"
+            android:layout_height="23dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:layout_marginTop="60dp"
             android:fontFamily="sans-serif-thin"
+            android:gravity="center_horizontal"
             android:text="Username"
             android:textColor="#000000"
             android:textSize="24sp"
@@ -62,55 +66,140 @@
             android:fontFamily="sans-serif-thin"
             android:gravity="center_horizontal"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:hint="APR 12th"
+            android:hint="April 12"
             android:textColor="#000000"
             android:textSize="25sp"
             android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/mood_text"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="8dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/datetime"
-            android:gravity="center_horizontal"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:hint="Status (Mood)"
-            android:textStyle="italic" />
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_weight="0.20"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75"
+                android:scaleType="center"
+                android:background="@drawable/afraid"
+                android:layout_marginRight="6dp"
+                android:layout_marginLeft="6dp"
+                android:id="@+id/afraid"/>
+            <ImageButton
+                android:layout_marginRight="6dp"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75"
+                android:scaleType="center"
+                android:background="@drawable/angry"
+                android:id="@+id/angry"/>
+
+            <ImageButton
+                android:layout_marginRight="6dp"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/ashamed"
+                android:layout_weight="0.75"
+                android:scaleType="center"
+                android:id="@+id/ashamed"/>
+            <ImageButton
+                android:layout_marginRight="6dp"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75"
+                android:scaleType="center"
+                android:background="@drawable/confused"
+                android:id="@+id/confused"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_weight="0.20"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp">
+            <ImageButton
+
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75"
+                android:scaleType="center"
+                android:background="@drawable/disgusted"
+                android:layout_marginRight="6dp"
+                android:layout_marginLeft="6dp"
+                android:id="@+id/disgusted"/>
+            <ImageButton
+                android:layout_marginRight="6dp"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75"
+                android:scaleType="center"
+                android:background="@drawable/happy"
+                android:id="@+id/happy"/>
+            <ImageButton
+                android:layout_marginRight="6dp"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75"
+                android:scaleType="center"
+                android:id="@+id/sad"
+                android:background="@drawable/sad"/>
+
+            <ImageButton
+                android:layout_marginRight="6dp"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/surprised"
+                android:layout_weight="0.75"
+                android:scaleType="center"
+                android:id="@+id/surprised"/>
+
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/reason_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignEnd="@+id/delete"
+            android:layout_alignTop="@+id/save"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
             android:hint="Add Reason"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:layout_weight="0.06" />
 
-        <LinearLayout
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
+        android:orientation="horizontal"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp">
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-thin"
                 android:gravity="center"
                 android:text="Social:"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-thin"
                 android:textColor="#000000"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <ImageButton
                 android:id="@+id/person"
                 android:layout_width="50dp"
@@ -121,16 +210,16 @@
                 android:src="@drawable/person"
                 android:layout_weight="1"/>
 
-            <ImageButton
-                android:id="@+id/two"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@null"
-                android:onClick="shareTwo"
-                android:src="@drawable/two"
-                android:layout_weight="1"/>
+        <ImageButton
+            android:id="@+id/two"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:onClick="shareTwo"
+            android:src="@drawable/two" />
 
-            <ImageButton
+        <ImageButton
                 android:id="@+id/crowd"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -141,5 +230,5 @@
                 android:layout_weight="1"/>
         </LinearLayout>
 
-    </LinearLayout>
+
 </RelativeLayout>

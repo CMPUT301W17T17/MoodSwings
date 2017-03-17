@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class MoodListAdapter extends BaseAdapter {
             holder.usernameEntry = (TextView) convertView.findViewById(R.id.user_name);
             holder.moodWordEntry = (TextView) convertView.findViewById(R.id.mood_word);
             holder.dateEntry = (TextView) convertView.findViewById(R.id.mood_date_time);
+            //holder.colorBox = (RelativeLayout) convertView.findViewById(R.id.list_item_box);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -51,6 +53,7 @@ public class MoodListAdapter extends BaseAdapter {
         holder.usernameEntry.setText(moodEventList.get(position).getUsername());
         holder.moodWordEntry.setText(moodEventList.get(position).getEmotion());
         holder.dateEntry.setText(moodEventList.get(position).getDate());
+        //holder.colorBox.setBackground(moodEventList.get(position).getPopupShape());
         convertView.setBackground(moodEventList.get(position).getListBox(context));
         return convertView;
     }
@@ -59,5 +62,6 @@ public class MoodListAdapter extends BaseAdapter {
         TextView usernameEntry;
         TextView moodWordEntry;
         TextView dateEntry;
+        RelativeLayout colorBox;
     }
 }

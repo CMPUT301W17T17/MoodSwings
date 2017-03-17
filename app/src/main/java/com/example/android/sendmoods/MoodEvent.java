@@ -120,6 +120,7 @@ public class MoodEvent implements Parcelable{
         this.popupShape = in.readInt();
         this.username = in.readString();
         this.emotion = in.readString();
+        this.color = in.readString();
         this.date = in.readString();
         this.time = in.readString();
         this.address = in.readString();
@@ -142,6 +143,7 @@ public class MoodEvent implements Parcelable{
         dest.writeInt(popupShape);
         dest.writeString(username);
         dest.writeString(emotion);
+        dest.writeString(color);
         dest.writeString(date);
         dest.writeString(time);
         dest.writeString(address);

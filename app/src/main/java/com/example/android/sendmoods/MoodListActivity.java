@@ -8,18 +8,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-
-import com.google.gson.Gson;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-
-import static com.example.android.sendmoods.Constants.*;
+import static com.example.android.sendmoods.Constants.REQ_CODE_EDIT;
+import static com.example.android.sendmoods.Constants.REQ_CODE_NEW;
+import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
+import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
 
 
 public class MoodListActivity extends AppCompatActivity{
@@ -27,7 +19,7 @@ public class MoodListActivity extends AppCompatActivity{
     private ListView moodListView;
     private MoodList moodEventList;
     private MoodListAdapter adapter;
-    final private String FILENAME = "local.sav";
+    private FloatingActionButton addButton;
     private int pos;
 
     //Location location = new Location("defaultLocation");
@@ -46,9 +38,9 @@ public class MoodListActivity extends AppCompatActivity{
         moodListView = (ListView) findViewById(R.id.mood_list);
         moodListView.setAdapter(adapter);
 
-        //moodEventList.add(testMoodEvent);
-        //adapter.notifyDataSetChanged();
+        addButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 
+        moodEventList.loadFromFile();
 
         /**
          * Allowing both edit buttons, one from popup and one from mood_list, to redirect the user to edit_mood.
@@ -60,7 +52,6 @@ public class MoodListActivity extends AppCompatActivity{
                 pos = position;
                 Intent myIntent = new Intent(MoodListActivity.this, MoodPopupActivity.class);
                 myIntent.putExtra("MoodEvent", moodEvent);
-
                 startActivity(myIntent);
             }
         });
@@ -69,11 +60,8 @@ public class MoodListActivity extends AppCompatActivity{
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 changeIntent = new Intent(MoodListActivity.this, EditMoodActivity.class);
-
                 newMoodEvent= (MoodEvent) moodListView.getItemAtPosition(position);
-
                 changeIntent.putExtra("MoodEvent", newMoodEvent);
-                changeIntent.putExtra("Type","OLD");
                 startActivityForResult(changeIntent, REQ_CODE_EDIT);
                 return true;
             }
@@ -82,78 +70,34 @@ public class MoodListActivity extends AppCompatActivity{
         /**
          * Allows the + button to redirect user to edit_mood from mood_list.
          */
-        FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                newMoodEvent=new MoodEvent();
-
+                newMoodEvent = new MoodEvent();
                 changeIntent = new Intent(MoodListActivity.this, EditMoodActivity.class);
                 changeIntent.putExtra("MoodEvent", newMoodEvent);
-                changeIntent.putExtra("Type","NEW");
                 startActivityForResult(changeIntent, REQ_CODE_NEW);
             }
         });
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
-        if(requestCode == REQ_CODE_NEW && resultCode == RES_CODE_NEW){//The whole purpose of static imports it to not need to use "Constants."
+        if(requestCode == REQ_CODE_NEW && resultCode == RES_CODE_EDITED){
             //Get the new MoodEvent and append it to the list
             newMoodEvent = data.getExtras().getParcelable("updatedMood");
             moodEventList.add(newMoodEvent);
-            adapter.notifyDataSetChanged();
         }
-        /*if(requestCode == REQ_CODE_NEW && resultCode == RES_CODE_DELETED){
-            //Delete the candidate MoodEvent
-            moodEventList.deleteLast();
-            adapter.notifyDataSetChanged();
-        }*/
         if(requestCode == REQ_CODE_EDIT && resultCode == RES_CODE_DELETED){
             //Delete the viewed MoodEvent
             moodEventList.delete(pos);
-            adapter.notifyDataSetChanged();
         }
         if(requestCode == REQ_CODE_EDIT && resultCode == RES_CODE_EDITED){
             //Update the viewed MoodEvent
             MoodEvent newMoodEvent = data.getExtras().getParcelable("updatedMood");
             moodEventList.set(pos, newMoodEvent);
-            adapter.notifyDataSetChanged();
-
-
-
         }
+        adapter.notifyDataSetChanged();
+        moodEventList.saveInFile();
     }
-
-    private void loadFromFile() {
-        try {
-            FileInputStream fis = openFileInput(FILENAME);
-            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-            moodEventList.fromGson(in);
-        } catch (FileNotFoundException e) {
-            moodEventList = new MoodList(this);
-        }
-    }
-
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME,0);
-            OutputStreamWriter writer = new OutputStreamWriter(fos);
-            Gson gson = new Gson();
-            gson.toJson(moodEventList, writer);
-            writer.flush();
-        } catch (IOException e) {
-            throw new RuntimeException();
-        }
-    }
-
-    /**
-     * Source(s):
-     * https://developer.android.com/reference/android/os/Parcelable.html
-     */
-
-
+    //Don't quote a source that wasn't used. Type I Error is just as much a sin as type II
 }

@@ -1,25 +1,27 @@
 package com.example.android.sendmoods;
 
+import android.content.Context;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Created by Etiennera on 2017-02-05.
- * Sourced from: http://stackoverflow.com/questions/5357455/limit-decimal-places-in-android-edittext/24632346#24632346
+ * Adapted from: http://stackoverflow.com/questions/5357455/limit-decimal-places-in-android-edittext/24632346#24632346
  * Credit to user: android_dev
- *
- * This class acts only as a filter which is used to ensure numeric fields resemble XY.Z.
  */
 
 public class TextInputFilter implements InputFilter {
     private Pattern mPattern;
+    private Context context;
 
-    public TextInputFilter() {
-        mPattern = Pattern.compile("-?^(?=.{0,20}$)([A-z0-9]{1,20}[^\\S\\n]?){0,3}?");
+    public TextInputFilter(Context context) {
+        this.context = context;
+        mPattern = Pattern.compile("-?^(?=.{0,20}$)([A-z0-9]{1,20}[^\\S\\n]+){0,3}?");//?){0,3}?"); <- OLD
     }
 
     @Override
@@ -33,8 +35,14 @@ public class TextInputFilter implements InputFilter {
 
         if (TextUtils.isEmpty(source))
             return dest.subSequence(dstart, dend);
-        else
+        else {
+            Toast.makeText(
+                    context
+                    , "Reason is at most three words, and must be shorter than 20 characters"
+                    , Toast.LENGTH_LONG)
+                    .show();
             return "";
+        }
     }
 }
 

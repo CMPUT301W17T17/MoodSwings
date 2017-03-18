@@ -6,5 +6,4 @@ package com.example.android.sendmoods;
 
 public class MoodListAdapterTest {
     MoodListActivity activity = new MoodListActivity();
-
 }

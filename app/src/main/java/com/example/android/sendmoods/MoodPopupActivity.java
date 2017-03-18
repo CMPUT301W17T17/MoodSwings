@@ -1,6 +1,5 @@
 package com.example.android.sendmoods;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -8,11 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import static com.example.android.sendmoods.Constants.REQ_CODE_EDIT;
-import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
-import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
-import static com.example.android.sendmoods.Constants.RES_CODE_NOCHANGE;
 
 
 /**
@@ -48,7 +42,6 @@ public class MoodPopupActivity extends AppCompatActivity {
         popupBox = findViewById(R.id.popup_box);
         popupMargin = (RelativeLayout) findViewById(R.id.popup);
 
-
         //OnClick for outside the popup to close that activity
         popupMargin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,50 +50,22 @@ public class MoodPopupActivity extends AppCompatActivity {
             }
         });
     }
-
     /**
      * This method contains try/catch blocks to ensure correct input in the EditTexts and TextViews.
      */
     public void onStart(){
         super.onStart();
         moodEvent = getIntent().getParcelableExtra("MoodEvent");
-        popupBox.setBackground(ContextCompat.getDrawable(this, moodEvent.getPopupShape()));
-
-
+        popupBox.setBackground(ContextCompat.getDrawable(this, moodEvent.getMood().getShape()));
+        //Don't put try Except clauses everywhere.
+        //Especially where errors should not occur.
+        //This makes it hard to spot real errors.
         usernameText.setText(moodEvent.getUsername());
-
-        try{
-            moodText.setText(moodEvent.getEmotion());
-        } catch (Exception e){
-            moodText.setText("UNKNOWN");
-        }
-
-        try{
-            dateText.setText(String.format("On: %1$s", moodEvent.getDate()));
-        } catch (Exception e){
-            dateText.setText("UNKNOWN");
-        }
-
-        try{
-            timeText.setText(String.format("At: %1$s", moodEvent.getTime()));
-        }
-        catch (Exception e){
-            timeText.setText("UNKNOWN");
-        }
-
-        try {
-            reasonText.setText(moodEvent.getReason());
-        } catch (Exception e) {
-            reasonText.setText("UNKNOWN");
-        }
-
-        try{
-            addressText.setText(moodEvent.getAddress());
-        } catch(Exception e){
-            addressText.setText("UNKNOWN");
-        }
-
-
+        moodText.setText(moodEvent.getMood().getText());
+        dateText.setText(String.format("On: %1$s", moodEvent.getDate()));
+        timeText.setText(String.format("At: %1$s", moodEvent.getTime()));
+        reasonText.setText(moodEvent.getReason());
+        addressText.setText(moodEvent.getAddress());
     }
 
 

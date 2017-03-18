@@ -136,6 +136,6 @@
         android:layout_height="100dp"
         android:layout_margin="0dp"
         android:layout_gravity="center"
-        android:src="@drawable/happy"
+        android:src="@drawable/otherhappy"
         android:id="@+id/imageView2" />
 </RelativeLayout>

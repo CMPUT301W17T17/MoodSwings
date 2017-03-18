@@ -6,8 +6,16 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import static com.example.android.sendmoods.Constants.SAVEFILE_NAME;
 
 /**
  * Created by Etiennera on 2017-03-12.
@@ -16,8 +24,10 @@ import java.util.ArrayList;
 public class MoodList {
     private ArrayList<MoodEvent> moodEvents, moodEventList;
     private MoodListAdapter adapter;
+    private Context context;
 
     public MoodList(Context context) {
+        this.context = context;
         moodEvents = new ArrayList<>();
         adapter = new MoodListAdapter(context, moodEvents);
     }
@@ -64,5 +74,28 @@ public class MoodList {
         Gson gson = new Gson();
         Type listType = new TypeToken<ArrayList<MoodEvent>>(){}.getType();
         moodEvents = gson.fromJson(in, listType);
+    }
+
+    public void loadFromFile() {
+        try {
+            FileInputStream fis = context.openFileInput(SAVEFILE_NAME);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+            Gson gson = new Gson();
+            moodEvents = gson.fromJson(in, new TypeToken<ArrayList<MoodEvent>>(){}.getType());
+        } catch (FileNotFoundException e) {
+            moodEvents = new ArrayList<>();
+        }
+    }
+
+    public void saveInFile() {
+        try {
+            FileOutputStream fos = context.openFileOutput(SAVEFILE_NAME,0);
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
+            Gson gson = new Gson();
+            gson.toJson(moodEvents, writer);
+            writer.flush();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
     }
 }

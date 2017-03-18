@@ -9,4 +9,8 @@
     <string name="time_popup_default">At: 11:11</string>
     <string name="description_text_popup_default">Solemn swear no-good</string>
     <string name="address_text_popup_default">123 Fakestreet, Springfield WA</string>
+    <string name="add_reason">Add Reason</string>
+    <string name="april_12">April 12</string>
+    <string name="social">Social:</string>
+    <string name="username">Username</string>
 </resources>

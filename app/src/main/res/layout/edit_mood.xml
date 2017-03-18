@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/edit_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,20 +14,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:layout_toLeftOf="@+id/delete"
-        android:onClick="saveMood"
+        android:layout_toStartOf="@+id/delete"
         android:src="@drawable/save"
-        app:fabSize="auto" />
+        app:fabSize="auto"
+        tools:ignore="RelativeOverlap" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
-        android:onClick="deleteMood"
         android:src="@drawable/delete"
         app:fabSize="auto" />
 
@@ -34,7 +34,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/textView3"
@@ -45,7 +47,7 @@
             android:layout_marginTop="60dp"
             android:fontFamily="sans-serif-thin"
             android:gravity="center_horizontal"
-            android:text="Username"
+            android:text="@string/username"
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -57,123 +59,163 @@
             android:layout_marginTop="8dp"
             android:background="@null"
             android:scaleType="centerCrop"
-            android:src="@mipmap/user_image_add" />
+            android:src="@mipmap/user_image_add"
+            tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/edit_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-thin"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:hint="April 12"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-thin"
+            android:gravity="center_horizontal"
+            android:hint="@string/april_12"
             android:textColor="#000000"
             android:textSize="25sp"
             android:textStyle="bold" />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="0.20"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:id="@+id/afraid"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/afraid_bw"
+                    tools:ignore="ContentDescription,RtlHardcoded" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
 
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.75"
-                android:scaleType="center"
-                android:background="@drawable/afraid"
-                android:layout_marginRight="6dp"
-                android:layout_marginLeft="6dp"
-                android:id="@+id/afraid"/>
-            <ImageButton
-                android:layout_marginRight="6dp"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.75"
-                android:scaleType="center"
-                android:background="@drawable/angry"
-                android:id="@+id/angry"/>
+                <ImageButton
+                    android:id="@+id/angry"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/angry_bw"
+                    tools:ignore="ContentDescription,RtlHardcoded" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
 
-            <ImageButton
-                android:layout_marginRight="6dp"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/ashamed"
-                android:layout_weight="0.75"
-                android:scaleType="center"
-                android:id="@+id/ashamed"/>
-            <ImageButton
-                android:layout_marginRight="6dp"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.75"
-                android:scaleType="center"
-                android:background="@drawable/confused"
-                android:id="@+id/confused"/>
+                <ImageButton
+                    android:id="@+id/ashamed"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ashamed_bw"
+                    tools:ignore="ContentDescription,RtlHardcoded" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/confused"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/confused_bw"
+                    tools:ignore="ContentDescription,RtlHardcoded" />
+            </RelativeLayout>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="0.20"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp">
-            <ImageButton
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
 
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.75"
-                android:scaleType="center"
-                android:background="@drawable/disgusted"
-                android:layout_marginRight="6dp"
-                android:layout_marginLeft="6dp"
-                android:id="@+id/disgusted"/>
-            <ImageButton
-                android:layout_marginRight="6dp"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.75"
-                android:scaleType="center"
-                android:background="@drawable/happy"
-                android:id="@+id/happy"/>
-            <ImageButton
-                android:layout_marginRight="6dp"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.75"
-                android:scaleType="center"
-                android:id="@+id/sad"
-                android:background="@drawable/sad"/>
+                <ImageButton
+                    android:id="@+id/disgusted"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/disgusted_bw"
+                    tools:ignore="ContentDescription,RtlHardcoded" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
 
-            <ImageButton
-                android:layout_marginRight="6dp"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/surprised"
-                android:layout_weight="0.75"
-                android:scaleType="center"
-                android:id="@+id/surprised"/>
+                <ImageButton
+                    android:id="@+id/otherhappy"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/otherhappy_bw"
+                    tools:ignore="ContentDescription,RtlHardcoded" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
 
+                <ImageButton
+                    android:id="@+id/sad"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/sad_bw"
+                    tools:ignore="ContentDescription,RtlHardcoded" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
 
+                <ImageButton
+                    android:id="@+id/surprised"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/surprised_bw"
+                    tools:ignore="ContentDescription,RtlHardcoded" />
+            </RelativeLayout>
         </LinearLayout>
 
         <EditText
             android:id="@+id/reason_text"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
+            android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            android:layout_alignEnd="@+id/delete"
-            android:layout_alignTop="@+id/save"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
-            android:hint="Add Reason"
+            android:hint="@string/add_reason"
             android:textStyle="italic"
             android:layout_weight="0.06" />
 
@@ -181,34 +223,34 @@
 
     <LinearLayout
         android:paddingTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp">
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-thin"
-                android:gravity="center"
-                android:text="Social:"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-thin"
+            android:gravity="center"
+            android:text="@string/social"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/person"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignStart="@+id/situation"
-                android:background="@null"
-                android:onClick="shareOne"
-                android:src="@drawable/person"
-                android:layout_weight="1"/>
+        <ImageButton
+            android:id="@+id/person"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:onClick="shareOne"
+            android:src="@drawable/person"
+            android:layout_weight="1"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/two"
@@ -217,7 +259,8 @@
             android:layout_weight="1"
             android:background="@null"
             android:onClick="shareTwo"
-            android:src="@drawable/two" />
+            android:src="@drawable/two"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
                 android:id="@+id/crowd"
@@ -227,8 +270,7 @@
                 android:background="@null"
                 android:onClick="shareThree"
                 android:src="@drawable/crowd"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+            tools:ignore="ContentDescription" />
         </LinearLayout>
-
-
 </RelativeLayout>

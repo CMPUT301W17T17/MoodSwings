@@ -1,58 +1,81 @@
 package com.example.android.sendmoods;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
 import android.view.View;
-import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import com.example.android.sendmoods.Moods.AfraidMood;
+import com.example.android.sendmoods.Moods.AngryMood;
+import com.example.android.sendmoods.Moods.AshamedMood;
+import com.example.android.sendmoods.Moods.ConfusedMood;
+import com.example.android.sendmoods.Moods.DisgustedMood;
+import com.example.android.sendmoods.Moods.HappyMood;
+import com.example.android.sendmoods.Moods.Mood;
+import com.example.android.sendmoods.Moods.SadMood;
+import com.example.android.sendmoods.Moods.SurprisedMood;
 
-import java.util.ArrayList;
+import java.util.Calendar;
 
-import static com.example.android.sendmoods.Constants.AFRAID_WORD;
-import static com.example.android.sendmoods.Constants.ANGRY_WORD;
-import static com.example.android.sendmoods.Constants.CONFUSED_WORD;
-import static com.example.android.sendmoods.Constants.DISGUSTED_WORD;
-import static com.example.android.sendmoods.Constants.HAPPY_COLOR;
-import static com.example.android.sendmoods.Constants.HAPPY_POPUP_BOX;
-import static com.example.android.sendmoods.Constants.HAPPY_WORD;
+import static com.example.android.sendmoods.Constants.AFRAID_ICON;
+import static com.example.android.sendmoods.Constants.AFRAID_ICON_BW;
+import static com.example.android.sendmoods.Constants.ANGRY_ICON;
+import static com.example.android.sendmoods.Constants.ANGRY_ICON_BW;
+import static com.example.android.sendmoods.Constants.ASHAMED_ICON;
+import static com.example.android.sendmoods.Constants.ASHAMED_ICON_BW;
+import static com.example.android.sendmoods.Constants.CONFUSED_ICON;
+import static com.example.android.sendmoods.Constants.CONFUSED_ICON_BW;
+import static com.example.android.sendmoods.Constants.DISGUSTED_ICON;
+import static com.example.android.sendmoods.Constants.DISGUSTED_ICON_BW;
+import static com.example.android.sendmoods.Constants.HAPPY_ICON;
+import static com.example.android.sendmoods.Constants.HAPPY_ICON_BW;
 import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
 import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
-import static com.example.android.sendmoods.Constants.RES_CODE_NEW;
-import static com.example.android.sendmoods.Constants.SAD_WORD;
-import static com.example.android.sendmoods.Constants.SHAME_WORD;
-import static com.example.android.sendmoods.Constants.*;
+import static com.example.android.sendmoods.Constants.SAD_ICON;
+import static com.example.android.sendmoods.Constants.SAD_ICON_BW;
+import static com.example.android.sendmoods.Constants.SURPRISED_ICON;
+import static com.example.android.sendmoods.Constants.SURPRISED_ICON_BW;
 
 public class EditMoodActivity extends Activity {
-    //Please pay attention to  proper class organization. Views must be declared
-    //as private variables.
     private EditText reasonText;
-
-
+    private TextView dateText;
     private MoodEvent moodEvent;
-    private ImageButton happyButton;
-    private ImageButton angryButton;
-    private ImageButton sadButton;
-    private ImageButton confusedButton;
-    private ImageButton ashamedButton;
-    private ImageButton surprisedButton;
-    private ImageButton disgustedButton;
-    private ImageButton afraidButton;
-    private ArrayList<ImageButton> buttonList = new ArrayList<>();
+    private ImageButton happyButton
+            , angryButton
+            , sadButton
+            , confusedButton
+            , ashamedButton
+            , surprisedButton
+            , disgustedButton
+            , afraidButton;
     private RelativeLayout editBackground;
-    private LinearLayout.LayoutParams params;
 
+    /**
+     * A calendar for date picking. Definitely the fastest and most intuitive way.
+     */
+    final Calendar myCalendar = Calendar.getInstance();
 
+    /**
+     * Prepares the current date for a calendar date picker.
+     */
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        }
+    };
 
     /**
      * @param savedInstanceState Opens edit_mood, and allows for the user to input the reason and mood.
@@ -63,9 +86,9 @@ public class EditMoodActivity extends Activity {
         setContentView(R.layout.edit_mood);
 
         reasonText = (EditText) findViewById(R.id.reason_text);//the convention for a view name is word_word not wordWord
-        reasonText.setFilters(new InputFilter[]{new TextInputFilter()});
+        reasonText.setFilters(new InputFilter[]{new TextInputFilter(this)});
 
-        happyButton = (ImageButton) findViewById(R.id.happy);
+        happyButton = (ImageButton) findViewById(R.id.otherhappy);
         angryButton = (ImageButton) findViewById(R.id.angry);
         sadButton = (ImageButton) findViewById(R.id.sad);
         confusedButton = (ImageButton) findViewById(R.id.confused);
@@ -74,145 +97,74 @@ public class EditMoodActivity extends Activity {
         disgustedButton = (ImageButton) findViewById(R.id.disgusted);
         afraidButton = (ImageButton) findViewById(R.id.afraid);
         editBackground = (RelativeLayout) findViewById(R.id.edit_background);
-        buttonList.add(happyButton);
-        buttonList.add(angryButton);
-        buttonList.add(sadButton);
-        buttonList.add(confusedButton);
-        buttonList.add(ashamedButton);
-        buttonList.add(surprisedButton);
-        buttonList.add(disgustedButton);
-        buttonList.add(afraidButton);
-
-        params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.width = 50;
-        params.weight = 0.75f;
-        params.leftMargin = 6;
-        params.rightMargin = 6;
-        params.height = LinearLayout.LayoutParams.MATCH_PARENT;
-
 
         reasonText = (EditText) findViewById(R.id.reason_text);
+        dateText = (TextView) findViewById(R.id.edit_date);
 
-
-        //final Context tempC = this;
         happyButton.setOnClickListener(
                 new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moodEvent.setEmotion(HAPPY_WORD);
-                moodEvent.setColor(HAPPY_COLOR);
-                moodEvent.setPopupShape(HAPPY_POPUP_BOX);
-                //moodEvent.setPopupShape( ContextCompat.getDrawable(tempC, HAPPY_POPUP_BOX));
-                cycleStyle(happyButton);
+                cycleStyle((new HappyMood()).toMood());
+                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, HAPPY_ICON));
             }
         });
 
         angryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moodEvent.setEmotion(ANGRY_WORD);
-                moodEvent.setColor(ANGRY_COLOR);
-                moodEvent.setPopupShape(ANGRY_POPUP_BOX);
-                cycleStyle(angryButton);
+                cycleStyle((new AngryMood()).toMood());
+                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, ANGRY_ICON));
             }
         });
 
         sadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moodEvent.setEmotion(SAD_WORD);
-                moodEvent.setColor(SAD_COLOR);
-                moodEvent.setPopupShape(SAD_POPUP_BOX);
-                cycleStyle(sadButton);
+                cycleStyle((new SadMood()).toMood());
+                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, SAD_ICON));
             }
         });
 
         confusedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moodEvent.setEmotion(CONFUSED_WORD);
-                moodEvent.setColor(CONFUSED_COLOR);
-                moodEvent.setPopupShape(CONFUSED_POPUP_BOX);
-                cycleStyle(confusedButton);
+                cycleStyle((new ConfusedMood()).toMood());
+                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, CONFUSED_ICON));
             }
         });
 
         ashamedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moodEvent.setEmotion(SHAME_WORD);
-                moodEvent.setColor(SHAME_COLOR);
-                moodEvent.setPopupShape(SHAME_POPUP_BOX);
-                cycleStyle(ashamedButton);
+                cycleStyle((new AshamedMood()).toMood());
+                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, ASHAMED_ICON));
             }
         });
 
         surprisedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moodEvent.setEmotion(SURPRISED_WORD);
-                moodEvent.setColor(SURPRISED_COLOR);
-                moodEvent.setPopupShape(SURPRISED_POPUP_BOX);
-                cycleStyle(surprisedButton);
+                cycleStyle((new SurprisedMood()).toMood());
+                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, SURPRISED_ICON));
             }
         });
 
         disgustedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moodEvent.setEmotion(DISGUSTED_WORD);
-                moodEvent.setColor(DISGUSTED_COLOR);
-                moodEvent.setPopupShape(DISGUSTED_POPUP_BOX);
-                cycleStyle(disgustedButton);
+                cycleStyle((new DisgustedMood()).toMood());
+                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, DISGUSTED_ICON));
             }
         });
 
         afraidButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moodEvent.setEmotion(AFRAID_WORD);
-                moodEvent.setColor(AFRAID_COLOR);
-                moodEvent.setPopupShape(AFRAID_POPUP_BOX);
-                cycleStyle(afraidButton);
+                cycleStyle((new AfraidMood()).toMood());
+                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, AFRAID_ICON));
             }
         });
-
-        //backgroundView = findViewById(R.id.edit_background);
-
-        //Save button parcels the mood Event
-
-    }
-
-    private void cycleStyle(ImageButton myButton){
-        editBackground.setBackgroundColor(Color.parseColor(moodEvent.getColor()));
-
-        params.setMargins(10,10,10,10);
-        for (int i = 0; i < buttonList.size(); i++){
-            myButton.setLayoutParams(params);
-        }
-
-        params.setMargins(5,5,5,5);
-        myButton.setLayoutParams(params);
-    }
-
-    /**
-     * Successfully loads the already created mood status and the reason for the selected mood when accessing edit_mood
-     * from either mood_list or popup.
-     */
-    public void onStart() {
-        super.onStart();
-
-        moodEvent = getIntent().getParcelableExtra("MoodEvent");
-
-        try {
-            reasonText.setText(moodEvent.getReason());
-        } catch (Exception e) {
-            reasonText.setText("UNKNOWN");
-        }
-
-
 
         /**
          * Allows for user to press the save button which successfully stores the values for the mood status,
@@ -222,40 +174,24 @@ public class EditMoodActivity extends Activity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String type;
-                type = getIntent().getStringExtra("Type");
-
                 moodEvent.setUsername("machung");
-
                 try {
                     moodEvent.setReason(reasonText.getText().toString());
                 } catch (Exception e) {
                     moodEvent.setReason("UNKNOWN");
                 }
 
-
-
-                moodEvent.setDate("February 02, 2017");
-
+                moodEvent.setDate(dateText.getText().toString());
                 moodEvent.setTime("11:11");
                 moodEvent.setAddress("123 Fakestreet, WA");
-                moodEvent.setColor(moodEvent.getColor());
-                moodEvent.setPopupShape(moodEvent.getPopupShape());
 
                 Intent resultIntent = new Intent(EditMoodActivity.this, MoodListActivity.class);
                 resultIntent.putExtra("updatedMood", moodEvent);
 
-                if (type.matches("OLD")) {
-                    setResult(RES_CODE_EDITED, resultIntent);
-                    finish();
-                } else {
-                    setResult(RES_CODE_NEW, resultIntent);
-                    finish();
-                }
-
+                setResult(RES_CODE_EDITED, resultIntent);
+                finish();
             }
         });
-
 
         /**
          * Allows for the delete button in edit_mood to successfully remove current mood beind edited.
@@ -270,7 +206,46 @@ public class EditMoodActivity extends Activity {
                 finish();
             }
         });
+        dateText.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View nt) {
+            new DatePickerDialog(EditMoodActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
+    }
 
+    private void cycleStyle(Mood mood){
+        moodEvent.setMood(mood);
+        editBackground.setBackgroundColor(mood.getColor());
+
+        happyButton.setBackground(ContextCompat.getDrawable(this, HAPPY_ICON_BW));
+        angryButton.setBackground(ContextCompat.getDrawable(this, ANGRY_ICON_BW));
+        sadButton.setBackground(ContextCompat.getDrawable(this, SAD_ICON_BW));
+        confusedButton.setBackground(ContextCompat.getDrawable(this, CONFUSED_ICON_BW));
+        ashamedButton.setBackground(ContextCompat.getDrawable(this, ASHAMED_ICON_BW));
+        surprisedButton.setBackground(ContextCompat.getDrawable(this, SURPRISED_ICON_BW));
+        disgustedButton.setBackground(ContextCompat.getDrawable(this, DISGUSTED_ICON_BW));
+        afraidButton.setBackground(ContextCompat.getDrawable(this, AFRAID_ICON_BW));
+    }
+
+    /**
+     * Successfully loads the already created mood status and the reason for the selected mood when accessing edit_mood
+     * from either mood_list or popup.
+     */
+    public void onStart() {
+        super.onStart();
+
+        try {
+            moodEvent = getIntent().getParcelableExtra("MoodEvent");
+        } catch (Exception e) {
+            moodEvent = new MoodEvent();
+            reasonText.setText(moodEvent.getReason());
+            dateText.setText(moodEvent.getDate());
+            editBackground.setBackgroundColor(moodEvent.getMood().getColor());
+        }
+        //ALL view variable assignments and event listener declarations co in onCreate
+        //We do NOT need that code to happen every time we switch activities
     }
 }

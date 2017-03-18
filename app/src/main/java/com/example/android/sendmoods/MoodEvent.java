@@ -1,10 +1,14 @@
 package com.example.android.sendmoods;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v4.content.ContextCompat;
+
+import com.example.android.sendmoods.Moods.Mood;
+
+import java.util.Date;
+
+import static com.example.android.sendmoods.Constants.SIMPLE_DATE_FORMAT;
+import static com.example.android.sendmoods.Constants.SIMPLE_TIME_FORMAT;
 
 public class MoodEvent implements Parcelable{
 
@@ -12,48 +16,19 @@ public class MoodEvent implements Parcelable{
     private String time;
     private String reason;
     private String username;
-    //private Location addressGPS;
     private String address;
-    private String emotion;
-    private int popupShape;
-    private String color;
-
-    /*public MoodEvent(String date, String time, String reason, String username, String address, String emotion, int popupShape, String color){
-        this.date = date;
-        this.time = time;
-        this.reason = reason;
-        this.username = username;
-        //this.addressGPS = addressGPS;
-        this.address = address;
-        this.emotion = emotion;
-        this.popupShape = popupShape;
-        this.color = color;
-    }*/
-
+    private Mood mood;
 
     /**
      * Getters and setters for all the objects that make up the mood.
      */
-    public MoodEvent(){}
-
-    public Drawable getListBox(Context context){
-        return ContextCompat.getDrawable(context, R.drawable.list_box_pink);
-    }
-
-    public int getPopupShape(){
-        return popupShape;
-    }
-
-    public void setPopupShape(int popupShape){
-        this.popupShape = popupShape;
-    }
-
-    public void setColor(String color){
-        this.color = color;
-    }
-
-    public String getColor(){
-        return color;
+    public MoodEvent(){
+        this.mood = new Mood();
+        this.date = SIMPLE_DATE_FORMAT.format((new Date()).getTime());
+        this.date = SIMPLE_TIME_FORMAT.format((new Date()).getTime());
+        this.reason = "";
+        this.username = "SAMPLE_USERNAME";
+        this.address = "SAMPLE_ADDRESS";
     }
 
     public String getDate() {
@@ -96,12 +71,12 @@ public class MoodEvent implements Parcelable{
         this.address = address;
     }
 
-    public String getEmotion() {
-        return emotion;
+    public Mood getMood() {
+        return mood;
     }
 
-    public void setEmotion(String emotion) {
-        this.emotion = emotion;
+    public void setMood(Mood mood) {
+        this.mood = mood;
     }
 
     /*public Location getAddressGPS() {
@@ -117,10 +92,8 @@ public class MoodEvent implements Parcelable{
      * The form in which the objects will be read by parcel, int or String.
      */
     public MoodEvent(Parcel in){
-        this.popupShape = in.readInt();
+        this.mood = new Mood(in.readInt(), in.readInt(), in.readString(), in.readInt(), in.readInt());
         this.username = in.readString();
-        this.emotion = in.readString();
-        this.color = in.readString();
         this.date = in.readString();
         this.time = in.readString();
         this.address = in.readString();
@@ -132,7 +105,6 @@ public class MoodEvent implements Parcelable{
         return 0;
     }
 
-
     /**
      * @param dest
      * @param flags
@@ -140,10 +112,12 @@ public class MoodEvent implements Parcelable{
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(popupShape);
+        dest.writeInt(mood.getColor());
+        dest.writeInt(mood.getShape());
+        dest.writeString(mood.getText());
+        dest.writeInt(mood.getIcon());
+        dest.writeInt(mood.getIcon_bw());
         dest.writeString(username);
-        dest.writeString(emotion);
-        dest.writeString(color);
         dest.writeString(date);
         dest.writeString(time);
         dest.writeString(address);

@@ -14,7 +14,7 @@ public class Constants {
     private static final String dateFormat = "MMMM dd, yyyy";
     public static final SimpleDateFormat SIMPLE_DATE_FORMAT
             = new SimpleDateFormat(dateFormat, Locale.CANADA);
-    private static final String timeFormat = "hh:mm";
+    private static final String timeFormat = "h:mm a";
     public static final SimpleDateFormat SIMPLE_TIME_FORMAT
             = new SimpleDateFormat(timeFormat, Locale.CANADA);
 
@@ -76,8 +76,8 @@ public class Constants {
      * Constants for sadness Mood
      */
     public static final int SAD_POPUP_BOX = R.drawable.popup_shape_blue;
-    public static final int SAD_ICON = R.drawable.sad_bw;
-    public static final int SAD_ICON_BW = R.drawable.sad;
+    public static final int SAD_ICON = R.drawable.sad;
+    public static final int SAD_ICON_BW = R.drawable.sad_bw;
     public static final String SAD_WORD = "Sad";
     public static final String SAD_COLOR = "#64B5F6";
 

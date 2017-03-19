@@ -39,9 +39,9 @@
         android:layout_alignParentStart="true">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/edit_username"
             android:layout_width="match_parent"
-            android:layout_height="23dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="60dp"
@@ -57,6 +57,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
+            android:layout_below="@id/edit_username"
             android:background="@null"
             android:scaleType="centerCrop"
             android:src="@mipmap/user_image_add"
@@ -93,7 +94,7 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/afraid_bw"
+                    android:background="@drawable/surprised_bw"
                     tools:ignore="ContentDescription,RtlHardcoded" />
             </RelativeLayout>
             <RelativeLayout
@@ -202,7 +203,7 @@
                     android:layout_height="70dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/surprised_bw"
+                    android:background="@drawable/afraid_bw"
                     tools:ignore="ContentDescription,RtlHardcoded" />
             </RelativeLayout>
         </LinearLayout>
@@ -210,14 +211,14 @@
         <EditText
             android:id="@+id/reason_text"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.06"
             android:gravity="center"
             android:hint="@string/add_reason"
-            android:textStyle="italic"
-            android:layout_weight="0.06" />
+            android:textStyle="italic" />
 
     </LinearLayout>
 

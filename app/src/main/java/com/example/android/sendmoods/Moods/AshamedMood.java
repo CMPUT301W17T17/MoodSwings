@@ -9,7 +9,7 @@ import static com.example.android.sendmoods.Constants.*;
  */
 
 public class AshamedMood extends Mood {
-    public void AshamedMood(){
+    public AshamedMood(){
         color = Color.parseColor(ASHAMED_COLOR);
         shape = ASHAMED_POPUP_BOX;
         text = ASHAMED_WORD;

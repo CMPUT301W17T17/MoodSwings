@@ -42,6 +42,8 @@ import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
 import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
 import static com.example.android.sendmoods.Constants.SAD_ICON;
 import static com.example.android.sendmoods.Constants.SAD_ICON_BW;
+import static com.example.android.sendmoods.Constants.SIMPLE_DATE_FORMAT;
+import static com.example.android.sendmoods.Constants.SIMPLE_TIME_FORMAT;
 import static com.example.android.sendmoods.Constants.SURPRISED_ICON;
 import static com.example.android.sendmoods.Constants.SURPRISED_ICON_BW;
 
@@ -114,7 +116,7 @@ public class EditMoodActivity extends Activity {
             @Override
             public void onClick(View v) {
                 cycleStyle((new AngryMood()).toMood());
-                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, ANGRY_ICON));
+                angryButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, ANGRY_ICON));
             }
         });
 
@@ -122,7 +124,7 @@ public class EditMoodActivity extends Activity {
             @Override
             public void onClick(View v) {
                 cycleStyle((new SadMood()).toMood());
-                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, SAD_ICON));
+                sadButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, SAD_ICON));
             }
         });
 
@@ -130,7 +132,7 @@ public class EditMoodActivity extends Activity {
             @Override
             public void onClick(View v) {
                 cycleStyle((new ConfusedMood()).toMood());
-                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, CONFUSED_ICON));
+                confusedButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, CONFUSED_ICON));
             }
         });
 
@@ -138,7 +140,7 @@ public class EditMoodActivity extends Activity {
             @Override
             public void onClick(View v) {
                 cycleStyle((new AshamedMood()).toMood());
-                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, ASHAMED_ICON));
+                ashamedButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, ASHAMED_ICON));
             }
         });
 
@@ -146,7 +148,7 @@ public class EditMoodActivity extends Activity {
             @Override
             public void onClick(View v) {
                 cycleStyle((new SurprisedMood()).toMood());
-                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, SURPRISED_ICON));
+                surprisedButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, SURPRISED_ICON));
             }
         });
 
@@ -154,7 +156,7 @@ public class EditMoodActivity extends Activity {
             @Override
             public void onClick(View v) {
                 cycleStyle((new DisgustedMood()).toMood());
-                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, DISGUSTED_ICON));
+                disgustedButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, DISGUSTED_ICON));
             }
         });
 
@@ -162,7 +164,7 @@ public class EditMoodActivity extends Activity {
             @Override
             public void onClick(View v) {
                 cycleStyle((new AfraidMood()).toMood());
-                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, AFRAID_ICON));
+                afraidButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, AFRAID_ICON));
             }
         });
 
@@ -175,14 +177,7 @@ public class EditMoodActivity extends Activity {
             @Override
             public void onClick(View v) {
                 moodEvent.setUsername("machung");
-                try {
-                    moodEvent.setReason(reasonText.getText().toString());
-                } catch (Exception e) {
-                    moodEvent.setReason("UNKNOWN");
-                }
-
-                moodEvent.setDate(dateText.getText().toString());
-                moodEvent.setTime("11:11");
+                moodEvent.setReason(reasonText.getText().toString());
                 moodEvent.setAddress("123 Fakestreet, WA");
 
                 Intent resultIntent = new Intent(EditMoodActivity.this, MoodListActivity.class);
@@ -208,9 +203,16 @@ public class EditMoodActivity extends Activity {
         });
         dateText.setOnClickListener(new View.OnClickListener() {
             public void onClick(View nt) {
-            new DatePickerDialog(EditMoodActivity.this, date, myCalendar
+                new DatePickerDialog(EditMoodActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                moodEvent.setDate(SIMPLE_DATE_FORMAT.format(myCalendar.getTime()));
+                moodEvent.setTime(SIMPLE_TIME_FORMAT.format(myCalendar.getTime()));
+                dateText.setText(
+                        String.format(
+                                "%1$s %2$s"
+                                , moodEvent.getDate()
+                                , moodEvent.getTime()));
             }
         });
 
@@ -218,7 +220,7 @@ public class EditMoodActivity extends Activity {
 
     private void cycleStyle(Mood mood){
         moodEvent.setMood(mood);
-        editBackground.setBackgroundColor(mood.getColor());
+        editBackground.setBackgroundColor(moodEvent.getMood().getColor());
 
         happyButton.setBackground(ContextCompat.getDrawable(this, HAPPY_ICON_BW));
         angryButton.setBackground(ContextCompat.getDrawable(this, ANGRY_ICON_BW));
@@ -241,10 +243,14 @@ public class EditMoodActivity extends Activity {
             moodEvent = getIntent().getParcelableExtra("MoodEvent");
         } catch (Exception e) {
             moodEvent = new MoodEvent();
-            reasonText.setText(moodEvent.getReason());
-            dateText.setText(moodEvent.getDate());
-            editBackground.setBackgroundColor(moodEvent.getMood().getColor());
         }
+        reasonText.setText(moodEvent.getReason());
+        dateText.setText(
+                String.format(
+                        "%1$s %2$s"
+                        , moodEvent.getDate()
+                        , moodEvent.getTime()));
+        editBackground.setBackgroundColor(moodEvent.getMood().getColor());
         //ALL view variable assignments and event listener declarations co in onCreate
         //We do NOT need that code to happen every time we switch activities
     }

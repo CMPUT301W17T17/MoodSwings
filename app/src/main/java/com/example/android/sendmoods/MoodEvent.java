@@ -25,7 +25,7 @@ public class MoodEvent implements Parcelable{
     public MoodEvent(){
         this.mood = new Mood();
         this.date = SIMPLE_DATE_FORMAT.format((new Date()).getTime());
-        this.date = SIMPLE_TIME_FORMAT.format((new Date()).getTime());
+        this.time = SIMPLE_TIME_FORMAT.format((new Date()).getTime());
         this.reason = "";
         this.username = "SAMPLE_USERNAME";
         this.address = "SAMPLE_ADDRESS";

@@ -9,7 +9,7 @@ import static com.example.android.sendmoods.Constants.*;
  */
 
 public class SurprisedMood extends Mood {
-    public void SurprisedMood(){
+    public SurprisedMood(){
         color = Color.parseColor(SURPRISED_COLOR);
         shape = SURPRISED_POPUP_BOX;
         text = SURPRISED_WORD;

@@ -21,7 +21,7 @@ public class TextInputFilter implements InputFilter {
 
     public TextInputFilter(Context context) {
         this.context = context;
-        mPattern = Pattern.compile("-?^(?=.{0,20}$)([A-z0-9]{1,20}[^\\S\\n]+){0,3}?");//?){0,3}?"); <- OLD
+        mPattern = Pattern.compile("-?^(?=.{0,20}$)([A-z0-9]{1,20}[^\\S\\n]?){0,3}?");
     }
 
     @Override
@@ -35,11 +35,11 @@ public class TextInputFilter implements InputFilter {
 
         if (TextUtils.isEmpty(source))
             return dest.subSequence(dstart, dend);
-        else {
+        else{
             Toast.makeText(
                     context
                     , "Reason is at most three words, and must be shorter than 20 characters"
-                    , Toast.LENGTH_LONG)
+                    , Toast.LENGTH_SHORT)
                     .show();
             return "";
         }

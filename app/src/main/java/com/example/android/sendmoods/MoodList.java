@@ -12,7 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import static com.example.android.sendmoods.Constants.SAVEFILE_NAME;
@@ -68,12 +67,6 @@ public class MoodList {
 
     public void clear(){
         moodEvents.clear();
-    }
-
-    public void fromGson(BufferedReader in){
-        Gson gson = new Gson();
-        Type listType = new TypeToken<ArrayList<MoodEvent>>(){}.getType();
-        moodEvents = gson.fromJson(in, listType);
     }
 
     public void loadFromFile() {

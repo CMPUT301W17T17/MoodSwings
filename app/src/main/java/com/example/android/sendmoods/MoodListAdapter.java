@@ -54,7 +54,11 @@ public class MoodListAdapter extends BaseAdapter {
         holder.usernameEntry.setText(moodEventList.get(position).getUsername());
         holder.moodWordEntry.setText(moodEventList.get(position).getMood().getText());
         holder.dateEntry.setText(moodEventList.get(position).getDate());
-        holder.colorBox.setBackground(ContextCompat.getDrawable(context, moodEventList.get(position).getMood().getShape()));
+        holder.colorBox.setBackground(
+                ContextCompat.getDrawable(context,
+                        moodEventList.get(position)
+                                .getMood()
+                                .getShape()));
         return convertView;
     }
 

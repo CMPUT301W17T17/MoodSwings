@@ -9,7 +9,7 @@ import static com.example.android.sendmoods.Constants.*;
  */
 
 public class ConfusedMood extends Mood {
-    public void ConfusedMood(){
+    public ConfusedMood(){
         color = Color.parseColor(CONFUSED_COLOR);
         shape = CONFUSED_POPUP_BOX;
         text = CONFUSED_WORD;

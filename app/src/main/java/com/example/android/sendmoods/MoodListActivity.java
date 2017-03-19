@@ -42,6 +42,10 @@ public class MoodListActivity extends AppCompatActivity{
 
         moodEventList.loadFromFile();
 
+        MoodEvent someMoodEvent = new MoodEvent();
+        moodEventList.add(someMoodEvent);
+        adapter.notifyDataSetChanged();
+
         /**
          * Allowing both edit buttons, one from popup and one from mood_list, to redirect the user to edit_mood.
          */
@@ -60,7 +64,7 @@ public class MoodListActivity extends AppCompatActivity{
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 changeIntent = new Intent(MoodListActivity.this, EditMoodActivity.class);
-                newMoodEvent= (MoodEvent) moodListView.getItemAtPosition(position);
+                newMoodEvent = (MoodEvent) moodListView.getItemAtPosition(position);
                 changeIntent.putExtra("MoodEvent", newMoodEvent);
                 startActivityForResult(changeIntent, REQ_CODE_EDIT);
                 return true;

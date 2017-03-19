@@ -26,7 +26,6 @@ public class MoodPopupActivity extends AppCompatActivity {
     private FloatingActionButton editButton;
     private RelativeLayout popupMargin;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

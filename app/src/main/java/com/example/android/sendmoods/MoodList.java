@@ -39,7 +39,9 @@ public class MoodList {
         moodEvents.add(moodEvent);
     }
 
-    public void set(int pos,MoodEvent moodEvent){ moodEvents.set(pos, moodEvent); }
+    public void set(int pos,MoodEvent moodEvent){
+        moodEvents.set(pos, moodEvent);
+    }
 
     public int getCount(){
         return moodEvents.size();
@@ -78,6 +80,7 @@ public class MoodList {
         } catch (FileNotFoundException e) {
             moodEvents = new ArrayList<>();
         }
+        adapter = new MoodListAdapter(context, moodEvents);
     }
 
     public void saveInFile() {

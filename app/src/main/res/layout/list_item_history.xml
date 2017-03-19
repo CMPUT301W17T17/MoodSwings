@@ -1,50 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="3dp">
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
     android:id="@+id/list_item_box"
-    android:layout_alignParentTop="true"
-    android:layout_marginBottom="1dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginTop="2dp"
     android:layout_marginLeft="4dp"
     android:layout_marginRight="4dp"
-    android:layout_marginTop="150dp"
-    android:background="@drawable/list_box_purple"
-    android:fontFamily="sans-serif-thin"
-    android:paddingBottom="17dp"
-    android:paddingLeft="12dp"
-    android:paddingTop="17dp"
-    android:textSize="16sp"
-    android:textStyle="bold">
+    android:background="@drawable/list_box_purple">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:layout_margin="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/list_box_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="5dp"
+            app:srcCompat="@drawable/neutral" />
 
         <TextView
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:height="35dp"
-            android:textSize="24dp" />
+            android:layout_toEndOf="@id/list_box_icon"
+            android:layout_marginTop="3dp"
+            android:textSize="24sp"
+            android:text="SOMEUSERNAME"/>
 
         <TextView
             android:id="@+id/mood_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:height="35dp"
-            android:textSize="24dp" />
-
+            android:layout_toEndOf="@id/list_box_icon"
+            android:layout_below="@id/user_name"
+            android:textSize="20sp"
+            android:text="EMOTION"/>
         <TextView
             android:id="@+id/mood_date_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:height="35dp"
-            android:textSize="24dp" />
-    </LinearLayout>
+            android:layout_margin="5dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:textSize="16sp"
+            android:text="SOME DATE HERE"/>
+    </RelativeLayout>
+</RelativeLayout>
 </RelativeLayout>

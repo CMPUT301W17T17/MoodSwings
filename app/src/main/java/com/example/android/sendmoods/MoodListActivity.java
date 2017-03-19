@@ -34,17 +34,12 @@ public class MoodListActivity extends AppCompatActivity{
         setContentView(R.layout.mood_list);
 
         moodEventList = new MoodList(this);
-        adapter = moodEventList.getAdapter();
         moodListView = (ListView) findViewById(R.id.mood_list);
+        moodEventList.loadFromFile();
+        adapter = moodEventList.getAdapter();
         moodListView.setAdapter(adapter);
 
         addButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-
-        moodEventList.loadFromFile();
-
-        MoodEvent someMoodEvent = new MoodEvent();
-        moodEventList.add(someMoodEvent);
-        adapter.notifyDataSetChanged();
 
         /**
          * Allowing both edit buttons, one from popup and one from mood_list, to redirect the user to edit_mood.
@@ -97,7 +92,7 @@ public class MoodListActivity extends AppCompatActivity{
         }
         if(requestCode == REQ_CODE_EDIT && resultCode == RES_CODE_EDITED){
             //Update the viewed MoodEvent
-            MoodEvent newMoodEvent = data.getExtras().getParcelable("updatedMood");
+            newMoodEvent = data.getExtras().getParcelable("updatedMood");
             moodEventList.set(pos, newMoodEvent);
         }
         adapter.notifyDataSetChanged();

@@ -180,7 +180,7 @@ public class EditMoodActivity extends Activity {
                 moodEvent.setReason(reasonText.getText().toString());
                 moodEvent.setAddress("123 Fakestreet, WA");
 
-                Intent resultIntent = new Intent(EditMoodActivity.this, MoodListActivity.class);
+                Intent resultIntent = new Intent();
                 resultIntent.putExtra("updatedMood", moodEvent);
 
                 setResult(RES_CODE_EDITED, resultIntent);
@@ -189,15 +189,14 @@ public class EditMoodActivity extends Activity {
         });
 
         /**
-         * Allows for the delete button in edit_mood to successfully remove current mood beind edited.
+         * Allows for the delete button in edit_mood to successfully remove current mood being edited.
          */
         FloatingActionButton deleteButton = (FloatingActionButton) findViewById(R.id.delete);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent resultIntent = new Intent(EditMoodActivity.this, MoodListActivity.class);
+                Intent resultIntent = new Intent();
                 setResult(RES_CODE_DELETED, resultIntent);
-                resultIntent.putExtra("updatedMood", moodEvent);
                 finish();
             }
         });
@@ -239,11 +238,7 @@ public class EditMoodActivity extends Activity {
     public void onStart() {
         super.onStart();
 
-        try {
-            moodEvent = getIntent().getParcelableExtra("MoodEvent");
-        } catch (Exception e) {
-            moodEvent = new MoodEvent();
-        }
+        moodEvent = getIntent().getParcelableExtra("MoodEvent");
         reasonText.setText(moodEvent.getReason());
         dateText.setText(
                 String.format(

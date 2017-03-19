@@ -2,7 +2,6 @@ package com.example.android.sendmoods;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,10 +49,20 @@ public class MoodListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Log.d("ADAPTERLOOP", moodEventList.get(position).toString());
         holder.usernameEntry.setText(moodEventList.get(position).getUsername());
-        holder.moodWordEntry.setText(moodEventList.get(position).getMood().getText());
-        holder.dateEntry.setText(moodEventList.get(position).getDate());
+        holder.moodWordEntry.setText(
+                String.format(
+                        "%1$s"
+                        , moodEventList
+                                .get(position)
+                                .getMood()
+                                .getText()));
+        holder.dateEntry.setText(
+                String.format(
+                        "On %1$s"
+                        , moodEventList
+                                .get(position)
+                                .getDate()));
         holder.colorBox.setBackground(
                 ContextCompat.getDrawable(context,
                         moodEventList.get(position)

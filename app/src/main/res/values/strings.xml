@@ -16,4 +16,7 @@
     <string name="name_spinner_text">Show events from: </string>
     <string name="mood_spinner_text">Filter by mood: </string>
     <string name="last_week">Filter last week only: </string>
+    <string name="open_drawer_string">OPENDRAWER</string>
+    <string name="close_drawer_string">CLOSEDRAWER</string>
+    <string name="action_settings">Settings</string>
 </resources>

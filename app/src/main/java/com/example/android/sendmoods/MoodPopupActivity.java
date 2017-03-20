@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ public class MoodPopupActivity extends AppCompatActivity {
     private TextView reasonText;
     private TextView addressText;
     private View popupBox;
+    private ImageView popupIcon;
     private FloatingActionButton editButton;
     private RelativeLayout popupMargin;
 
@@ -39,6 +41,7 @@ public class MoodPopupActivity extends AppCompatActivity {
         addressText = (TextView) findViewById(R.id.address_text_popup);
 
         popupBox = findViewById(R.id.popup_box);
+        popupIcon = (ImageView) findViewById(R.id.popup_icon);
         popupMargin = (RelativeLayout) findViewById(R.id.popup);
 
         //OnClick for outside the popup to close that activity
@@ -56,7 +59,8 @@ public class MoodPopupActivity extends AppCompatActivity {
         super.onStart();
         moodEvent = getIntent().getParcelableExtra("MoodEvent");
         popupBox.setBackground(ContextCompat.getDrawable(this, moodEvent.getMood().getShape()));
-        //Don't put try Except clauses everywhere.
+        popupIcon.setImageResource(moodEvent.getMood().getIcon());
+        //Don't put try-except clauses everywhere.
         //Especially where errors should not occur.
         //This makes it hard to spot real errors.
         usernameText.setText(moodEvent.getUsername());

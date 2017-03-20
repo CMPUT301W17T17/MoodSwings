@@ -36,8 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/list_box_icon"
             android:layout_marginTop="3dp"
-            android:textSize="24sp"
-            android:text="SOMEUSERNAME"/>
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/mood_word"
@@ -45,8 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/list_box_icon"
             android:layout_below="@id/user_name"
-            android:textSize="20sp"
-            android:text="EMOTION"/>
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/mood_date_time"
             android:layout_width="wrap_content"
@@ -54,8 +53,7 @@
             android:layout_margin="5dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:textSize="16sp"
-            android:text="SOME DATE HERE"/>
+            android:textSize="16sp" />
     </RelativeLayout>
 </RelativeLayout>
 </RelativeLayout>

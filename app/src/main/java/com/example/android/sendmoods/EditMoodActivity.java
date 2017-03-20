@@ -76,6 +76,13 @@ public class EditMoodActivity extends Activity {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            moodEvent.setDate(SIMPLE_DATE_FORMAT.format(myCalendar.getTime()));
+            moodEvent.setTime(SIMPLE_TIME_FORMAT.format(myCalendar.getTime()));
+            dateText.setText(
+                    String.format(
+                            "%1$s %2$s"
+                            , moodEvent.getDate()
+                            , moodEvent.getTime()));
         }
     };
 
@@ -182,7 +189,6 @@ public class EditMoodActivity extends Activity {
 
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("updatedMood", moodEvent);
-
                 setResult(RES_CODE_EDITED, resultIntent);
                 finish();
             }
@@ -205,13 +211,6 @@ public class EditMoodActivity extends Activity {
                 new DatePickerDialog(EditMoodActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                moodEvent.setDate(SIMPLE_DATE_FORMAT.format(myCalendar.getTime()));
-                moodEvent.setTime(SIMPLE_TIME_FORMAT.format(myCalendar.getTime()));
-                dateText.setText(
-                        String.format(
-                                "%1$s %2$s"
-                                , moodEvent.getDate()
-                                , moodEvent.getTime()));
             }
         });
 

@@ -14,6 +14,6 @@ public class AngryMood extends Mood {
         shape = ANGRY_POPUP_BOX;
         text = ANGRY_WORD;
         icon = ANGRY_ICON;
-        icon = ANGRY_ICON_BW;
+        icon_bw = ANGRY_ICON_BW;
     }
 }

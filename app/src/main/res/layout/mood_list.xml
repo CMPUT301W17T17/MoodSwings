@@ -7,29 +7,66 @@
     android:background="#757575"
     android:fillViewport="true">
 
-    <LinearLayout
-        android:id="@+id/mood_list_header"
+    <RelativeLayout
+        android:layout_margin="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/mood_list_header">
 
-        <ImageView
-            android:id="@+id/ppic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="12dp"
-            android:src="@drawable/profile" />
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/name_spinner_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="47dp"
-            android:layout_marginTop="110dp"
-            android:fontFamily="sans-serif-thin"
-            android:text="Edit"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:layout_alignParentStart="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:text="@string/name_spinner_text"/>
+            <Spinner
+                android:id="@+id/name_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mood_spinner_layout"
+            android:layout_below="@id/name_spinner_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentStart="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@string/mood_spinner_text"/>
+            <Spinner
+                android:id="@+id/mood_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/recent_switch_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mood_spinner_layout"
+            android:orientation="horizontal"
+            android:layout_alignParentStart="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:text="@string/last_week"/>
+            <Switch
+                android:id="@+id/recent_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/mood_list"
@@ -47,9 +84,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
-        android:onClick="editMood"
         android:src="@drawable/add"
         app:fabSize="auto" />
 

@@ -55,6 +55,6 @@ public class Mood{
     }
 
     public Mood toMood(){
-        return new Mood(color, shape, text, icon, icon_bw);
+        return new Mood(this.color, this.shape, this.text, this.icon, this.icon_bw);
     }
 }

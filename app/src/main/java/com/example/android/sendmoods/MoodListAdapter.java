@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -44,6 +45,7 @@ public class MoodListAdapter extends BaseAdapter {
             holder.usernameEntry = (TextView) convertView.findViewById(R.id.user_name);
             holder.moodWordEntry = (TextView) convertView.findViewById(R.id.mood_word);
             holder.dateEntry = (TextView) convertView.findViewById(R.id.mood_date_time);
+            holder.moodIcon = (ImageView) convertView.findViewById(R.id.list_box_icon);
             holder.colorBox = (RelativeLayout) convertView.findViewById(R.id.list_item_box);
             convertView.setTag(holder);
         } else {
@@ -68,6 +70,14 @@ public class MoodListAdapter extends BaseAdapter {
                         moodEventList.get(position)
                                 .getMood()
                                 .getShape()));
+        /*holder.moodIcon.setBackground(
+                ContextCompat.getDrawable(context
+                        , moodEventList.get(position)
+                                .getMood()
+                                .getIcon()));*/
+        holder.moodIcon.setImageResource(moodEventList.get(position)
+                .getMood()
+                .getIcon());
         return convertView;
     }
 
@@ -75,6 +85,7 @@ public class MoodListAdapter extends BaseAdapter {
         TextView usernameEntry;
         TextView moodWordEntry;
         TextView dateEntry;
+        ImageView moodIcon;
         RelativeLayout colorBox;
     }
 }

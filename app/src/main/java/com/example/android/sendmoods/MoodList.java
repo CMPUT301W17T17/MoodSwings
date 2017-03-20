@@ -12,9 +12,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
+import static com.example.android.sendmoods.Constants.COMBINED_DATE_FORMAT;
 import static com.example.android.sendmoods.Constants.SAVEFILE_NAME;
+import static com.example.android.sendmoods.Constants.SORT_ALL_TIME;
+import static com.example.android.sendmoods.Constants.WEEK_IN_MSEC;
 
 /**
  * Created by Etiennera on 2017-03-12.
@@ -28,7 +35,8 @@ public class MoodList {
     public MoodList(Context context) {
         this.context = context;
         moodEvents = new ArrayList<>();
-        adapter = new MoodListAdapter(context, moodEvents);
+        moodEventList = new ArrayList<>();
+        adapter = new MoodListAdapter(context, moodEventList);
     }
 
     public MoodListAdapter getAdapter(){
@@ -43,12 +51,65 @@ public class MoodList {
         moodEvents.set(pos, moodEvent);
     }
 
-    public int getCount(){
+    public int size(){
         return moodEvents.size();
     }
 
-    public ArrayList<MoodEvent> getmoodEvents(){
-        return moodEvents;
+    public void filterEvents(String username, String mood, Boolean date){
+        moodEventList.clear();
+        for (int i = 0; i < moodEvents.size(); i++){
+            MoodEvent mood_i = moodEvents.get(i);
+            if (mood_i.getUsername().equals(username) || username.equals("All Users")){
+                if (mood_i.getMood().getText().equals(mood) || mood.equals("All Moods")){
+                    try{
+                        if(new Date().getTime() - COMBINED_DATE_FORMAT.parse(
+                                String.format("%1$s %2$s", mood_i.getDate(), mood_i.getTime()))
+                                .getTime()
+                                < WEEK_IN_MSEC
+                                        || date == SORT_ALL_TIME) {
+                            moodEventList.add(moodEvents.get(i));
+                        }
+                    } catch (ParseException e){
+                        moodEventList.add(moodEvents.get(i));
+                    }
+                }
+            }
+        }
+
+        Collections.sort(moodEventList, new Comparator<MoodEvent>() {
+            public int compare(MoodEvent mood1, MoodEvent mood2) {
+                long t1 = 0;
+                long t2 = 0;
+                try {
+                    t1 = COMBINED_DATE_FORMAT.parse(
+                            String.format("%1$s %2$s", mood1.getDate(), mood1.getTime()))
+                            .getTime();
+                    t2 = COMBINED_DATE_FORMAT.parse(
+                            String.format("%1$s %2$s", mood2.getDate(), mood2.getTime()))
+                            .getTime();
+                } catch (ParseException e){
+                    return 1;
+                }
+                return Long.valueOf(t1).compareTo(t2);
+            }
+        });
+        adapter.notifyDataSetChanged();
+    }
+
+    public ArrayList<String> getUsernames() {
+        ArrayList<String> names = new ArrayList<>();
+        for (int i = 0; i < moodEvents.size(); i++){
+            if (!names.contains(moodEvents.get(i).getUsername())){
+                names.add(moodEvents.get(i).getUsername());
+            }
+        }
+
+        Collections.sort(names, new Comparator<String>() {
+            public int compare(String s1, String s2) {
+                return s1.compareTo(s2);
+            }
+        });
+        return names;
     }
 
     public MoodEvent getMoodEvent(int index){
@@ -71,6 +132,7 @@ public class MoodList {
         moodEvents.clear();
     }
 
+
     public void loadFromFile() {
         try {
             FileInputStream fis = context.openFileInput(SAVEFILE_NAME);
@@ -80,7 +142,7 @@ public class MoodList {
         } catch (FileNotFoundException e) {
             moodEvents = new ArrayList<>();
         }
-        adapter = new MoodListAdapter(context, moodEvents);
+        filterEvents("All Users", "All Moods", SORT_ALL_TIME);
     }
 
     public void saveInFile() {

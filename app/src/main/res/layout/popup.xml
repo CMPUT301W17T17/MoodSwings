@@ -20,7 +20,7 @@
                 android:id="@+id/popup_box"
                 android:layout_margin="25dp"
                 android:layout_marginBottom="50dp"
-                android:background="@drawable/popup_shape_blue"
+                android:background="@drawable/popup_shape_gray"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
                 <TextView
@@ -132,10 +132,10 @@
 
 
     <ImageView
+        android:id="@+id/popup_icon"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_margin="0dp"
         android:layout_gravity="center"
-        android:src="@drawable/otherhappy"
-        android:id="@+id/imageView2" />
+        android:layout_margin="0dp"
+        android:src="@drawable/neutral" />
 </RelativeLayout>

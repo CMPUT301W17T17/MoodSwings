@@ -11,12 +11,16 @@ import java.util.Locale;
 
 public class Constants {
     public static final String SAVEFILE_NAME = "local.sav";
-    private static final String dateFormat = "MMMM dd, yyyy";
     public static final SimpleDateFormat SIMPLE_DATE_FORMAT
-            = new SimpleDateFormat(dateFormat, Locale.CANADA);
-    private static final String timeFormat = "h:mm a";
+            = new SimpleDateFormat("MMMM dd, yyyy", Locale.CANADA);
     public static final SimpleDateFormat SIMPLE_TIME_FORMAT
-            = new SimpleDateFormat(timeFormat, Locale.CANADA);
+            = new SimpleDateFormat("h:mm a", Locale.CANADA);
+    public static final SimpleDateFormat COMBINED_DATE_FORMAT
+            = new SimpleDateFormat("MMMM dd, yyyy h:mm a", Locale.CANADA);
+    public static final int WEEK_IN_MSEC = (1000*60*60*24*7);
+
+    public static final Boolean SORT_RECENT_ONLY = true;
+    public static final Boolean SORT_ALL_TIME = false;
 
     /**
      * Constants for Empty Mood

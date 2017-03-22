@@ -1,9 +1,17 @@
 package com.example.android.sendmoods;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
@@ -24,8 +32,14 @@ import com.example.android.sendmoods.Moods.Mood;
 import com.example.android.sendmoods.Moods.SadMood;
 import com.example.android.sendmoods.Moods.SurprisedMood;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
+import static android.R.attr.bitmap;
+import static android.R.attr.data;
 import static com.example.android.sendmoods.Constants.AFRAID_ICON;
 import static com.example.android.sendmoods.Constants.AFRAID_ICON_BW;
 import static com.example.android.sendmoods.Constants.ANGRY_ICON;
@@ -58,8 +72,11 @@ public class EditMoodActivity extends Activity {
             , ashamedButton
             , surprisedButton
             , disgustedButton
-            , afraidButton;
+            , afraidButton
+            , addPhoto;
     private RelativeLayout editBackground;
+    private static final int CAMERA_REQUEST = 124;
+    private static final int REQUEST_CODE = 123;
 
     /**
      * A calendar for date picking. Definitely the fastest and most intuitive way.
@@ -106,6 +123,7 @@ public class EditMoodActivity extends Activity {
         disgustedButton = (ImageButton) findViewById(R.id.disgusted);
         afraidButton = (ImageButton) findViewById(R.id.afraid);
         editBackground = (RelativeLayout) findViewById(R.id.edit_background);
+        addPhoto = (ImageButton) findViewById(R.id.add_photo);
 
         reasonText = (EditText) findViewById(R.id.reason_text);
         dateText = (TextView) findViewById(R.id.edit_date);
@@ -175,6 +193,24 @@ public class EditMoodActivity extends Activity {
             }
         });
 
+        // FOR CAMERA
+        addPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkSelfPermission(Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    requestPermissions(new String[]{Manifest.permission.CAMERA},
+                            REQUEST_CODE);
+                }
+
+                else {
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                }
+            }
+        });
+
         /**
          * Allows for user to press the save button which successfully stores the values for the mood status,
          * mood reason, the date and location (optional), then redirects them to mood_list.
@@ -186,6 +222,7 @@ public class EditMoodActivity extends Activity {
                 moodEvent.setUsername("machung");
                 moodEvent.setReason(reasonText.getText().toString());
                 moodEvent.setAddress("123 Fakestreet, WA");
+                moodEvent.setPhoto();
 
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("updatedMood", moodEvent);
@@ -216,6 +253,15 @@ public class EditMoodActivity extends Activity {
 
     }
 
+    //MORE CAMERA FUNCTIONS
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            Bitmap photo = (BitmapDrawable) data.getExtras().get("data");
+            addPhoto.setImageBitmap(photo);
+
+        }
+    }
+
     private void cycleStyle(Mood mood){
         moodEvent.setMood(mood);
         editBackground.setBackgroundColor(moodEvent.getMood().getColor());
@@ -239,6 +285,7 @@ public class EditMoodActivity extends Activity {
 
         moodEvent = getIntent().getParcelableExtra("MoodEvent");
         reasonText.setText(moodEvent.getReason());
+        //addPhoto.setImageBitmap(moodEvent.getPhoto());
         dateText.setText(
                 String.format(
                         "%1$s %2$s"

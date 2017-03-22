@@ -106,6 +106,7 @@ public class Constants {
     public static final int REQ_CODE_POPUP = 1;
     public static final int REQ_CODE_NEW = 0;
     public static final int REQ_CODE_EDIT = 2;
+    public static final int REQ_CODE_MAP = 6;
     public static final int RES_CODE_DELETED = 0;
     public static final int RES_CODE_EDITED = 1;
     public static final int RES_CODE_NOCHANGE = 2;

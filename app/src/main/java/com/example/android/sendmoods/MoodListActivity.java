@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.example.android.sendmoods.Constants.REQ_CODE_EDIT;
+import static com.example.android.sendmoods.Constants.REQ_CODE_MAP;
 import static com.example.android.sendmoods.Constants.REQ_CODE_NEW;
 import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
 import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
@@ -27,7 +28,7 @@ public class MoodListActivity extends AppCompatActivity{
     private ListView moodListView;
     private MoodList moodEventList;
     private MoodListAdapter adapter;
-    private FloatingActionButton addButton;
+    private FloatingActionButton addButton, mapButton;
     private Spinner nameSpinner, moodSpinner;
     private Switch recentSwitch;
     private ArrayAdapter<String> nameAdapter, moodAdapter;
@@ -44,7 +45,7 @@ public class MoodListActivity extends AppCompatActivity{
     //private MoodEvent testMoodEvent = new MoodEvent("February 02, 2017", "11:11", "Harder Better Faster", "Mohamad", "123 Fakestreet, WA", HAPPY_WORD, HAPPY_POPUP_BOX, HAPPY_COLOR);
 
     private MoodEvent newMoodEvent;
-    private Intent changeIntent;
+    private Intent changeIntent, mapIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +169,16 @@ public class MoodListActivity extends AppCompatActivity{
                 startActivityForResult(changeIntent, REQ_CODE_NEW);
             }
         });
+
+        mapButton = (FloatingActionButton) findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mapIntent = new Intent(MoodListActivity.this, MoodMapsActivity.class);
+                startActivityForResult(mapIntent, REQ_CODE_MAP);
+            }
+        });
+
+
     }
 
     @Override

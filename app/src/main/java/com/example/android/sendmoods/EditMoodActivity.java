@@ -1,18 +1,29 @@
 package com.example.android.sendmoods;
 
+import android.Manifest;
+
+import com.google.android.gms.location.LocationListener;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.sendmoods.Moods.AfraidMood;
 import com.example.android.sendmoods.Moods.AngryMood;
@@ -23,6 +34,10 @@ import com.example.android.sendmoods.Moods.HappyMood;
 import com.example.android.sendmoods.Moods.Mood;
 import com.example.android.sendmoods.Moods.SadMood;
 import com.example.android.sendmoods.Moods.SurprisedMood;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import java.util.Calendar;
 
@@ -46,20 +61,19 @@ import static com.example.android.sendmoods.Constants.SIMPLE_DATE_FORMAT;
 import static com.example.android.sendmoods.Constants.SIMPLE_TIME_FORMAT;
 import static com.example.android.sendmoods.Constants.SURPRISED_ICON;
 import static com.example.android.sendmoods.Constants.SURPRISED_ICON_BW;
+import static com.example.android.sendmoods.R.id.location;
 
-public class EditMoodActivity extends Activity {
+public class EditMoodActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
+
     private EditText reasonText;
     private TextView dateText;
     private MoodEvent moodEvent;
-    private ImageButton happyButton
-            , angryButton
-            , sadButton
-            , confusedButton
-            , ashamedButton
-            , surprisedButton
-            , disgustedButton
-            , afraidButton;
+    private ImageButton happyButton, angryButton, sadButton, confusedButton, ashamedButton, surprisedButton, disgustedButton, afraidButton;
     private RelativeLayout editBackground;
+
+    private GoogleApiClient mGoogleApiClient;
+    private Boolean connection = false;
 
     /**
      * A calendar for date picking. Definitely the fastest and most intuitive way.
@@ -112,12 +126,12 @@ public class EditMoodActivity extends Activity {
 
         happyButton.setOnClickListener(
                 new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cycleStyle((new HappyMood()).toMood());
-                happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, HAPPY_ICON));
-            }
-        });
+                    @Override
+                    public void onClick(View v) {
+                        cycleStyle((new HappyMood()).toMood());
+                        happyButton.setBackground(ContextCompat.getDrawable(EditMoodActivity.this, HAPPY_ICON));
+                    }
+                });
 
         angryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,7 +228,195 @@ public class EditMoodActivity extends Activity {
             }
         });
 
+
+        // Location retrieval code starts here
+        FloatingActionButton locationButton = (FloatingActionButton) findViewById(location);
+
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                if (ActivityCompat.checkSelfPermission(EditMoodActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(EditMoodActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Location service needs to be enabled to detect location",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+
+                } else {
+                    Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+
+                    if (mLastLocation != null) {
+                        moodEvent.setLat(mLastLocation.getLatitude());
+                        moodEvent.setLon(mLastLocation.getLongitude());
+
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Location successfully detected",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Unexpected error: Detected location is NULL",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+
+                }
+            }
+        });
+
+        checkPermission();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+
+        mGoogleApiClient.connect();
+
+
     }
+
+    public void checkPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Location should be enabled to attach location information to mood changes",
+                        Toast.LENGTH_LONG);
+                toast.show();
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        1);
+
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay!
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                    connection = false;
+
+                    onResume();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        connection=false;
+
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        connection=false;
+
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "ERROR: Unsuccessful Connection with Google play service. Location cannot be attached.",
+                Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    public void onStart() {
+        super.onStart();
+
+        moodEvent = getIntent().getParcelableExtra("MoodEvent");
+        reasonText.setText(moodEvent.getReason());
+        dateText.setText(
+                String.format(
+                        "%1$s %2$s"
+                        , moodEvent.getDate()
+                        , moodEvent.getTime()));
+        editBackground.setBackgroundColor(moodEvent.getMood().getColor());
+
+        mGoogleApiClient.connect();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        checkPermission();
+    }
+
+    @Override
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
+
+    public void onLocationChanged(Location location) {
+
+        Toast toast = Toast.makeText(getApplicationContext(),
+                Double.toString(location.getLatitude()),
+                Toast.LENGTH_SHORT);
+        toast.show();
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private void cycleStyle(Mood mood){
         moodEvent.setMood(mood);
@@ -228,24 +430,5 @@ public class EditMoodActivity extends Activity {
         surprisedButton.setBackground(ContextCompat.getDrawable(this, SURPRISED_ICON_BW));
         disgustedButton.setBackground(ContextCompat.getDrawable(this, DISGUSTED_ICON_BW));
         afraidButton.setBackground(ContextCompat.getDrawable(this, AFRAID_ICON_BW));
-    }
-
-    /**
-     * Successfully loads the already created mood status and the reason for the selected mood when accessing edit_mood
-     * from either mood_list or popup.
-     */
-    public void onStart() {
-        super.onStart();
-
-        moodEvent = getIntent().getParcelableExtra("MoodEvent");
-        reasonText.setText(moodEvent.getReason());
-        dateText.setText(
-                String.format(
-                        "%1$s %2$s"
-                        , moodEvent.getDate()
-                        , moodEvent.getTime()));
-        editBackground.setBackgroundColor(moodEvent.getMood().getColor());
-        //ALL view variable assignments and event listener declarations co in onCreate
-        //We do NOT need that code to happen every time we switch activities
     }
 }

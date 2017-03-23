@@ -8,6 +8,16 @@
     android:layout_height="match_parent"
     android:background="#81C784">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_toLeftOf="@+id/save"
+        android:src="@drawable/add_location"
+        app:fabSize="auto"
+        tools:ignore="RelativeOverlap" />
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/save"

@@ -2,7 +2,10 @@ package com.example.android.sendmoods;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.sendmoods.Moods.AfraidMood;
 import com.example.android.sendmoods.Moods.AngryMood;
@@ -24,6 +28,7 @@ import com.example.android.sendmoods.Moods.Mood;
 import com.example.android.sendmoods.Moods.SadMood;
 import com.example.android.sendmoods.Moods.SurprisedMood;
 
+import java.security.Security;
 import java.util.Calendar;
 
 import static com.example.android.sendmoods.Constants.AFRAID_ICON;
@@ -38,6 +43,7 @@ import static com.example.android.sendmoods.Constants.DISGUSTED_ICON;
 import static com.example.android.sendmoods.Constants.DISGUSTED_ICON_BW;
 import static com.example.android.sendmoods.Constants.HAPPY_ICON;
 import static com.example.android.sendmoods.Constants.HAPPY_ICON_BW;
+import static com.example.android.sendmoods.Constants.REQ_CODE_MAP;
 import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
 import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
 import static com.example.android.sendmoods.Constants.SAD_ICON;
@@ -191,6 +197,34 @@ public class EditMoodActivity extends Activity {
                 resultIntent.putExtra("updatedMood", moodEvent);
                 setResult(RES_CODE_EDITED, resultIntent);
                 finish();
+            }
+        });
+
+        FloatingActionButton mapButton = (FloatingActionButton) findViewById(R.id.autolocation);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                    Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    double longitude = location.getLongitude();
+                    double latitude = location.getLatitude();
+                    moodEvent.setLatitude(latitude);
+                    moodEvent.setLongitude(longitude);
+
+                    Context context2 = getApplicationContext();
+                    CharSequence text2 = "found location";
+                    int duration2 = Toast.LENGTH_SHORT;
+                    Toast toast2 = Toast.makeText(context2, text2, duration2);
+                    toast2.show();
+
+                } catch(SecurityException e) {
+                    Context context2 = getApplicationContext();
+                    CharSequence text2 = "couldn't find location";
+                    int duration2 = Toast.LENGTH_SHORT;
+                    Toast toast2 = Toast.makeText(context2, text2, duration2);
+                    toast2.show();
+                }
+
             }
         });
 

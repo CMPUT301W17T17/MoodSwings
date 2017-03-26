@@ -17,7 +17,11 @@ public class MoodEvent implements Parcelable{
     private String reason;
     private String username;
     private String address;
+    private double longitude;
+    private double latitude;
     private Mood mood;
+
+
 
     /**
      * Getters and setters for all the objects that make up the mood.
@@ -29,6 +33,9 @@ public class MoodEvent implements Parcelable{
         this.reason = "";
         this.username = "SAMPLE_USERNAME";
         this.address = "SAMPLE_ADDRESS";
+        this.latitude = 0.0;
+        this.longitude = 0.0;
+
     }
 
     public String getDate() {
@@ -79,6 +86,22 @@ public class MoodEvent implements Parcelable{
         this.mood = mood;
     }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
     /*public Location getAddressGPS() {
         return addressGPS;
     }
@@ -98,6 +121,8 @@ public class MoodEvent implements Parcelable{
         this.time = in.readString();
         this.address = in.readString();
         this.reason = in.readString();
+        this.longitude = in.readDouble();
+        this.latitude = in.readDouble();
     }
 
     @Override
@@ -122,6 +147,8 @@ public class MoodEvent implements Parcelable{
         dest.writeString(time);
         dest.writeString(address);
         dest.writeString(reason);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MoodEvent createFromParcel(Parcel in) {

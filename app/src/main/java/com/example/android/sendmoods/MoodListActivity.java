@@ -2,6 +2,7 @@ package com.example.android.sendmoods;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,9 +13,14 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import com.example.android.sendmoods.Moods.AshamedMood;
+import com.example.android.sendmoods.Moods.ConfusedMood;
+import com.example.android.sendmoods.Moods.HappyMood;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.example.android.sendmoods.Constants.HAPPY_WORD;
 import static com.example.android.sendmoods.Constants.REQ_CODE_EDIT;
 import static com.example.android.sendmoods.Constants.REQ_CODE_MAP;
 import static com.example.android.sendmoods.Constants.REQ_CODE_NEW;
@@ -45,6 +51,13 @@ public class MoodListActivity extends AppCompatActivity{
     //private MoodEvent testMoodEvent = new MoodEvent("February 02, 2017", "11:11", "Harder Better Faster", "Mohamad", "123 Fakestreet, WA", HAPPY_WORD, HAPPY_POPUP_BOX, HAPPY_COLOR);
 
     private MoodEvent newMoodEvent;
+    private MoodEvent testMoodEvent1 = new MoodEvent();
+    private MoodEvent testMoodEvent2 = new MoodEvent();
+    private MoodEvent testMoodEvent3 = new MoodEvent();
+    private MoodEvent testMoodEvent4 = new MoodEvent();
+    private MoodEvent testMoodEvent5 = new MoodEvent();
+    private MoodEvent testMoodEvent6 = new MoodEvent();
+
     private Intent changeIntent, mapIntent;
 
     @Override
@@ -174,11 +187,62 @@ public class MoodListActivity extends AppCompatActivity{
         mapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mapIntent = new Intent(MoodListActivity.this, MoodMapsActivity.class);
-                startActivityForResult(mapIntent, REQ_CODE_MAP);
+                Bundle bundle = new Bundle();
+
+
+
+                if (filterMood.matches("All Moods")) {
+                    bundle.putParcelable("myList",moodEventList);
+                    mapIntent.putExtra("mapBundle", bundle);
+
+                }
+                else{
+                    String x="s";
+                }
+                startActivity(mapIntent);
             }
         });
 
 
+        /**
+         * Initialize a few test mood events *
+         **/
+
+        testMoodEvent1.setMood(new HappyMood().toMood());
+        testMoodEvent1.setUsername("machung");
+        testMoodEvent1.setLatitude(51.440270);
+        testMoodEvent1.setLongitude(-114.062019);
+        moodEventList.add(testMoodEvent1);
+
+        testMoodEvent2.setMood(new HappyMood().toMood());
+        testMoodEvent2.setUsername("machung");
+        testMoodEvent2.setLatitude(56.305);
+        testMoodEvent2.setLongitude(-113.6256);
+        moodEventList.add(testMoodEvent2);
+
+        testMoodEvent3.setMood(new HappyMood().toMood());
+        testMoodEvent3.setUsername("machung");
+        testMoodEvent3.setLatitude(52.5444);
+        testMoodEvent3.setLongitude(-113.323975);
+        moodEventList.add(testMoodEvent3);
+
+        testMoodEvent4.setMood(new AshamedMood().toMood());
+        testMoodEvent4.setUsername("machung");
+        testMoodEvent4.setLatitude(52.681);
+        testMoodEvent4.setLongitude(-113.8112);
+        moodEventList.add(testMoodEvent4);
+
+        testMoodEvent5.setMood(new ConfusedMood().toMood());
+        testMoodEvent5.setUsername("machung");
+        testMoodEvent5.setLatitude(56.305);
+        testMoodEvent5.setLongitude(-113.6256);
+        moodEventList.add(testMoodEvent5);
+
+        testMoodEvent6.setMood(new AshamedMood().toMood());
+        testMoodEvent6.setUsername("machung");
+        testMoodEvent6.setLatitude(51.180202);
+        testMoodEvent6.setLongitude(-115.565704);
+        moodEventList.add(testMoodEvent6);
     }
 
     @Override

@@ -12,6 +12,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 /**
  * Created by Matt on 2017-03-21.
  */
@@ -19,7 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
         private GoogleMap mMap;
-
+        //private Bundle bundle;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -34,6 +36,8 @@ public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCall
 
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
+
+
         }
 
 
@@ -59,9 +63,41 @@ public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCall
 
             mMap = googleMap;
 
-            // Add a marker in Sydney and move the camera
-            LatLng sydney = new LatLng(-34, 151);
-            mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            // Add a marker in Edmonton and move the camera
+            /*LatLng edmonton = new LatLng(53.5, -113.4);
+            mMap.addMarker(new MarkerOptions().position(edmonton).title("Marker in Edmonton"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(edmonton));*/
+
+
+            //ArrayList<MoodEvent> moodEventList = this.getIntent().getParcelableArrayListExtra("MapEvents");
+            //Bundle bundle = new Bundle();
+
+            Bundle bundle = getIntent().getParcelableExtra("mapBundle");
+            MoodList moodEventList = bundle.getParcelable("myList");
+
+            for (int i = 0; i < moodEventList.size(); i++) {
+                LatLng mood = new LatLng(moodEventList.getMoodEvent(i).getLatitude(), moodEventList.getMoodEvent(i).getLongitude());
+                mMap.addMarker(new MarkerOptions().position(mood).title(moodEventList.getMoodEvent(i).getMood().toString()));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(mood));
+            }
+
+
+
+            try{
+                mMap.setMyLocationEnabled(true);
+                Context context2 = getApplicationContext();
+                CharSequence text2 = "found location";
+                int duration2 = Toast.LENGTH_SHORT;
+                Toast toast2 = Toast.makeText(context2, text2, duration2);
+                toast2.show();
+
+            } catch (SecurityException e){
+                Context context2 = getApplicationContext();
+                CharSequence text2 = "cant find location";
+                int duration2 = Toast.LENGTH_SHORT;
+                Toast toast2 = Toast.makeText(context2, text2, duration2);
+                toast2.show();
+
+            }
         }
 }

@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ public class MoodPopupActivity extends AppCompatActivity {
     private ImageView popupIcon;
     private FloatingActionButton editButton;
     private RelativeLayout popupMargin;
+    private ImageView photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class MoodPopupActivity extends AppCompatActivity {
         popupBox = findViewById(R.id.popup_box);
         popupIcon = (ImageView) findViewById(R.id.popup_icon);
         popupMargin = (RelativeLayout) findViewById(R.id.popup);
+        photo = (ImageView) findViewById(R.id.user_image_popup);
+
 
         //OnClick for outside the popup to close that activity
         popupMargin.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +75,8 @@ public class MoodPopupActivity extends AppCompatActivity {
         timeText.setText(String.format("At: %1$s", moodEvent.getTime()));
         reasonText.setText(moodEvent.getReason());
         addressText.setText(moodEvent.getAddress());
+        photo.setImageBitmap(moodEvent.getPhoto());
+
     }
 
 

@@ -75,7 +75,7 @@ public class EditMoodActivity extends Activity {
             , afraidButton
             , addPhoto;
     private RelativeLayout editBackground;
-    private static final int CAMERA_REQUEST = 124;
+    private Bitmap photo;
     private static final int REQUEST_CODE = 123;
 
     /**
@@ -206,7 +206,7 @@ public class EditMoodActivity extends Activity {
 
                 else {
                     Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                    startActivityForResult(cameraIntent, REQUEST_CODE);
                 }
             }
         });
@@ -222,7 +222,7 @@ public class EditMoodActivity extends Activity {
                 moodEvent.setUsername("machung");
                 moodEvent.setReason(reasonText.getText().toString());
                 moodEvent.setAddress("123 Fakestreet, WA");
-                moodEvent.setPhoto();
+                moodEvent.setPhoto(photo);
 
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("updatedMood", moodEvent);
@@ -253,14 +253,6 @@ public class EditMoodActivity extends Activity {
 
     }
 
-    //MORE CAMERA FUNCTIONS
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap photo = (BitmapDrawable) data.getExtras().get("data");
-            addPhoto.setImageBitmap(photo);
-
-        }
-    }
 
     private void cycleStyle(Mood mood){
         moodEvent.setMood(mood);
@@ -275,6 +267,14 @@ public class EditMoodActivity extends Activity {
         disgustedButton.setBackground(ContextCompat.getDrawable(this, DISGUSTED_ICON_BW));
         afraidButton.setBackground(ContextCompat.getDrawable(this, AFRAID_ICON_BW));
     }
+    //THIS WORKS FINE, ADD PHOTO ICON SHOWS
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            photo = (Bitmap) data.getExtras().get("data");
+            addPhoto.setImageBitmap(photo);
+
+        }
+    }
 
     /**
      * Successfully loads the already created mood status and the reason for the selected mood when accessing edit_mood
@@ -285,13 +285,13 @@ public class EditMoodActivity extends Activity {
 
         moodEvent = getIntent().getParcelableExtra("MoodEvent");
         reasonText.setText(moodEvent.getReason());
-        //addPhoto.setImageBitmap(moodEvent.getPhoto());
         dateText.setText(
                 String.format(
                         "%1$s %2$s"
                         , moodEvent.getDate()
                         , moodEvent.getTime()));
         editBackground.setBackgroundColor(moodEvent.getMood().getColor());
+        addPhoto.setImageBitmap(moodEvent.getPhoto());
         //ALL view variable assignments and event listener declarations co in onCreate
         //We do NOT need that code to happen every time we switch activities
     }

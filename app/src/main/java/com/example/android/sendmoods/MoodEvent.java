@@ -1,13 +1,17 @@
 package com.example.android.sendmoods;
 
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageButton;
 
 import com.example.android.sendmoods.Moods.Mood;
 
 import java.util.Date;
 
+import static android.R.attr.bitmap;
+import static android.R.attr.format;
 import static com.example.android.sendmoods.Constants.SIMPLE_DATE_FORMAT;
 import static com.example.android.sendmoods.Constants.SIMPLE_TIME_FORMAT;
 
@@ -31,6 +35,7 @@ public class MoodEvent implements Parcelable{
         this.reason = "";
         this.username = "SAMPLE_USERNAME";
         this.address = "SAMPLE_ADDRESS";
+        //this.photo = Bitmap.createBitmap(getPhoto());
     }
 
     public String getDate() {
@@ -129,7 +134,7 @@ public class MoodEvent implements Parcelable{
         dest.writeString(time);
         dest.writeString(address);
         dest.writeString(reason);
-        dest.writeValue(photo);
+        dest.writeParcelable(photo, 0);
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MoodEvent createFromParcel(Parcel in) {

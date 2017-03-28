@@ -19,8 +19,10 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.sendmoods.Moods.AfraidMood;
 import com.example.android.sendmoods.Moods.AngryMood;
@@ -72,8 +74,8 @@ public class EditMoodActivity extends Activity {
             , ashamedButton
             , surprisedButton
             , disgustedButton
-            , afraidButton
-            , addPhoto;
+            , afraidButton;
+    private ImageView addPhoto;
     private RelativeLayout editBackground;
     private Bitmap photo;
     private static final int REQUEST_CODE = 123;
@@ -123,7 +125,7 @@ public class EditMoodActivity extends Activity {
         disgustedButton = (ImageButton) findViewById(R.id.disgusted);
         afraidButton = (ImageButton) findViewById(R.id.afraid);
         editBackground = (RelativeLayout) findViewById(R.id.edit_background);
-        addPhoto = (ImageButton) findViewById(R.id.add_photo);
+        addPhoto = (ImageView) findViewById(R.id.add_photo);
 
         reasonText = (EditText) findViewById(R.id.reason_text);
         dateText = (TextView) findViewById(R.id.edit_date);
@@ -194,7 +196,8 @@ public class EditMoodActivity extends Activity {
         });
 
         // FOR CAMERA
-        addPhoto.setOnClickListener(new View.OnClickListener() {
+
+        /*addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkSelfPermission(Manifest.permission.CAMERA)
@@ -209,7 +212,7 @@ public class EditMoodActivity extends Activity {
                     startActivityForResult(cameraIntent, REQUEST_CODE);
                 }
             }
-        });
+        });*/
 
         /**
          * Allows for user to press the save button which successfully stores the values for the mood status,
@@ -222,7 +225,11 @@ public class EditMoodActivity extends Activity {
                 moodEvent.setUsername("machung");
                 moodEvent.setReason(reasonText.getText().toString());
                 moodEvent.setAddress("123 Fakestreet, WA");
-                moodEvent.setPhoto(photo);
+
+                if (photo != null){
+                    moodEvent.setPhoto(photo);
+
+                }
 
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("updatedMood", moodEvent);
@@ -269,11 +276,13 @@ public class EditMoodActivity extends Activity {
     }
     //THIS WORKS FINE, ADD PHOTO ICON SHOWS
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+
             photo = (Bitmap) data.getExtras().get("data");
+
             addPhoto.setImageBitmap(photo);
 
-        }
+            moodEvent.setPhoto(photo);
+
     }
 
     /**
@@ -283,6 +292,7 @@ public class EditMoodActivity extends Activity {
     public void onStart() {
         super.onStart();
 
+
         moodEvent = getIntent().getParcelableExtra("MoodEvent");
         reasonText.setText(moodEvent.getReason());
         dateText.setText(
@@ -291,8 +301,31 @@ public class EditMoodActivity extends Activity {
                         , moodEvent.getDate()
                         , moodEvent.getTime()));
         editBackground.setBackgroundColor(moodEvent.getMood().getColor());
-        addPhoto.setImageBitmap(moodEvent.getPhoto());
+
+        if (moodEvent.getPhoto()!=null){
+
+            addPhoto.setImageBitmap(moodEvent.getPhoto());
+        }
+
         //ALL view variable assignments and event listener declarations co in onCreate
         //We do NOT need that code to happen every time we switch activities
+    }
+
+
+
+    public void addPhotoMethod (View v){
+
+        if (checkSelfPermission(Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                    REQUEST_CODE);
+        }
+
+        else {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, REQUEST_CODE);
+        }
+
     }
 }

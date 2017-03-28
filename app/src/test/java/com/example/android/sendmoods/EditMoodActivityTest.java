@@ -1,10 +1,19 @@
 package com.example.android.sendmoods;
 
-import android.location.Location;
+import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase;
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.robotium.solo.Solo;
+
+import junit.framework.TestCase;
+
+import org.junit.Test;
+
 import java.util.ArrayList;
+
+import static junit.framework.Assert.assertTrue;
+
 
 /**
  *
@@ -12,50 +21,44 @@ import java.util.ArrayList;
 
 public class EditMoodActivityTest extends ActivityInstrumentationTestCase2<EditMoodActivity> {
 
-    public EditMoodActivityTest() { super(EditMoodActivity.class):
+    private Solo solo;
+
+    public EditMoodActivityTest() { super(EditMoodActivity.class);
     }
 
+
+    public void setUp() throws Exception {
+        solo = new Solo(getInstrumentation(), getActivity());
+    }
+
+    public void testStart() throws Exception{
+        Activity activity = getActivity();
+    }
+
+
     public void testAddMood() {
-        Location location = new Location("defaultlocation");
-
-        MoodEvent moodEvent = new MoodEvent("default", "default", "default", "default", location, "default", "default", 0, "default");
-        ArrayList moodList = new ArrayList<>();
-        moodList.add(moodEvent);
+        //add camera testing later?
+        assertTrue(true);
+        solo.assertCurrentActivity("Wrong Activity!", EditMoodActivity.class);
 
 
-        moodList.add(moodEvent);
-        assertTrue(moodList.hasMood(moodEvent));
+
     }
 
     public void testHasMood() {
-        MoodEvent moodEvent = new MoodEvent();
-        MoodList moodList = new MoodList();
+        assertFalse(true);
 
-        assertFalse(moodList.hasMood(moodEvent));
-        moodList.add(moodEvent);
-
-        assertTrue(moodList.hasUserName(moodEvent));
     }
 
     public void testDeleteMood() {
-        MoodEvent moodEvent = new MoodEvent();
-        MoodList moodList = new MoodList();
-        moodList.add(moodEvent);
-        moodList.delete(moodEvent);
-        assertFalse(moodList.hasTweet(moodEvent));
+        assertTrue(false);
+
     }
 
     public void testAddReason() {
-        MoodReason moodReason = new MoodReason();
+        assertFalse(false);
 
-        try {
-            MoodList.add(moodReason);
-        }
-        catch (IllegalArgumentException e){
-            RuntimeException();
 
-        }
-        assertTrue(MoodList.hasMoodReason(moodReason));
     }
 
 

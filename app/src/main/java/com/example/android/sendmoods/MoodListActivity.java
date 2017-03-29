@@ -210,38 +210,38 @@ public class MoodListActivity extends AppCompatActivity{
 
         testMoodEvent1.setMood(new HappyMood().toMood());
         testMoodEvent1.setUsername("machung");
-        testMoodEvent1.setLatitude(51.440270);
-        testMoodEvent1.setLongitude(-114.062019);
+        testMoodEvent1.setLongitude(51.440270);
+        testMoodEvent1.setLatitude(-114.062019);
         moodEventList.add(testMoodEvent1);
 
         testMoodEvent2.setMood(new HappyMood().toMood());
         testMoodEvent2.setUsername("machung");
-        testMoodEvent2.setLatitude(56.305);
-        testMoodEvent2.setLongitude(-113.6256);
+        testMoodEvent2.setLongitude(56.305);
+        testMoodEvent2.setLatitude(-113.6256);
         moodEventList.add(testMoodEvent2);
 
         testMoodEvent3.setMood(new HappyMood().toMood());
         testMoodEvent3.setUsername("machung");
-        testMoodEvent3.setLatitude(52.5444);
-        testMoodEvent3.setLongitude(-113.323975);
+        testMoodEvent3.setLongitude(52.5444);
+        testMoodEvent3.setLatitude(-113.323975);
         moodEventList.add(testMoodEvent3);
 
         testMoodEvent4.setMood(new AshamedMood().toMood());
         testMoodEvent4.setUsername("machung");
-        testMoodEvent4.setLatitude(52.681);
-        testMoodEvent4.setLongitude(-113.8112);
+        testMoodEvent4.setLongitude(52.681);
+        testMoodEvent4.setLatitude(-113.8112);
         moodEventList.add(testMoodEvent4);
 
         testMoodEvent5.setMood(new ConfusedMood().toMood());
         testMoodEvent5.setUsername("machung");
-        testMoodEvent5.setLatitude(56.305);
-        testMoodEvent5.setLongitude(-113.6256);
+        testMoodEvent5.setLongitude(56.305);
+        testMoodEvent5.setLatitude(-113.6256);
         moodEventList.add(testMoodEvent5);
 
         testMoodEvent6.setMood(new AshamedMood().toMood());
         testMoodEvent6.setUsername("machung");
-        testMoodEvent6.setLatitude(51.180202);
-        testMoodEvent6.setLongitude(-115.565704);
+        testMoodEvent6.setLongitude(51.180202);
+        testMoodEvent6.setLatitude(-115.565704);
         moodEventList.add(testMoodEvent6);
     }
 

@@ -190,7 +190,6 @@ public class MoodListActivity extends AppCompatActivity{
                 Bundle bundle = new Bundle();
 
 
-
                 if (filterMood.matches("All Moods")) {
                     bundle.putParcelable("myList",moodEventList);
                     mapIntent.putExtra("mapBundle", bundle);

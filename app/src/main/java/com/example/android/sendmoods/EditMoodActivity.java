@@ -1,9 +1,13 @@
 package com.example.android.sendmoods;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
@@ -11,6 +15,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -59,6 +64,9 @@ public class EditMoodActivity extends Activity {
             , surprisedButton
             , disgustedButton
             , afraidButton;
+    private ImageView addPhoto;
+    private Bitmap photo;
+    private static final int REQUEST_CODE = 123;
     private RelativeLayout editBackground;
 
     /**
@@ -106,6 +114,7 @@ public class EditMoodActivity extends Activity {
         disgustedButton = (ImageButton) findViewById(R.id.disgusted);
         afraidButton = (ImageButton) findViewById(R.id.afraid);
         editBackground = (RelativeLayout) findViewById(R.id.edit_background);
+        addPhoto = (ImageView) findViewById(R.id.add_photo);
 
         reasonText = (EditText) findViewById(R.id.reason_text);
         dateText = (TextView) findViewById(R.id.edit_date);
@@ -187,6 +196,11 @@ public class EditMoodActivity extends Activity {
                 moodEvent.setReason(reasonText.getText().toString());
                 moodEvent.setAddress("123 Fakestreet, WA");
 
+                if (photo != null){
+                    moodEvent.setPhoto(photo);
+
+                }
+
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("updatedMood", moodEvent);
                 setResult(RES_CODE_EDITED, resultIntent);
@@ -230,6 +244,17 @@ public class EditMoodActivity extends Activity {
         afraidButton.setBackground(ContextCompat.getDrawable(this, AFRAID_ICON_BW));
     }
 
+    //THIS WORKS FINE, ADD PHOTO ICON SHOWS
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        photo = (Bitmap) data.getExtras().get("data");
+
+        addPhoto.setImageBitmap(photo);
+
+        moodEvent.setPhoto(photo);
+
+    }
+
     /**
      * Successfully loads the already created mood status and the reason for the selected mood when accessing edit_mood
      * from either mood_list or popup.
@@ -245,7 +270,29 @@ public class EditMoodActivity extends Activity {
                         , moodEvent.getDate()
                         , moodEvent.getTime()));
         editBackground.setBackgroundColor(moodEvent.getMood().getColor());
+
         //ALL view variable assignments and event listener declarations co in onCreate
         //We do NOT need that code to happen every time we switch activities
+
+        if (moodEvent.getPhoto()!=null){
+
+            addPhoto.setImageBitmap(moodEvent.getPhoto());
+        }
+    }
+
+    public void addPhotoMethod (View v){
+
+        if (checkSelfPermission(Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                    REQUEST_CODE);
+        }
+
+        else {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, REQUEST_CODE);
+        }
+
     }
 }

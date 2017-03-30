@@ -1,5 +1,6 @@
 package com.example.android.sendmoods;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -18,6 +19,7 @@ public class MoodEvent implements Parcelable{
     private String username;
     private String address;
     private Mood mood;
+    private Bitmap photo;
 
     /**
      * Getters and setters for all the objects that make up the mood.
@@ -79,6 +81,10 @@ public class MoodEvent implements Parcelable{
         this.mood = mood;
     }
 
+    public Bitmap getPhoto() { return photo; }
+
+    public void setPhoto(Bitmap photo) { this.photo = photo; }
+
     /*public Location getAddressGPS() {
         return addressGPS;
     }
@@ -98,6 +104,7 @@ public class MoodEvent implements Parcelable{
         this.time = in.readString();
         this.address = in.readString();
         this.reason = in.readString();
+        this.photo = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     @Override
@@ -122,6 +129,7 @@ public class MoodEvent implements Parcelable{
         dest.writeString(time);
         dest.writeString(address);
         dest.writeString(reason);
+        dest.writeParcelable(photo, 0);
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MoodEvent createFromParcel(Parcel in) {

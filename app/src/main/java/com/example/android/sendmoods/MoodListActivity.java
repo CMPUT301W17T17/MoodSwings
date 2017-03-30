@@ -2,6 +2,7 @@ package com.example.android.sendmoods;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,10 +13,16 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import com.example.android.sendmoods.Moods.AshamedMood;
+import com.example.android.sendmoods.Moods.ConfusedMood;
+import com.example.android.sendmoods.Moods.HappyMood;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.example.android.sendmoods.Constants.HAPPY_WORD;
 import static com.example.android.sendmoods.Constants.REQ_CODE_EDIT;
+import static com.example.android.sendmoods.Constants.REQ_CODE_MAP;
 import static com.example.android.sendmoods.Constants.REQ_CODE_NEW;
 import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
 import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
@@ -27,7 +34,7 @@ public class MoodListActivity extends AppCompatActivity{
     private ListView moodListView;
     private MoodList moodEventList;
     private MoodListAdapter adapter;
-    private FloatingActionButton addButton;
+    private FloatingActionButton addButton, mapButton;
     private Spinner nameSpinner, moodSpinner;
     private Switch recentSwitch;
     private ArrayAdapter<String> nameAdapter, moodAdapter;
@@ -44,7 +51,14 @@ public class MoodListActivity extends AppCompatActivity{
     //private MoodEvent testMoodEvent = new MoodEvent("February 02, 2017", "11:11", "Harder Better Faster", "Mohamad", "123 Fakestreet, WA", HAPPY_WORD, HAPPY_POPUP_BOX, HAPPY_COLOR);
 
     private MoodEvent newMoodEvent;
-    private Intent changeIntent;
+    private MoodEvent testMoodEvent1 = new MoodEvent();
+    private MoodEvent testMoodEvent2 = new MoodEvent();
+    private MoodEvent testMoodEvent3 = new MoodEvent();
+    private MoodEvent testMoodEvent4 = new MoodEvent();
+    private MoodEvent testMoodEvent5 = new MoodEvent();
+    private MoodEvent testMoodEvent6 = new MoodEvent();
+
+    private Intent changeIntent, mapIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +182,69 @@ public class MoodListActivity extends AppCompatActivity{
                 startActivityForResult(changeIntent, REQ_CODE_NEW);
             }
         });
+
+        mapButton = (FloatingActionButton) findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mapIntent = new Intent(MoodListActivity.this, MoodMapsActivity.class);
+                Bundle bundle = new Bundle();
+
+
+
+                if (filterMood.matches("All Moods")) {
+                    bundle.putParcelable("myList",moodEventList);
+                    mapIntent.putExtra("mapBundle", bundle);
+
+                }
+                else{
+                    bundle.putParcelable("myList",moodEventList);
+                    mapIntent.putExtra("mapBundle", bundle);
+                    String x="s";
+                }
+                startActivity(mapIntent);
+            }
+        });
+
+
+        /**
+         * Initialize a few test mood events *
+         **/
+
+        testMoodEvent1.setMood(new HappyMood().toMood());
+        testMoodEvent1.setUsername("machung");
+        testMoodEvent1.setLongitude(51.440270);
+        testMoodEvent1.setLatitude(-114.062019);
+        moodEventList.add(testMoodEvent1);
+
+        testMoodEvent2.setMood(new HappyMood().toMood());
+        testMoodEvent2.setUsername("machung");
+        testMoodEvent2.setLongitude(56.305);
+        testMoodEvent2.setLatitude(-113.6256);
+        moodEventList.add(testMoodEvent2);
+
+        testMoodEvent3.setMood(new HappyMood().toMood());
+        testMoodEvent3.setUsername("machung");
+        testMoodEvent3.setLongitude(52.5444);
+        testMoodEvent3.setLatitude(-113.323975);
+        moodEventList.add(testMoodEvent3);
+
+        testMoodEvent4.setMood(new AshamedMood().toMood());
+        testMoodEvent4.setUsername("machung");
+        testMoodEvent4.setLongitude(52.681);
+        testMoodEvent4.setLatitude(-113.8112);
+        moodEventList.add(testMoodEvent4);
+
+        testMoodEvent5.setMood(new ConfusedMood().toMood());
+        testMoodEvent5.setUsername("machung");
+        testMoodEvent5.setLongitude(56.305);
+        testMoodEvent5.setLatitude(-113.6256);
+        moodEventList.add(testMoodEvent5);
+
+        testMoodEvent6.setMood(new AshamedMood().toMood());
+        testMoodEvent6.setUsername("machung");
+        testMoodEvent6.setLongitude(51.180202);
+        testMoodEvent6.setLatitude(-115.565704);
+        moodEventList.add(testMoodEvent6);
     }
 
     @Override
@@ -189,5 +266,4 @@ public class MoodListActivity extends AppCompatActivity{
         moodEventList.filterEvents(filterName, filterMood, filterDate);
         moodEventList.saveInFile();
     }
-    //Don't quote a source that wasn't used. Type I Error is just as much a sin as type II
 }

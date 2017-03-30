@@ -1,6 +1,7 @@
 package com.example.android.sendmoods;
 
 import android.app.Activity;
+
 import android.test.ActivityInstrumentationTestCase;
 import android.test.ActivityInstrumentationTestCase2;
 
@@ -19,6 +20,7 @@ import static junit.framework.Assert.assertTrue;
  *
  */
 
+
 public class EditMoodActivityTest extends InstrumentationRegistry{
 
     private Solo solo;
@@ -31,8 +33,10 @@ public class EditMoodActivityTest extends InstrumentationRegistry{
         solo = new Solo(getInstrumentation(), getActivity());
     }
 
+
     public void testStart() throws Exception{
         Activity activity = getActivity();
+
     }
 
 

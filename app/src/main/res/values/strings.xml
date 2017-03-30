@@ -16,4 +16,5 @@
     <string name="name_spinner_text">Show events from: </string>
     <string name="mood_spinner_text">Filter by mood: </string>
     <string name="last_week">Filter last week only: </string>
+    <string name="title_activity_maps">Map</string>
 </resources>

@@ -36,7 +36,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_below="@id/username_text_popup"
-                    android:background="@mipmap/user_image_default"
+                    android:src="@mipmap/user_image_default"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/user_image_popup" />
                 <LinearLayout

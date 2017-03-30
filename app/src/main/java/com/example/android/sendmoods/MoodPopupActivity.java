@@ -27,6 +27,7 @@ public class MoodPopupActivity extends AppCompatActivity {
     private ImageView popupIcon;
     private FloatingActionButton editButton;
     private RelativeLayout popupMargin;
+    private ImageView photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class MoodPopupActivity extends AppCompatActivity {
         popupBox = findViewById(R.id.popup_box);
         popupIcon = (ImageView) findViewById(R.id.popup_icon);
         popupMargin = (RelativeLayout) findViewById(R.id.popup);
+        photo = (ImageView) findViewById(R.id.user_image_popup);
 
         //OnClick for outside the popup to close that activity
         popupMargin.setOnClickListener(new View.OnClickListener() {
@@ -60,15 +62,13 @@ public class MoodPopupActivity extends AppCompatActivity {
         moodEvent = getIntent().getParcelableExtra("MoodEvent");
         popupBox.setBackground(ContextCompat.getDrawable(this, moodEvent.getMood().getShape()));
         popupIcon.setImageResource(moodEvent.getMood().getIcon());
-        //Don't put try-except clauses everywhere.
-        //Especially where errors should not occur.
-        //This makes it hard to spot real errors.
         usernameText.setText(moodEvent.getUsername());
         moodText.setText(moodEvent.getMood().getText());
         dateText.setText(String.format("On: %1$s", moodEvent.getDate()));
         timeText.setText(String.format("At: %1$s", moodEvent.getTime()));
         reasonText.setText(moodEvent.getReason());
         addressText.setText(moodEvent.getAddress());
+        photo.setImageBitmap(moodEvent.getPhoto());
     }
 
 

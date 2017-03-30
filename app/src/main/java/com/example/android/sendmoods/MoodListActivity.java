@@ -197,6 +197,8 @@ public class MoodListActivity extends AppCompatActivity{
 
                 }
                 else{
+                    bundle.putParcelable("myList",moodEventList);
+                    mapIntent.putExtra("mapBundle", bundle);
                     String x="s";
                 }
                 startActivity(mapIntent);
@@ -264,5 +266,4 @@ public class MoodListActivity extends AppCompatActivity{
         moodEventList.filterEvents(filterName, filterMood, filterDate);
         moodEventList.saveInFile();
     }
-    //Don't quote a source that wasn't used. Type I Error is just as much a sin as type II
 }

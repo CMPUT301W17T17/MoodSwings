@@ -1,5 +1,6 @@
 package com.example.android.sendmoods;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -20,6 +21,7 @@ public class MoodEvent implements Parcelable{
     private double longitude;
     private double latitude;
     private Mood mood;
+    private Bitmap photo;
 
 
 
@@ -102,6 +104,11 @@ public class MoodEvent implements Parcelable{
         this.latitude = latitude;
     }
 
+    public Bitmap getPhoto() { return photo; }
+
+    public void setPhoto(Bitmap photo) { this.photo = photo; }
+
+
     /*public Location getAddressGPS() {
         return addressGPS;
     }
@@ -123,6 +130,7 @@ public class MoodEvent implements Parcelable{
         this.reason = in.readString();
         this.longitude = in.readDouble();
         this.latitude = in.readDouble();
+        this.photo = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     @Override
@@ -149,6 +157,7 @@ public class MoodEvent implements Parcelable{
         dest.writeString(reason);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
+        dest.writeParcelable(photo, 0);
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MoodEvent createFromParcel(Parcel in) {

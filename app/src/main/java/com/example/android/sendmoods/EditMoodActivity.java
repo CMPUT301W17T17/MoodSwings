@@ -11,6 +11,8 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +21,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,9 +69,18 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
     private EditText reasonText;
     private TextView dateText;
     private MoodEvent moodEvent;
-    private ImageButton happyButton, angryButton, sadButton, confusedButton, ashamedButton, surprisedButton, disgustedButton, afraidButton;
+    private ImageButton happyButton
+            , angryButton
+            , sadButton
+            , confusedButton
+            , ashamedButton
+            , surprisedButton
+            , disgustedButton
+            , afraidButton;
+    private ImageView addPhoto;
+    private Bitmap photo;
+    private static final int REQUEST_CODE = 123;
     private RelativeLayout editBackground;
-
     private GoogleApiClient mGoogleApiClient;
     private Boolean connection = false;
 
@@ -117,6 +129,7 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
         disgustedButton = (ImageButton) findViewById(R.id.disgusted);
         afraidButton = (ImageButton) findViewById(R.id.afraid);
         editBackground = (RelativeLayout) findViewById(R.id.edit_background);
+        addPhoto = (ImageView) findViewById(R.id.add_photo);
 
         reasonText = (EditText) findViewById(R.id.reason_text);
         dateText = (TextView) findViewById(R.id.edit_date);
@@ -197,6 +210,11 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
                 moodEvent.setUsername("machung");
                 moodEvent.setReason(reasonText.getText().toString());
                 moodEvent.setAddress("123 Fakestreet, WA");
+
+                if (photo != null){
+                    moodEvent.setPhoto(photo);
+
+                }
 
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("updatedMood", moodEvent);
@@ -348,6 +366,22 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
         toast.show();
     }
 
+    //THIS WORKS FINE, ADD PHOTO ICON SHOWS
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        photo = (Bitmap) data.getExtras().get("data");
+
+        addPhoto.setImageBitmap(photo);
+
+        moodEvent.setPhoto(photo);
+
+    }
+
+    /**
+     * Successfully loads the already created mood status and the reason for the selected mood when accessing edit_mood
+     * from either mood_list or popup.
+     */
+
     public void onStart() {
         super.onStart();
 
@@ -359,7 +393,6 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
                         , moodEvent.getDate()
                         , moodEvent.getTime()));
         editBackground.setBackgroundColor(moodEvent.getMood().getColor());
-
         mGoogleApiClient.connect();
     }
     @Override
@@ -398,5 +431,28 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
         surprisedButton.setBackground(ContextCompat.getDrawable(this, SURPRISED_ICON_BW));
         disgustedButton.setBackground(ContextCompat.getDrawable(this, DISGUSTED_ICON_BW));
         afraidButton.setBackground(ContextCompat.getDrawable(this, AFRAID_ICON_BW));
+
+        //ALL view variable assignments and event listener declarations co in onCreate
+        //We do NOT need that code to happen every time we switch activities
+
+        if (moodEvent.getPhoto()!=null){
+
+            addPhoto.setImageBitmap(moodEvent.getPhoto());
+        }
+    }
+
+    public void addPhotoMethod (View v){
+
+        if (checkSelfPermission(Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(new String[]{Manifest.permission.CAMERA},
+                    REQUEST_CODE);
+        }
+
+        else {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, REQUEST_CODE);
+        }
     }
 }

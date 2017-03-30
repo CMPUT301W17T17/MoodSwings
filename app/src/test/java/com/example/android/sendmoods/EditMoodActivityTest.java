@@ -19,7 +19,7 @@ import static junit.framework.Assert.assertTrue;
  *
  */
 
-public class EditMoodActivityTest extends ActivityInstrumentationTestCase2<EditMoodActivity> {
+public class EditMoodActivityTest extends InstrumentationRegistry{
 
     private Solo solo;
 

@@ -32,11 +32,16 @@ public class MoodList {
     private MoodListAdapter adapter;
     private Context context;
 
+    public ArrayList<MoodEvent> getMoodEventList() {
+        return moodEventList;
+    }
+
     public MoodList(Context context) {
         this.context = context;
         moodEvents = new ArrayList<>();
         moodEventList = new ArrayList<>();
         adapter = new MoodListAdapter(context, moodEventList);
+
     }
 
     public MoodListAdapter getAdapter(){

@@ -1,6 +1,8 @@
 package com.example.android.sendmoods;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,8 +29,9 @@ import static com.example.android.sendmoods.Constants.WEEK_IN_MSEC;
  * Created by Etiennera on 2017-03-12.
  */
 
-public class MoodList {
-    private ArrayList<MoodEvent> moodEvents, moodEventList;
+public class MoodList implements Parcelable{
+    private ArrayList<MoodEvent> moodEvents;
+    private ArrayList<MoodEvent> moodEventList;
     private MoodListAdapter adapter;
     private Context context;
 
@@ -38,6 +41,18 @@ public class MoodList {
         moodEventList = new ArrayList<>();
         adapter = new MoodListAdapter(context, moodEventList);
     }
+
+    public static final Creator<MoodList> CREATOR = new Creator<MoodList>() {
+        @Override
+        public MoodList createFromParcel(Parcel in) {
+            return new MoodList(in);
+        }
+
+        @Override
+        public MoodList[] newArray(int size) {
+            return new MoodList[size];
+        }
+    };
 
     public MoodListAdapter getAdapter(){
         return adapter;
@@ -53,6 +68,10 @@ public class MoodList {
 
     public int size(){
         return moodEvents.size();
+    }
+
+    public ArrayList<MoodEvent> getMoodEventList() {
+        return moodEventList;
     }
 
     public void filterEvents(String username, String mood, Boolean date){
@@ -158,4 +177,22 @@ public class MoodList {
             throw new RuntimeException();
         }
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        //dest.writeTypedList(moodEvents);
+        dest.writeTypedList(moodEventList);
+
+    }
+
+    protected MoodList(Parcel in) {
+        moodEvents = in.createTypedArrayList(MoodEvent.CREATOR);
+        moodEventList = in.createTypedArrayList(MoodEvent.CREATOR);
+    }
+
 }

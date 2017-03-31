@@ -33,7 +33,7 @@ public class MoodListActivity extends AppCompatActivity{
     private ListView moodListView;
     private MoodList moodEventList;
     private MoodListAdapter adapter;
-    private FloatingActionButton addButton;
+    private FloatingActionButton addButton, mapButton;
     private Spinner nameSpinner, moodSpinner;
     private Switch recentSwitch;
     private ArrayAdapter<String> nameAdapter, moodAdapter;
@@ -48,15 +48,11 @@ public class MoodListActivity extends AppCompatActivity{
     private TextView nameText;
     private View headerBox;
 
-    //private FragmentManager fragmentManager;
-
     private int pos;
 
-    //Location location = new Location("defaultLocation");
-    //private MoodEvent testMoodEvent = new MoodEvent("February 02, 2017", "11:11", "Harder Better Faster", "Mohamad", "123 Fakestreet, WA", HAPPY_WORD, HAPPY_POPUP_BOX, HAPPY_COLOR);
-
     private MoodEvent newMoodEvent;
-    private Intent changeIntent;
+
+    private Intent changeIntent, mapIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,19 +184,36 @@ public class MoodListActivity extends AppCompatActivity{
             }
         });
 
-        /*fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        DrawerFragment fragment = new DrawerFragment();
-        //fragmentTransaction.add(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();*/
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View hView =  navigationView.getHeaderView(0);
         moodIcon = (ImageView) hView.findViewById(R.id.drawer_header_icon);
         nameText = (TextView) hView.findViewById(R.id.drawer_header_username);
         headerBox = hView.findViewById(R.id.header_box);
 
+        mapButton = (FloatingActionButton) findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mapIntent = new Intent(MoodListActivity.this, MoodMapsActivity.class);
+                Bundle bundle = new Bundle();
+
+
+                if (filterMood.matches("All Moods")) {
+                    bundle.putParcelable("myList",moodEventList);
+                    mapIntent.putExtra("mapBundle", bundle);
+
+                }
+                else{
+                    bundle.putParcelable("myList",moodEventList);
+                    mapIntent.putExtra("mapBundle", bundle);
+                    String x="s";
+                }
+                startActivity(mapIntent);
+            }
+        });
+
+        /**
+         * Initialize a few test mood events *
+         **/
     }
 
     @Override
@@ -227,5 +240,4 @@ public class MoodListActivity extends AppCompatActivity{
         nameText.setText(newMoodEvent.getMood().getText());
         headerBox.setBackground(ContextCompat.getDrawable(this, newMoodEvent.getMood().getShape()));
     }
-    //Don't quote a source that wasn't used. Type I Error is just as much a sin as type II
 }

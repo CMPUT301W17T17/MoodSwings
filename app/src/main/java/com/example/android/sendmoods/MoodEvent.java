@@ -1,5 +1,6 @@
 package com.example.android.sendmoods;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -17,7 +18,10 @@ public class MoodEvent implements Parcelable{
     private String reason;
     private String username;
     private String address;
+    private double longitude;
+    private double latitude;
     private Mood mood;
+    private Bitmap photo;
 
     /**
      * Getters and setters for all the objects that make up the mood.
@@ -29,6 +33,9 @@ public class MoodEvent implements Parcelable{
         this.reason = "";
         this.username = "SAMPLE_USERNAME";
         this.address = "SAMPLE_ADDRESS";
+        this.latitude = 0.0;
+        this.longitude = 0.0;
+
     }
 
     public String getDate() {
@@ -79,6 +86,26 @@ public class MoodEvent implements Parcelable{
         this.mood = mood;
     }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Bitmap getPhoto() { return photo; }
+
+    public void setPhoto(Bitmap photo) { this.photo = photo; }
+
     /**
      * @param in
      * The form in which the objects will be read by parcel, int or String.
@@ -90,6 +117,9 @@ public class MoodEvent implements Parcelable{
         this.time = in.readString();
         this.address = in.readString();
         this.reason = in.readString();
+        this.longitude = in.readDouble();
+        this.latitude = in.readDouble();
+        this.photo = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     @Override
@@ -114,6 +144,9 @@ public class MoodEvent implements Parcelable{
         dest.writeString(time);
         dest.writeString(address);
         dest.writeString(reason);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeParcelable(photo, 0);
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MoodEvent createFromParcel(Parcel in) {

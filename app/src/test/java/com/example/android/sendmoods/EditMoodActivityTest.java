@@ -1,18 +1,16 @@
 package com.example.android.sendmoods;
-
+/*
 import android.location.Location;
 import android.test.ActivityInstrumentationTestCase;
 import android.test.ActivityInstrumentationTestCase2;
 
 import java.util.ArrayList;
 
-/**
- *
- */
+
 
 public class EditMoodActivityTest extends ActivityInstrumentationTestCase2<EditMoodActivity> {
 
-    public EditMoodActivityTest() { super(EditMoodActivity.class):
+    public EditMoodActivityTest() { super(EditMoodActivity.class;
     }
 
     public void testAddMood() {
@@ -59,4 +57,4 @@ public class EditMoodActivityTest extends ActivityInstrumentationTestCase2<EditM
     }
 
 
-}
+}*/

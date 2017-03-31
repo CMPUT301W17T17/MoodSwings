@@ -8,9 +8,18 @@
     android:background="#757575"
     tools:context="com.example.android.sendmoods.MoodEvent">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/to_mood_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/rightarrow"
+        app:fabSize="auto" />
 
     <EditText
-        android:id="@+id/textView"
+        android:id="@+id/user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -18,18 +27,18 @@
         android:layout_marginBottom="100dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="#BDBDBD"
+        android:background="@drawable/greyback"
         android:fontFamily="sans-serif-thin"
+        android:gravity="center_horizontal"
+        android:hint="Username"
         android:paddingBottom="16dp"
-        android:paddingLeft="8dp"
         android:paddingTop="16dp"
-        android:text="Username"
-        android:textColor="#FDD835"
+        android:textColor="#000000"
+        android:textColorHint="#F06292"
         android:textSize="22dp"
-        android:textStyle="italic|bold" />
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -38,27 +47,18 @@
         android:fontFamily="sans-serif-thin"
         android:gravity="center"
         android:text="Welcome to Send Moods! Please start by choosing a username!"
-        android:textColor="#FDD835"
+        android:textColor="#FFF176"
         android:textSize="22sp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/wink" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="16dp"
-        android:src="@drawable/rightarrow"
-        app:fabSize="auto" />
+        android:src="@drawable/otherhappy" />
 
 </RelativeLayout>

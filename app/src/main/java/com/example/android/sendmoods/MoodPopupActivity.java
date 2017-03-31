@@ -60,9 +60,6 @@ public class MoodPopupActivity extends AppCompatActivity {
         moodEvent = getIntent().getParcelableExtra("MoodEvent");
         popupBox.setBackground(ContextCompat.getDrawable(this, moodEvent.getMood().getShape()));
         popupIcon.setImageResource(moodEvent.getMood().getIcon());
-        //Don't put try-except clauses everywhere.
-        //Especially where errors should not occur.
-        //This makes it hard to spot real errors.
         usernameText.setText(moodEvent.getUsername());
         moodText.setText(moodEvent.getMood().getText());
         dateText.setText(String.format("On: %1$s", moodEvent.getDate()));

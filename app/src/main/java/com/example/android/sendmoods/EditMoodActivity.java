@@ -2,6 +2,8 @@ package com.example.android.sendmoods;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -28,24 +30,32 @@ import java.util.Calendar;
 
 import static com.example.android.sendmoods.Constants.AFRAID_ICON;
 import static com.example.android.sendmoods.Constants.AFRAID_ICON_BW;
+import static com.example.android.sendmoods.Constants.AFRAID_WORD;
 import static com.example.android.sendmoods.Constants.ANGRY_ICON;
 import static com.example.android.sendmoods.Constants.ANGRY_ICON_BW;
+import static com.example.android.sendmoods.Constants.ANGRY_WORD;
 import static com.example.android.sendmoods.Constants.ASHAMED_ICON;
 import static com.example.android.sendmoods.Constants.ASHAMED_ICON_BW;
+import static com.example.android.sendmoods.Constants.ASHAMED_WORD;
 import static com.example.android.sendmoods.Constants.CONFUSED_ICON;
 import static com.example.android.sendmoods.Constants.CONFUSED_ICON_BW;
+import static com.example.android.sendmoods.Constants.CONFUSED_WORD;
 import static com.example.android.sendmoods.Constants.DISGUSTED_ICON;
 import static com.example.android.sendmoods.Constants.DISGUSTED_ICON_BW;
+import static com.example.android.sendmoods.Constants.DISGUSTED_WORD;
 import static com.example.android.sendmoods.Constants.HAPPY_ICON;
 import static com.example.android.sendmoods.Constants.HAPPY_ICON_BW;
+import static com.example.android.sendmoods.Constants.HAPPY_WORD;
 import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
 import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
 import static com.example.android.sendmoods.Constants.SAD_ICON;
 import static com.example.android.sendmoods.Constants.SAD_ICON_BW;
+import static com.example.android.sendmoods.Constants.SAD_WORD;
 import static com.example.android.sendmoods.Constants.SIMPLE_DATE_FORMAT;
 import static com.example.android.sendmoods.Constants.SIMPLE_TIME_FORMAT;
 import static com.example.android.sendmoods.Constants.SURPRISED_ICON;
 import static com.example.android.sendmoods.Constants.SURPRISED_ICON_BW;
+import static com.example.android.sendmoods.Constants.SURPRISED_WORD;
 
 public class EditMoodActivity extends Activity {
     private EditText reasonText;
@@ -213,7 +223,6 @@ public class EditMoodActivity extends Activity {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
     }
 
     private void cycleStyle(Mood mood){
@@ -245,7 +254,32 @@ public class EditMoodActivity extends Activity {
                         , moodEvent.getDate()
                         , moodEvent.getTime()));
         editBackground.setBackgroundColor(moodEvent.getMood().getColor());
-        //ALL view variable assignments and event listener declarations co in onCreate
-        //We do NOT need that code to happen every time we switch activities
+
+        switch (moodEvent.getMood().getText()) {
+            case HAPPY_WORD:
+                happyButton.setBackground(ContextCompat.getDrawable(this, HAPPY_ICON));
+                break;
+            case ANGRY_WORD:
+                angryButton.setBackground(ContextCompat.getDrawable(this, ANGRY_ICON));
+                break;
+            case SAD_WORD:
+                sadButton.setBackground(ContextCompat.getDrawable(this, SAD_ICON));
+                break;
+            case CONFUSED_WORD:
+                confusedButton.setBackground(ContextCompat.getDrawable(this, CONFUSED_ICON));
+                break;
+            case ASHAMED_WORD:
+                ashamedButton.setBackground(ContextCompat.getDrawable(this, ASHAMED_ICON));
+                break;
+            case SURPRISED_WORD:
+                surprisedButton.setBackground(ContextCompat.getDrawable(this, SURPRISED_ICON));
+                break;
+            case DISGUSTED_WORD:
+                disgustedButton.setBackground(ContextCompat.getDrawable(this, DISGUSTED_ICON));
+                break;
+            case AFRAID_WORD:
+                afraidButton.setBackground(ContextCompat.getDrawable(this, AFRAID_ICON));
+                break;
+        }
     }
 }

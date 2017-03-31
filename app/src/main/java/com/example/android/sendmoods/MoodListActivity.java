@@ -3,6 +3,8 @@ package com.example.android.sendmoods;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,9 +13,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +27,6 @@ import static com.example.android.sendmoods.Constants.REQ_CODE_NEW;
 import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
 import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
 import static com.example.android.sendmoods.Constants.SORT_ALL_TIME;
-
 
 public class MoodListActivity extends AppCompatActivity{
 
@@ -40,6 +43,12 @@ public class MoodListActivity extends AppCompatActivity{
     private Boolean filterDate = SORT_ALL_TIME;
     private String filterMood = "All Moods";
     private String filterName = "All Users";
+
+    private ImageView moodIcon;
+    private TextView nameText;
+    private View headerBox;
+
+    //private FragmentManager fragmentManager;
 
     private int pos;
 
@@ -178,6 +187,20 @@ public class MoodListActivity extends AppCompatActivity{
                 startActivityForResult(changeIntent, REQ_CODE_NEW);
             }
         });
+
+        /*fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        DrawerFragment fragment = new DrawerFragment();
+        //fragmentTransaction.add(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();*/
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View hView =  navigationView.getHeaderView(0);
+        moodIcon = (ImageView) hView.findViewById(R.id.drawer_header_icon);
+        nameText = (TextView) hView.findViewById(R.id.drawer_header_username);
+        headerBox = hView.findViewById(R.id.header_box);
+
     }
 
     @Override
@@ -198,6 +221,11 @@ public class MoodListActivity extends AppCompatActivity{
         }
         moodEventList.filterEvents(filterName, filterMood, filterDate);
         moodEventList.saveInFile();
+
+        newMoodEvent = moodEventList.getMostRecent();
+        moodIcon.setImageResource(newMoodEvent.getMood().getIcon());
+        nameText.setText(newMoodEvent.getMood().getText());
+        headerBox.setBackground(ContextCompat.getDrawable(this, newMoodEvent.getMood().getShape()));
     }
     //Don't quote a source that wasn't used. Type I Error is just as much a sin as type II
 }

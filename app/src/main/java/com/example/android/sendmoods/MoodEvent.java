@@ -79,14 +79,6 @@ public class MoodEvent implements Parcelable{
         this.mood = mood;
     }
 
-    /*public Location getAddressGPS() {
-        return addressGPS;
-    }
-
-    public void setAddressGPS(Location addressGPS) {
-        this.addressGPS = addressGPS;
-    }*/
-
     /**
      * @param in
      * The form in which the objects will be read by parcel, int or String.

@@ -1,30 +1,27 @@
 package com.example.android.sendmoods;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Created by Etiennera on 2017-03-20.
  */
 
 public class DrawerFragment extends AppCompatActivity{
+    private ImageView moodIcon;
+    private TextView nameText;
+    private View headerBox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.list_activity_main);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -32,7 +29,14 @@ public class DrawerFragment extends AppCompatActivity{
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        /*NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);*/
+        moodIcon = (ImageView) findViewById(R.id.drawer_header_icon);
+        nameText = (TextView) findViewById(R.id.drawer_header_username);
+        headerBox = findViewById(R.id.header_box);
+    }
+
+    public void setStyle(int color, int shape, String text){
+        moodIcon.setImageResource(shape);
+        nameText.setText(text);
+        headerBox.setBackground(ContextCompat.getDrawable(this, color));
     }
 }

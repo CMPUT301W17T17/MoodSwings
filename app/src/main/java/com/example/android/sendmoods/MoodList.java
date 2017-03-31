@@ -116,6 +116,8 @@ public class MoodList {
         return moodEvents.get(index);
     }
 
+    public MoodEvent getMostRecent() { return getMoodEvent(0); }
+
     public boolean hasMoodEvent(MoodEvent moodEvent){
         return moodEvents.contains(moodEvent);
     }

@@ -21,4 +21,8 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+    <style name="DrawerTextStyle">
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

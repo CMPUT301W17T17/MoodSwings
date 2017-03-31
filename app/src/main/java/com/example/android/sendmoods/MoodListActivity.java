@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,6 +35,7 @@ public class MoodListActivity extends AppCompatActivity{
     private MoodList moodEventList;
     private MoodListAdapter adapter;
     private FloatingActionButton addButton, mapButton;
+    private NavigationView navigationView;
     private Spinner nameSpinner, moodSpinner;
     private Switch recentSwitch;
     private ArrayAdapter<String> nameAdapter, moodAdapter;
@@ -103,6 +105,23 @@ public class MoodListActivity extends AppCompatActivity{
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                switch (id) {
+                    case R.id.nav_add:
+                        newMoodEvent = new MoodEvent();
+                        changeIntent = new Intent(MoodListActivity.this, EditMoodActivity.class);
+                        changeIntent.putExtra("MoodEvent", newMoodEvent);
+                        startActivityForResult(changeIntent, REQ_CODE_NEW);
+                        break;
+                }
+                return false;
             }
         });
 
@@ -184,7 +203,6 @@ public class MoodListActivity extends AppCompatActivity{
             }
         });
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View hView =  navigationView.getHeaderView(0);
         moodIcon = (ImageView) hView.findViewById(R.id.drawer_header_icon);
         nameText = (TextView) hView.findViewById(R.id.drawer_header_username);

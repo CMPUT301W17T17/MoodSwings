@@ -365,12 +365,18 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
     //THIS WORKS FINE, ADD PHOTO ICON SHOWS
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        photo = (Bitmap) data.getExtras().get("data");
+        try{
+            photo = (Bitmap) data.getExtras().get("data");
+        }
+        catch(Exception e){
+            photo = null;
+        }
 
-        addPhoto.setImageBitmap(photo);
+        if (photo != null) {
+            addPhoto.setImageBitmap(photo);
 
-        moodEvent.setPhoto(photo);
-
+            moodEvent.setPhoto(photo);
+        }
     }
 
     /**

@@ -68,7 +68,9 @@ public class MoodPopupActivity extends AppCompatActivity {
         timeText.setText(String.format("At: %1$s", moodEvent.getTime()));
         reasonText.setText(moodEvent.getReason());
         addressText.setText(moodEvent.getAddress());
-        photo.setImageBitmap(moodEvent.getPhoto());
+        if (moodEvent.getPhoto()!=null){
+            photo.setImageBitmap(moodEvent.getPhoto());
+        }
     }
 
 

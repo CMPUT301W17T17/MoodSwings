@@ -23,8 +23,6 @@ public class MoodEvent implements Parcelable{
     private Mood mood;
     private Bitmap photo;
 
-
-
     /**
      * Getters and setters for all the objects that make up the mood.
      */
@@ -107,15 +105,6 @@ public class MoodEvent implements Parcelable{
     public Bitmap getPhoto() { return photo; }
 
     public void setPhoto(Bitmap photo) { this.photo = photo; }
-
-
-    /*public Location getAddressGPS() {
-        return addressGPS;
-    }
-
-    public void setAddressGPS(Location addressGPS) {
-        this.addressGPS = addressGPS;
-    }*/
 
     /**
      * @param in

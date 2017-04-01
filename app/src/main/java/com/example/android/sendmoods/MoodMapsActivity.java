@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
         private GoogleMap mMap;
-        //private Bundle bundle;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -77,7 +76,7 @@ public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCall
 
             for (int i = 0; i < moodEventList.size(); i++) {
                 LatLng mood = new LatLng(moodEventList.getMoodEvent(i).getLatitude(), moodEventList.getMoodEvent(i).getLongitude());
-                mMap.addMarker(new MarkerOptions().position(mood).title(moodEventList.getMoodEvent(i).getMood().toString()));
+                mMap.addMarker(new MarkerOptions().position(mood).title(moodEventList.getMoodEvent(i).getMood().getText()));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(mood));
             }
 

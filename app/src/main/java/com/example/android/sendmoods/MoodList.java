@@ -30,7 +30,8 @@ import static com.example.android.sendmoods.Constants.WEEK_IN_MSEC;
  */
 
 public class MoodList implements Parcelable{
-    private ArrayList<MoodEvent> moodEvents, moodEventList;
+    private ArrayList<MoodEvent> moodEvents;
+    private ArrayList<MoodEvent> moodEventList;
     private MoodListAdapter adapter;
     private Context context;
 
@@ -72,6 +73,10 @@ public class MoodList implements Parcelable{
 
     public int size(){
         return moodEvents.size();
+    }
+
+    public ArrayList<MoodEvent> getMoodEventList() {
+        return moodEventList;
     }
 
     public void filterEvents(String username, String mood, Boolean date){
@@ -135,6 +140,8 @@ public class MoodList implements Parcelable{
         return moodEvents.get(index);
     }
 
+    public MoodEvent getMostRecent() { return getMoodEvent(moodEvents.size() - 1); }
+
     public boolean hasMoodEvent(MoodEvent moodEvent){
         return moodEvents.contains(moodEvent);
     }
@@ -183,7 +190,8 @@ public class MoodList implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(moodEvents);
+        //dest.writeTypedList(moodEvents);
+        dest.writeTypedList(moodEventList);
 
     }
 

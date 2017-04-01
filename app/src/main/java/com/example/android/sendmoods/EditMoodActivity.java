@@ -3,11 +3,10 @@ package com.example.android.sendmoods;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.android.sendmoods.Moods.AfraidMood;
@@ -39,31 +39,36 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
-import java.security.Security;
 import java.util.Calendar;
 
 import static com.example.android.sendmoods.Constants.AFRAID_ICON;
 import static com.example.android.sendmoods.Constants.AFRAID_ICON_BW;
+import static com.example.android.sendmoods.Constants.AFRAID_WORD;
 import static com.example.android.sendmoods.Constants.ANGRY_ICON;
 import static com.example.android.sendmoods.Constants.ANGRY_ICON_BW;
+import static com.example.android.sendmoods.Constants.ANGRY_WORD;
 import static com.example.android.sendmoods.Constants.ASHAMED_ICON;
 import static com.example.android.sendmoods.Constants.ASHAMED_ICON_BW;
+import static com.example.android.sendmoods.Constants.ASHAMED_WORD;
 import static com.example.android.sendmoods.Constants.CONFUSED_ICON;
 import static com.example.android.sendmoods.Constants.CONFUSED_ICON_BW;
+import static com.example.android.sendmoods.Constants.CONFUSED_WORD;
 import static com.example.android.sendmoods.Constants.DISGUSTED_ICON;
 import static com.example.android.sendmoods.Constants.DISGUSTED_ICON_BW;
+import static com.example.android.sendmoods.Constants.DISGUSTED_WORD;
 import static com.example.android.sendmoods.Constants.HAPPY_ICON;
 import static com.example.android.sendmoods.Constants.HAPPY_ICON_BW;
-import static com.example.android.sendmoods.Constants.REQ_CODE_MAP;
+import static com.example.android.sendmoods.Constants.HAPPY_WORD;
 import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
 import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
 import static com.example.android.sendmoods.Constants.SAD_ICON;
 import static com.example.android.sendmoods.Constants.SAD_ICON_BW;
+import static com.example.android.sendmoods.Constants.SAD_WORD;
 import static com.example.android.sendmoods.Constants.SIMPLE_DATE_FORMAT;
 import static com.example.android.sendmoods.Constants.SIMPLE_TIME_FORMAT;
 import static com.example.android.sendmoods.Constants.SURPRISED_ICON;
 import static com.example.android.sendmoods.Constants.SURPRISED_ICON_BW;
-import static com.example.android.sendmoods.R.id.mapButton;
+import static com.example.android.sendmoods.Constants.SURPRISED_WORD;
 
 public class EditMoodActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private EditText reasonText;
@@ -100,6 +105,16 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             moodEvent.setDate(SIMPLE_DATE_FORMAT.format(myCalendar.getTime()));
+
+            new TimePickerDialog(EditMoodActivity.this, time, myCalendar
+                    .get(Calendar.HOUR_OF_DAY), myCalendar.get(Calendar.MINUTE), false).show();
+        }
+    };
+    TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hour, int minute) {
+            myCalendar.set(Calendar.HOUR_OF_DAY, hour);
+            myCalendar.set(Calendar.MINUTE, minute);
             moodEvent.setTime(SIMPLE_TIME_FORMAT.format(myCalendar.getTime()));
             dateText.setText(
                     String.format(
@@ -243,7 +258,6 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
             }
         });
 
-
         // Location retrieval code starts here
         FloatingActionButton locationButton = (FloatingActionButton) findViewById(R.id.location);
 
@@ -289,8 +303,6 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
                 .build();
 
         mGoogleApiClient.connect();
-
-
     }
 
     public void checkPermission() {
@@ -306,13 +318,9 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
                         Toast.LENGTH_LONG);
                 toast.show();
             } else {
-
-                // No explanation needed, we can request the permission.
-
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         1);
-
             }
         }
     }
@@ -321,26 +329,14 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 1: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay!
-
                 } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-
                     connection = false;
-
                     onResume();
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
     @Override
@@ -369,12 +365,18 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
     //THIS WORKS FINE, ADD PHOTO ICON SHOWS
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        photo = (Bitmap) data.getExtras().get("data");
+        try{
+            photo = (Bitmap) data.getExtras().get("data");
+        }
+        catch(Exception e){
+            photo = null;
+        }
 
-        addPhoto.setImageBitmap(photo);
+        if (photo != null) {
+            addPhoto.setImageBitmap(photo);
 
-        moodEvent.setPhoto(photo);
-
+            moodEvent.setPhoto(photo);
+        }
     }
 
     /**
@@ -393,6 +395,38 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
                         , moodEvent.getDate()
                         , moodEvent.getTime()));
         editBackground.setBackgroundColor(moodEvent.getMood().getColor());
+
+        switch (moodEvent.getMood().getText()) {
+            case HAPPY_WORD:
+                happyButton.setBackground(ContextCompat.getDrawable(this, HAPPY_ICON));
+                break;
+            case ANGRY_WORD:
+                angryButton.setBackground(ContextCompat.getDrawable(this, ANGRY_ICON));
+                break;
+            case SAD_WORD:
+                sadButton.setBackground(ContextCompat.getDrawable(this, SAD_ICON));
+                break;
+            case CONFUSED_WORD:
+                confusedButton.setBackground(ContextCompat.getDrawable(this, CONFUSED_ICON));
+                break;
+            case ASHAMED_WORD:
+                ashamedButton.setBackground(ContextCompat.getDrawable(this, ASHAMED_ICON));
+                break;
+            case SURPRISED_WORD:
+                surprisedButton.setBackground(ContextCompat.getDrawable(this, SURPRISED_ICON));
+                break;
+            case DISGUSTED_WORD:
+                disgustedButton.setBackground(ContextCompat.getDrawable(this, DISGUSTED_ICON));
+                break;
+            case AFRAID_WORD:
+                afraidButton.setBackground(ContextCompat.getDrawable(this, AFRAID_ICON));
+                break;
+        }
+
+        if (moodEvent.getPhoto()!=null){
+            addPhoto.setImageBitmap(moodEvent.getPhoto());
+        }
+
         mGoogleApiClient.connect();
     }
     @Override
@@ -410,13 +444,10 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
 
 
     public void onLocationChanged(Location location) {
-
         Toast toast = Toast.makeText(getApplicationContext(),
                 Double.toString(location.getLatitude()),
                 Toast.LENGTH_SHORT);
         toast.show();
-
-
     }
 
     private void cycleStyle(Mood mood){
@@ -431,25 +462,15 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
         surprisedButton.setBackground(ContextCompat.getDrawable(this, SURPRISED_ICON_BW));
         disgustedButton.setBackground(ContextCompat.getDrawable(this, DISGUSTED_ICON_BW));
         afraidButton.setBackground(ContextCompat.getDrawable(this, AFRAID_ICON_BW));
-
-        //ALL view variable assignments and event listener declarations co in onCreate
-        //We do NOT need that code to happen every time we switch activities
-
-        if (moodEvent.getPhoto()!=null){
-
-            addPhoto.setImageBitmap(moodEvent.getPhoto());
-        }
     }
 
     public void addPhotoMethod (View v){
-
         if (checkSelfPermission(Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
             requestPermissions(new String[]{Manifest.permission.CAMERA},
                     REQUEST_CODE);
         }
-
         else {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, REQUEST_CODE);

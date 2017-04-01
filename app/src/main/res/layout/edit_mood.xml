@@ -65,7 +65,6 @@
             android:id="@+id/add_photo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_below="@id/edit_username"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:onClick="addPhotoMethod"

@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 
 /**
@@ -21,29 +21,13 @@ import static junit.framework.Assert.assertTrue;
  */
 
 
-public class EditMoodActivityTest extends InstrumentationRegistry{
+public class EditMoodActivityTest{
 
-    private Solo solo;
-
-    public EditMoodActivityTest() { super(EditMoodActivity.class);
-    }
-
-
-    public void setUp() throws Exception {
-        solo = new Solo(getInstrumentation(), getActivity());
-    }
-
-
-    public void testStart() throws Exception{
-        Activity activity = getActivity();
-
-    }
 
 
     public void testAddMood() {
         //add camera testing later?
         assertTrue(true);
-        solo.assertCurrentActivity("Wrong Activity!", EditMoodActivity.class);
 
 
 

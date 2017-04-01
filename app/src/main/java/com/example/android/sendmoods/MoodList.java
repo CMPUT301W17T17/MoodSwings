@@ -135,7 +135,7 @@ public class MoodList implements Parcelable{
         return moodEvents.get(index);
     }
 
-    public MoodEvent getMostRecent() { return getMoodEvent(0); }
+    public MoodEvent getMostRecent() { return getMoodEvent(moodEvents.size() - 1); }
 
     public boolean hasMoodEvent(MoodEvent moodEvent){
         return moodEvents.contains(moodEvent);

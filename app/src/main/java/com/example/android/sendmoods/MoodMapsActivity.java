@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
         private GoogleMap mMap;
-        //private Bundle bundle;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);

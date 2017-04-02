@@ -38,4 +38,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:10.2.1'
     compile 'com.google.android.gms:play-services-location:10.2.1'
 
+    compile 'io.searchbox:jest-droid:2.0.0'
+
 }

@@ -75,9 +75,6 @@ public class MoodList implements Parcelable{
         return moodEvents.size();
     }
 
-    public ArrayList<MoodEvent> getMoodEventList() {
-        return moodEventList;
-    }
 
     public void filterEvents(String username, String mood, Boolean date){
         moodEventList.clear();

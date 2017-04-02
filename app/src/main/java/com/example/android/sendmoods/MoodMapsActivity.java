@@ -1,6 +1,10 @@
 package com.example.android.sendmoods;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -9,10 +13,21 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+
+import static com.example.android.sendmoods.Constants.AFRAID_WORD;
+import static com.example.android.sendmoods.Constants.ANGRY_WORD;
+import static com.example.android.sendmoods.Constants.ASHAMED_WORD;
+import static com.example.android.sendmoods.Constants.CONFUSED_WORD;
+import static com.example.android.sendmoods.Constants.DISGUSTED_WORD;
+import static com.example.android.sendmoods.Constants.HAPPY_WORD;
+import static com.example.android.sendmoods.Constants.SAD_WORD;
+import static com.example.android.sendmoods.Constants.SURPRISED_WORD;
 
 /**
  * Created by Matt on 2017-03-21.
@@ -75,11 +90,63 @@ public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCall
             MoodList moodEventList = bundle.getParcelable("myList");
 
             for (int i = 0; i < moodEventList.size(); i++) {
+                String icon = moodEventList.getMoodEvent(i).getMood().getText();
+
+                // initialize the marker so it exists
+                Bitmap smallMarker = BitmapFactory.decodeResource(context.getResources(), R.drawable.ashamed);
+                int height = 120;
+                int width = 120;
+
+                if (icon.equals(ASHAMED_WORD)) {
+
+                    BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.ashamed);
+                    Bitmap b=bitmapdraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+
+                }
+                if (icon.equals(ANGRY_WORD)) {
+
+                    BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.angry);
+                    Bitmap b=bitmapdraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+
+                }
+                if (icon.equals(HAPPY_WORD)) {
+                    BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.otherhappy);
+                    Bitmap b=bitmapdraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                }
+                if (icon.equals(SAD_WORD)) {
+                    BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.sad);
+                    Bitmap b=bitmapdraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                }
+                if (icon.equals(DISGUSTED_WORD)) {
+                    BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.disgusted);
+                    Bitmap b=bitmapdraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                }
+                if (icon.equals(CONFUSED_WORD)) {
+                    BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.confused);
+                    Bitmap b=bitmapdraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                }
+                if (icon.equals(SURPRISED_WORD)) {
+                    BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.surprised);
+                    Bitmap b=bitmapdraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                }
+                if (icon.equals(AFRAID_WORD)) {
+                    BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.afraid);
+                    Bitmap b=bitmapdraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                }
+
+
                 LatLng mood = new LatLng(moodEventList.getMoodEvent(i).getLatitude(), moodEventList.getMoodEvent(i).getLongitude());
-                mMap.addMarker(new MarkerOptions().position(mood).title(moodEventList.getMoodEvent(i).getMood().getText()));
+                mMap.addMarker(new MarkerOptions().position(mood).icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).title(moodEventList.getMoodEvent(i).getMood().getText()));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(mood));
             }
-
 
 
             try{
@@ -98,5 +165,12 @@ public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCall
                 toast2.show();
 
             }
+
+
         }
+    public Bitmap resizeMapIcons(String iconName,int width, int height){
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable", getPackageName()));
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+        return resizedBitmap;
+    }
 }

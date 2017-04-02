@@ -83,7 +83,7 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
             , disgustedButton
             , afraidButton;
     private ImageView addPhoto;
-    private Bitmap photo;
+    private Bitmap photo, scaledPhoto;
     private static final int REQUEST_CODE = 123;
     private RelativeLayout editBackground;
     private GoogleApiClient mGoogleApiClient;
@@ -366,16 +366,26 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         try{
-            photo = (Bitmap) data.getExtras().get("data");
+
+            scaledPhoto = scaleDown((Bitmap) data.getExtras().get("data"), 8 , true);
+
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "size of photo: " +
+                            "" + scaledPhoto.getWidth() * scaledPhoto.getRowBytes() + " x " +
+                            scaledPhoto.getHeight() * scaledPhoto.getRowBytes(),
+                    Toast.LENGTH_SHORT);
+
+            toast.show();
+
         }
         catch(Exception e){
-            photo = null;
+            scaledPhoto = null;
         }
 
-        if (photo != null) {
-            addPhoto.setImageBitmap(photo);
+        if (scaledPhoto != null) {
+            addPhoto.setImageBitmap(scaledPhoto);
 
-            moodEvent.setPhoto(photo);
+            moodEvent.setPhoto(scaledPhoto);
         }
     }
 
@@ -462,6 +472,19 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
         surprisedButton.setBackground(ContextCompat.getDrawable(this, SURPRISED_ICON_BW));
         disgustedButton.setBackground(ContextCompat.getDrawable(this, DISGUSTED_ICON_BW));
         afraidButton.setBackground(ContextCompat.getDrawable(this, AFRAID_ICON_BW));
+    }
+
+    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
+                                   boolean filter) {
+        double ratio = Math.min(
+                (double) maxImageSize / realImage.getWidth(),
+                (double) maxImageSize / realImage.getHeight());
+        int width = Math.round((float) ratio * realImage.getWidth());
+        int height = Math.round((float) ratio * realImage.getHeight());
+
+        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
+                height, filter);
+        return newBitmap;
     }
 
     public void addPhotoMethod (View v){

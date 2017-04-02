@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -39,6 +40,9 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 
 import static com.example.android.sendmoods.Constants.AFRAID_ICON;
@@ -226,11 +230,6 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
                 moodEvent.setReason(reasonText.getText().toString());
                 moodEvent.setAddress("123 Fakestreet, WA");
 
-                if (photo != null){
-                    moodEvent.setPhoto(photo);
-
-                }
-
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("updatedMood", moodEvent);
                 setResult(RES_CODE_EDITED, resultIntent);
@@ -273,7 +272,6 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
 
                 } else {
                     Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-
 
                     if (mLastLocation != null) {
                         moodEvent.setLatitude(mLastLocation.getLatitude());
@@ -354,7 +352,7 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        connection=false;
+        connection = false;
 
         Toast toast = Toast.makeText(getApplicationContext(),
                 "ERROR: Unsuccessful Connection with Google play service. Location cannot be attached.",
@@ -362,9 +360,7 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
         toast.show();
     }
 
-    //THIS WORKS FINE, ADD PHOTO ICON SHOWS
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         try{
             photo = (Bitmap) data.getExtras().get("data");
         }
@@ -373,9 +369,7 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
         }
 
         if (photo != null) {
-            addPhoto.setImageBitmap(photo);
-
-            moodEvent.setPhoto(photo);
+            moodEvent.updatePhoto(this, photo);
         }
     }
 

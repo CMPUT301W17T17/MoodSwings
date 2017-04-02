@@ -44,7 +44,6 @@ public class MoodList implements Parcelable{
         moodEvents = new ArrayList<>();
         moodEventList = new ArrayList<>();
         adapter = new MoodListAdapter(context, moodEventList);
-
     }
 
     public static final Creator<MoodList> CREATOR = new Creator<MoodList>() {
@@ -73,10 +72,6 @@ public class MoodList implements Parcelable{
 
     public int size(){
         return moodEvents.size();
-    }
-
-    public ArrayList<MoodEvent> getMoodEventList() {
-        return moodEventList;
     }
 
     public void filterEvents(String username, String mood, Boolean date){
@@ -165,6 +160,10 @@ public class MoodList implements Parcelable{
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
             Gson gson = new Gson();
             moodEvents = gson.fromJson(in, new TypeToken<ArrayList<MoodEvent>>(){}.getType());
+
+            for (int i = 0; i < moodEvents.size(); i++){
+                moodEvents.get(i).loadPhoto();
+            }
         } catch (FileNotFoundException e) {
             moodEvents = new ArrayList<>();
         }

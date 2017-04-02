@@ -1,13 +1,22 @@
 package com.example.android.sendmoods;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.example.android.sendmoods.Moods.Mood;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 
+import static com.example.android.sendmoods.Constants.SAVEFILE_UID_FORMAT;
 import static com.example.android.sendmoods.Constants.SIMPLE_DATE_FORMAT;
 import static com.example.android.sendmoods.Constants.SIMPLE_TIME_FORMAT;
 
@@ -22,6 +31,9 @@ public class MoodEvent implements Parcelable{
     private double latitude;
     private Mood mood;
     private Bitmap photo;
+    private Boolean hasPhoto;
+    private String photoFilename;
+    private String photoPath;
 
     /**
      * Getters and setters for all the objects that make up the mood.
@@ -35,7 +47,7 @@ public class MoodEvent implements Parcelable{
         this.address = "SAMPLE_ADDRESS";
         this.latitude = 0.0;
         this.longitude = 0.0;
-
+        this.hasPhoto = false;
     }
 
     public String getDate() {
@@ -106,6 +118,44 @@ public class MoodEvent implements Parcelable{
 
     public void setPhoto(Bitmap photo) { this.photo = photo; }
 
+    public void updatePhoto(Context context, Bitmap photo){
+        this.photo = photo;
+        ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
+        File directory = cw.getDir("bmp", EditMoodActivity.MODE_PRIVATE);
+        File myFile = new File(directory, photoFilename);
+        if (hasPhoto) {
+            boolean deleted = myFile.delete();
+        }
+        photoFilename = SAVEFILE_UID_FORMAT.format(new Date());
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(myFile);
+            photo.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        photoPath = directory.getAbsolutePath();
+    }
+
+    public void loadPhoto(){
+        if (hasPhoto){
+            try {
+                File f = new File(photoPath, photoFilename);
+                photo = BitmapFactory.decodeStream(new FileInputStream(f));
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     /**
      * @param in
      * The form in which the objects will be read by parcel, int or String.
@@ -120,6 +170,9 @@ public class MoodEvent implements Parcelable{
         this.longitude = in.readDouble();
         this.latitude = in.readDouble();
         this.photo = in.readParcelable(Bitmap.class.getClassLoader());
+        boolean[] boolArr = new boolean[1];
+        in.readBooleanArray(boolArr);
+        this.hasPhoto = boolArr[0];
     }
 
     @Override
@@ -147,6 +200,7 @@ public class MoodEvent implements Parcelable{
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
         dest.writeParcelable(photo, 0);
+        dest.writeBooleanArray(new boolean[] {hasPhoto});
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MoodEvent createFromParcel(Parcel in) {

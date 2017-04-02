@@ -53,30 +53,13 @@
                         android:textSize="24sp"
                         android:textStyle="bold"
                         android:id="@+id/situation_text_popup" />
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@mipmap/situation_image_person"
-                        android:id="@+id/situation_image_popup1" />
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@mipmap/situation_image_person"
-                        android:id="@+id/situation_image_popup2" />
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@mipmap/situation_image_person"
-                        android:id="@+id/situation_image_popup3" />
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@mipmap/situation_image_person"
-                        android:id="@+id/situation_image_popup4" />
+                    <TextView
+                        android:textSize="21sp"
+                        android:gravity="bottom"
+                        android:layout_width="190dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/socialDescription"/>
+
                 </LinearLayout>
                 <TextView
                     android:text="@string/mood_text_popup_default"

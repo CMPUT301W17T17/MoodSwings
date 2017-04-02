@@ -28,6 +28,8 @@ public class MoodPopupActivity extends AppCompatActivity {
     private FloatingActionButton editButton;
     private RelativeLayout popupMargin;
     private ImageView photo;
+    private Integer people;
+    private TextView social;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +47,22 @@ public class MoodPopupActivity extends AppCompatActivity {
         popupIcon = (ImageView) findViewById(R.id.popup_icon);
         popupMargin = (RelativeLayout) findViewById(R.id.popup);
         photo = (ImageView) findViewById(R.id.user_image_popup);
+        social = (TextView) findViewById(R.id.socialDescription);
 
         //OnClick for outside the popup to close that activity
         popupMargin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 MoodPopupActivity.this.finish();
             }
         });
+
     }
+
     /**
      * This method contains try/catch blocks to ensure correct input in the EditTexts and TextViews.
      */
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         moodEvent = getIntent().getParcelableExtra("MoodEvent");
         popupBox.setBackground(ContextCompat.getDrawable(this, moodEvent.getMood().getShape()));
@@ -68,10 +73,25 @@ public class MoodPopupActivity extends AppCompatActivity {
         timeText.setText(String.format("At: %1$s", moodEvent.getTime()));
         reasonText.setText(moodEvent.getReason());
         addressText.setText(moodEvent.getAddress());
-        if (moodEvent.getPhoto()!=null){
+        if (moodEvent.getPhoto() != null) {
             photo.setImageBitmap(moodEvent.getPhoto());
         }
+        people = moodEvent.getSocial();
+
+        if (people == 0) {
+            social.setText("Not selected");
+        } else if (people == 1) {
+            social.setText("Alone");
+        } else if (people == 2) {
+            social.setText("One other person");
+        } else if (people == 3) {
+            social.setText("Several");
+        } else if (people == 4) {
+            social.setText("Crowd");
+        }
+
+
     }
-
-
 }
+
+

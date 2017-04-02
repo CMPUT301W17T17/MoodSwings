@@ -20,4 +20,9 @@
     <string name="close_drawer_string">CLOSEDRAWER</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="PeopleInvolved">Number of people involved</string>
+
+
+
 </resources>

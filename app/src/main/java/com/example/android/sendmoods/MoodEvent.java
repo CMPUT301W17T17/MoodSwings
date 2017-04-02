@@ -22,6 +22,7 @@ public class MoodEvent implements Parcelable{
     private double latitude;
     private Mood mood;
     private Bitmap photo;
+    private Integer social;
 
     /**
      * Getters and setters for all the objects that make up the mood.
@@ -35,6 +36,7 @@ public class MoodEvent implements Parcelable{
         this.address = "SAMPLE_ADDRESS";
         this.latitude = 0.0;
         this.longitude = 0.0;
+        this.social=0;
 
     }
 
@@ -106,6 +108,16 @@ public class MoodEvent implements Parcelable{
 
     public void setPhoto(Bitmap photo) { this.photo = photo; }
 
+    public Integer getSocial() {
+        return social;
+    }
+
+    public void setSocial(Integer social) {
+        this.social = social;
+    }
+
+
+
     /**
      * @param in
      * The form in which the objects will be read by parcel, int or String.
@@ -120,6 +132,7 @@ public class MoodEvent implements Parcelable{
         this.longitude = in.readDouble();
         this.latitude = in.readDouble();
         this.photo = in.readParcelable(Bitmap.class.getClassLoader());
+        this.social= in.readInt();
     }
 
     @Override
@@ -147,6 +160,7 @@ public class MoodEvent implements Parcelable{
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
         dest.writeParcelable(photo, 0);
+        dest.writeInt(social);
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MoodEvent createFromParcel(Parcel in) {

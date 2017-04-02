@@ -83,11 +83,20 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
             , disgustedButton
             , afraidButton;
     private ImageView addPhoto;
-    private Bitmap photo, scaledPhoto;
+    private Bitmap photo;
     private static final int REQUEST_CODE = 123;
     private RelativeLayout editBackground;
     private GoogleApiClient mGoogleApiClient;
     private Boolean connection = false;
+    private TextView socialDescription;
+    private ImageButton onePerson;
+    private ImageButton twoPerson;
+    private ImageButton threePerson;
+    private ImageButton fourperson;
+    private Integer number;
+
+
+
 
     /**
      * A calendar for date picking. Definitely the fastest and most intuitive way.
@@ -129,8 +138,11 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_mood);
+
 
         reasonText = (EditText) findViewById(R.id.reason_text);//the convention for a view name is word_word not wordWord
         reasonText.setFilters(new InputFilter[]{new TextInputFilter(this)});
@@ -148,6 +160,18 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
 
         reasonText = (EditText) findViewById(R.id.reason_text);
         dateText = (TextView) findViewById(R.id.edit_date);
+
+        onePerson= (ImageButton) findViewById(R.id.one_person);
+        twoPerson= (ImageButton) findViewById(R.id.two_person);
+        threePerson= (ImageButton) findViewById(R.id.three_person);
+        fourperson= (ImageButton) findViewById(R.id.four_person);
+
+        socialDescription = (TextView) findViewById(R.id.socialDescription);
+
+
+
+
+
 
         happyButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -225,6 +249,7 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
                 moodEvent.setUsername("machung");
                 moodEvent.setReason(reasonText.getText().toString());
                 moodEvent.setAddress("123 Fakestreet, WA");
+                moodEvent.setSocial(number);
 
                 if (photo != null){
                     moodEvent.setPhoto(photo);
@@ -234,6 +259,8 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("updatedMood", moodEvent);
                 setResult(RES_CODE_EDITED, resultIntent);
+
+
                 finish();
             }
         });
@@ -293,6 +320,9 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
                 }
             }
         });
+
+
+
 
         checkPermission();
 
@@ -366,26 +396,16 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         try{
-
-            scaledPhoto = scaleDown((Bitmap) data.getExtras().get("data"), 8 , true);
-
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "size of photo: " +
-                            "" + scaledPhoto.getWidth() * scaledPhoto.getRowBytes() + " x " +
-                            scaledPhoto.getHeight() * scaledPhoto.getRowBytes(),
-                    Toast.LENGTH_SHORT);
-
-            toast.show();
-
+            photo = (Bitmap) data.getExtras().get("data");
         }
         catch(Exception e){
-            scaledPhoto = null;
+            photo = null;
         }
 
-        if (scaledPhoto != null) {
-            addPhoto.setImageBitmap(scaledPhoto);
+        if (photo != null) {
+            addPhoto.setImageBitmap(photo);
 
-            moodEvent.setPhoto(scaledPhoto);
+            moodEvent.setPhoto(photo);
         }
     }
 
@@ -396,6 +416,8 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
 
     public void onStart() {
         super.onStart();
+
+
 
         moodEvent = getIntent().getParcelableExtra("MoodEvent");
         reasonText.setText(moodEvent.getReason());
@@ -433,9 +455,53 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
                 break;
         }
 
+        number=moodEvent.getSocial();
+
+        switch (number){
+            case 0:
+                onePerson.setVisibility(View.INVISIBLE);
+                twoPerson.setVisibility(View.INVISIBLE);
+                threePerson.setVisibility(View.INVISIBLE);
+                fourperson.setVisibility(View.INVISIBLE);
+                socialDescription.setText("Select number of people by clicking on Social");
+                break;
+
+            case 1:
+                onePerson.setVisibility(View.VISIBLE);
+                twoPerson.setVisibility(View.INVISIBLE);
+                threePerson.setVisibility(View.INVISIBLE);
+                fourperson.setVisibility(View.INVISIBLE);
+                socialDescription.setText("Event occured Alone");
+                break;
+
+            case 2:
+                onePerson.setVisibility(View.VISIBLE);
+                twoPerson.setVisibility(View.VISIBLE);
+                threePerson.setVisibility(View.INVISIBLE);
+                fourperson.setVisibility(View.INVISIBLE);
+                socialDescription.setText("Event occured with one person");
+                break;
+            case 3:
+                onePerson.setVisibility(View.VISIBLE);
+                twoPerson.setVisibility(View.VISIBLE);
+                threePerson.setVisibility(View.VISIBLE);
+                fourperson.setVisibility(View.INVISIBLE);
+                socialDescription.setText("Event occured in presence of several people");
+                break;
+            case 4:
+                onePerson.setVisibility(View.VISIBLE);
+                twoPerson.setVisibility(View.VISIBLE);
+                threePerson.setVisibility(View.VISIBLE);
+                fourperson.setVisibility(View.VISIBLE);
+                socialDescription.setText("Event occured in presence of a crowd of people");
+                break;
+
+        }
+
         if (moodEvent.getPhoto()!=null){
             addPhoto.setImageBitmap(moodEvent.getPhoto());
         }
+
 
         mGoogleApiClient.connect();
     }
@@ -474,19 +540,6 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
         afraidButton.setBackground(ContextCompat.getDrawable(this, AFRAID_ICON_BW));
     }
 
-    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
-                                   boolean filter) {
-        double ratio = Math.min(
-                (double) maxImageSize / realImage.getWidth(),
-                (double) maxImageSize / realImage.getHeight());
-        int width = Math.round((float) ratio * realImage.getWidth());
-        int height = Math.round((float) ratio * realImage.getHeight());
-
-        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
-                height, filter);
-        return newBitmap;
-    }
-
     public void addPhotoMethod (View v){
         if (checkSelfPermission(Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -497,6 +550,54 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
         else {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, REQUEST_CODE);
+        }
+    }
+
+    public void person(View v){
+        number=number+1;
+
+        if (number==5){
+            number=0;
+            onePerson.setVisibility(View.INVISIBLE);
+            twoPerson.setVisibility(View.INVISIBLE);
+            threePerson.setVisibility(View.INVISIBLE);
+            fourperson.setVisibility(View.INVISIBLE);
+            socialDescription.setText("Select number of people by clicking on Social");
+        }
+
+
+
+        if (number==1){
+            onePerson.setVisibility(View.VISIBLE);
+            twoPerson.setVisibility(View.INVISIBLE);
+            threePerson.setVisibility(View.INVISIBLE);
+            fourperson.setVisibility(View.INVISIBLE);
+            socialDescription.setText("Event occured Alone");
+        }
+
+        else if (number==2){
+            onePerson.setVisibility(View.VISIBLE);
+            twoPerson.setVisibility(View.VISIBLE);
+            threePerson.setVisibility(View.INVISIBLE);
+            fourperson.setVisibility(View.INVISIBLE);
+            socialDescription.setText("Event occured with one person");
+        }
+
+        else if (number==3){
+            onePerson.setVisibility(View.VISIBLE);
+            twoPerson.setVisibility(View.VISIBLE);
+            threePerson.setVisibility(View.VISIBLE);
+            fourperson.setVisibility(View.INVISIBLE);
+            socialDescription.setText("Event occured in presence of several people");
+        }
+
+        else if (number==4) {
+            onePerson.setVisibility(View.VISIBLE);
+            twoPerson.setVisibility(View.VISIBLE);
+            threePerson.setVisibility(View.VISIBLE);
+            fourperson.setVisibility(View.VISIBLE);
+            socialDescription.setText("Event occured in presence of a crowd of people");
+
         }
     }
 }

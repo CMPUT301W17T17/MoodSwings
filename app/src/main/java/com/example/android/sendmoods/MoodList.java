@@ -35,10 +35,6 @@ public class MoodList implements Parcelable{
     private MoodListAdapter adapter;
     private Context context;
 
-    public ArrayList<MoodEvent> getMoodEventList() {
-        return moodEventList;
-    }
-
     public MoodList(Context context) {
         this.context = context;
         moodEvents = new ArrayList<>();
@@ -75,9 +71,6 @@ public class MoodList implements Parcelable{
         return moodEvents.size();
     }
 
-    public ArrayList<MoodEvent> getMoodEventList() {
-        return moodEventList;
-    }
 
     public void filterEvents(String username, String mood, Boolean date){
         moodEventList.clear();

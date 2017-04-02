@@ -21,13 +21,16 @@ public class ElasticSearchController {
 
     private static JestDroidClient client;
 
-    public static class updateRecent extends AsyncTask<MoodEvent, Void, Void>{
+    public static class updateRecentTask extends AsyncTask<MoodEvent, Void, Void> {
 
         @Override
         protected Void doInBackground(MoodEvent... moodevents) {
             verifySettings();
 
+            //but we will probably only be updating one mood event at a time
             for (MoodEvent mood : moodevents) {
+                //If the index for the mood event already exists we need to either
+                //update it or make a new one and delete the old one
                 Index index = new Index.Builder(mood).index(mood.getUsername()).type("mood").build();
 
                 try {
@@ -35,61 +38,51 @@ public class ElasticSearchController {
                     if (result.isSucceeded()) {
                         /*make a dirty flag for the mood event so
                         that it can be reset here?*/
-                    }
-                    else {
+                        result.getId();
+                    } else {
                         Log.i("Error", "Elasticsearch was not able to update the mood");
                     }
 
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     Log.i("Error", "The application failed to build and send the mood");
                 }
             }
             return null;
+        }
 
 
+        }
 
-    }
 
+        /*takes an array list of usernames (strings)*/
+        public static class getFollowedMoodsTask extends AsyncTask<ArrayList<String>, Void, ArrayList<MoodEvent>> {
 
-/*takes an array list of usernames (strings)*/
-    public static class getFollowedMoods extends AsyncTask<ArrayList<String>, Void, ArrayList<MoodEvent>>{
+            @Override
+            protected ArrayList<MoodEvent> doInBackground(ArrayList<String>... username) {
+                verifySettings();
 
-        @Override
-        protected ArrayList<MoodEvent> doInBackground(ArrayList<String>... usernames) {
-            verifySettings();
+                ArrayList<MoodEvent> moodevents = new ArrayList<MoodEvent>();
 
-            ArrayList<MoodEvent> moodevents = new ArrayList<MoodEvent>();
-
-            for (MoodEvent event : moodevents) {
+                for (String user : username) {
                 /*get the most recent mood event of all the users in the arraylist*/
+                }
+
             }
 
         }
 
-    }
 
 
-    /*public void getFollowedMoods() {
+        /*code from watts1 lonelytwitter */
+        public static void verifySettings() {
+            if (client == null) {
+                DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
+                DroidClientConfig config = builder.build();
 
-    }
-
-    public void setRecentMood(MoodEvent) {
-
-    }
-
-    public void setRecentMood(MoodEvent) {
-
-    }*/
-
-    /*code from watts1 lonelytwitter */
-    public static void verifySettings() {
-        if (client == null) {
-            DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
-            DroidClientConfig config = builder.build();
-
-            JestClientFactory factory = new JestClientFactory();
-            factory.setDroidClientConfig(config);client = (JestDroidClient) factory.getObject();
+                JestClientFactory factory = new JestClientFactory();
+                factory.setDroidClientConfig(config);
+                client = (JestDroidClient) factory.getObject();
+            }
         }
     }
 }

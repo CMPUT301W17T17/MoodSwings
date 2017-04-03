@@ -25,9 +25,6 @@ import static com.example.android.sendmoods.Constants.SAVEFILE_NAME;
 import static com.example.android.sendmoods.Constants.SORT_ALL_TIME;
 import static com.example.android.sendmoods.Constants.WEEK_IN_MSEC;
 
-/**
- * Created by Etiennera on 2017-03-12.
- */
 
 public class MoodList implements Parcelable {
     private ArrayList<MoodEvent> moodEvents;

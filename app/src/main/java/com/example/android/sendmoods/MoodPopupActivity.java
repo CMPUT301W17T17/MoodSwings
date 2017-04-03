@@ -65,7 +65,6 @@ public class MoodPopupActivity extends AppCompatActivity {
 
     /**
      * Launches the popup with the edited information of the respective mood.
-     *
      */
     public void onStart() {
         super.onStart();

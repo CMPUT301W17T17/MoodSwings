@@ -11,14 +11,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Created by Etiennera on 2017-03-20.
+ * Enables functionalities for app drawer.
+ *
+ * Part of the app drawer will be to show the most recent mood created and the background of the
+ * respective mood.
  */
-
 public class DrawerFragment extends AppCompatActivity {
     private ImageView moodIcon;
     private TextView nameText;
     private View headerBox;
 
+    /**
+     *
+     * @param savedInstanceState
+     *
+     * Enables Funtionalities to open and close the drawer.
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

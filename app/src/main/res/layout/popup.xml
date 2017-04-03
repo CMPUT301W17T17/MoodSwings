@@ -98,17 +98,6 @@
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:id="@+id/description_text_popup" />
-                <TextView
-                    android:text="@string/address_text_popup_default"
-                    android:layout_width="wrap_content"
-                    android:layout_height="18dp"
-                    android:layout_marginBottom="25dp"
-                    android:paddingTop="3dp"
-                    android:layout_below="@id/description_text_popup"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentBottom="true"
-                    android:textSize="18sp"
-                    android:id="@+id/address_text_popup" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

@@ -24,6 +24,7 @@ import static com.example.android.sendmoods.Constants.AFRAID_WORD;
 import static com.example.android.sendmoods.Constants.ANGRY_WORD;
 import static com.example.android.sendmoods.Constants.ASHAMED_WORD;
 import static com.example.android.sendmoods.Constants.CONFUSED_WORD;
+import static com.example.android.sendmoods.Constants.DEFAULT_WORD;
 import static com.example.android.sendmoods.Constants.DISGUSTED_WORD;
 import static com.example.android.sendmoods.Constants.HAPPY_WORD;
 import static com.example.android.sendmoods.Constants.SAD_WORD;
@@ -36,7 +37,6 @@ import static com.example.android.sendmoods.Constants.SURPRISED_WORD;
 public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
 
     /**
      *
@@ -53,13 +53,6 @@ public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCall
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Context context = getApplicationContext();
-        CharSequence text = "onCreate part";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-
     }
 
 
@@ -75,23 +68,8 @@ public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Context context = getApplicationContext();
-        CharSequence text = "onMapReady part";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
 
         mMap = googleMap;
-
-        // Add a marker in Edmonton and move the camera
-            /*LatLng edmonton = new LatLng(53.5, -113.4);
-            mMap.addMarker(new MarkerOptions().position(edmonton).title("Marker in Edmonton"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(edmonton));*/
-
-
-        //ArrayList<MoodEvent> moodEventList = this.getIntent().getParcelableArrayListExtra("MapEvents");
-        //Bundle bundle = new Bundle();
 
         Bundle bundle = getIntent().getParcelableExtra("mapBundle");
         MoodList moodEventList = bundle.getParcelable("myList");
@@ -152,40 +130,28 @@ public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCall
                 Bitmap b = bitmapdraw.getBitmap();
                 smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
             }
-
+            if (icon.equals(DEFAULT_WORD)) {
+                BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.neutral);
+                Bitmap b = bitmapdraw.getBitmap();
+                smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+            }
 
             LatLng mood = new LatLng(moodEventList.getMoodEvent(i).getLatitude(), moodEventList.getMoodEvent(i).getLongitude());
             mMap.addMarker(new MarkerOptions().position(mood).icon(BitmapDescriptorFactory.fromBitmap(smallMarker)).title(moodEventList.getMoodEvent(i).getMood().getText()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mood));
         }
 
-
         /**
          * Try Catch blocks to verify that location is found.
          */
         try {
             mMap.setMyLocationEnabled(true);
-            Context context2 = getApplicationContext();
-            CharSequence text2 = "found location";
-            int duration2 = Toast.LENGTH_SHORT;
-            Toast toast2 = Toast.makeText(context2, text2, duration2);
-            toast2.show();
-
         } catch (SecurityException e) {
             Context context2 = getApplicationContext();
             CharSequence text2 = "cant find location";
             int duration2 = Toast.LENGTH_SHORT;
             Toast toast2 = Toast.makeText(context2, text2, duration2);
             toast2.show();
-
         }
-
-
     }
-
-    /*public Bitmap resizeMapIcons(String iconName, int width, int height) {
-        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(iconName, "drawable", getPackageName()));
-        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
-        return resizedBitmap;
-    }*/
 }

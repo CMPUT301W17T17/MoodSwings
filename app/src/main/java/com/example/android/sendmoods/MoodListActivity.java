@@ -264,11 +264,15 @@ public class MoodListActivity extends AppCompatActivity {
         /**
          * Use default filters to sort the mood list and take the most recent to appear in the drawer
          */
-        moodEventList.filterEvents(filterName, filterMood, filterDate);
-        newMoodEvent = moodEventList.getMostRecent();
-        moodIcon.setImageResource(newMoodEvent.getMood().getIcon());
-        nameText.setText(newMoodEvent.getMood().getText());
-        headerBox.setBackground(ContextCompat.getDrawable(this, newMoodEvent.getMood().getShape()));
+        if (moodEventList.size() > 0) {
+            moodEventList.filterEvents(filterName, filterMood, filterDate);
+            newMoodEvent = moodEventList.getMostRecent();
+            moodIcon.setImageResource(newMoodEvent.getMood().getIcon());
+            nameText.setText(newMoodEvent.getMood().getText());
+            headerBox.setBackground(
+                    ContextCompat.getDrawable(this
+                    , newMoodEvent.getMood().getShape()));
+        }
 
     }
 
@@ -300,9 +304,14 @@ public class MoodListActivity extends AppCompatActivity {
         moodEventList.filterEvents(filterName, filterMood, filterDate);
         moodEventList.saveInFile();
 
-        newMoodEvent = moodEventList.getMostRecent();
-        moodIcon.setImageResource(newMoodEvent.getMood().getIcon());
-        nameText.setText(newMoodEvent.getMood().getText());
-        headerBox.setBackground(ContextCompat.getDrawable(this, newMoodEvent.getMood().getShape()));
+        if (moodEventList.size() > 0) {
+            newMoodEvent = moodEventList.getMostRecent();
+            moodIcon.setImageResource(newMoodEvent.getMood().getIcon());
+            nameText.setText(newMoodEvent.getMood().getText());
+            headerBox.setBackground(
+                    ContextCompat.getDrawable(
+                    this
+                    , newMoodEvent.getMood().getShape()));
+        }
     }
 }

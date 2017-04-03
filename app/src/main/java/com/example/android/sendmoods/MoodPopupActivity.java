@@ -22,7 +22,6 @@ public class MoodPopupActivity extends AppCompatActivity {
     private TextView dateText;
     private TextView timeText;
     private TextView reasonText;
-    private TextView addressText;
     private View popupBox;
     private ImageView popupIcon;
     private RelativeLayout popupMargin;
@@ -45,7 +44,6 @@ public class MoodPopupActivity extends AppCompatActivity {
         dateText = (TextView) findViewById(R.id.date_text_popup);
         timeText = (TextView) findViewById(R.id.time_text_popup);
         reasonText = (TextView) findViewById(R.id.description_text_popup);
-        addressText = (TextView) findViewById(R.id.address_text_popup);
 
         popupBox = findViewById(R.id.popup_box);
         popupIcon = (ImageView) findViewById(R.id.popup_icon);
@@ -76,7 +74,6 @@ public class MoodPopupActivity extends AppCompatActivity {
         dateText.setText(String.format("On: %1$s", moodEvent.getDate()));
         timeText.setText(String.format("At: %1$s", moodEvent.getTime()));
         reasonText.setText(moodEvent.getReason());
-        addressText.setText(moodEvent.getAddress());
         if (moodEvent.getPhoto() != null) {
             photo.setImageBitmap(moodEvent.getPhoto());
         }

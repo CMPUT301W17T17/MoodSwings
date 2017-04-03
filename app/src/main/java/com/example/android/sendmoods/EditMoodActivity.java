@@ -258,10 +258,6 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
                 resultIntent.putExtra("updatedMood", moodEvent);
                 setResult(RES_CODE_EDITED, resultIntent);
 
-                Toast.makeText(getApplicationContext(),
-                        "Reaches savebutton",
-                        Toast.LENGTH_SHORT).show();
-
                 finish();
             }
         });
@@ -316,7 +312,7 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
                         toast.show();
                     } else {
                         Toast toast = Toast.makeText(getApplicationContext(),
-                                "Unexpected error: Detected location is NULL",
+                                "Unexpected error: Detected location undefined",
                                 Toast.LENGTH_SHORT);
                         toast.show();
                     }

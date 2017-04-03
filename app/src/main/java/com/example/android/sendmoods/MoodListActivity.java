@@ -64,14 +64,6 @@ public class MoodListActivity extends AppCompatActivity {
     private Intent changeIntent, mapIntent;
 
 
-    private MoodEvent testMoodEvent1 = new MoodEvent();
-    private MoodEvent testMoodEvent2 = new MoodEvent();
-    private MoodEvent testMoodEvent3 = new MoodEvent();
-    private MoodEvent testMoodEvent4 = new MoodEvent();
-    private MoodEvent testMoodEvent5 = new MoodEvent();
-    private MoodEvent testMoodEvent6 = new MoodEvent();
-
-
     /**
      *
      * @param savedInstanceState

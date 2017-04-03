@@ -7,54 +7,94 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import static junit.framework.Assert.assertEquals;
+
 /**
  * Created by Matt on 2017-04-03.
  */
 
-public class MoodListActivityTest extends ActivityInstrumentationTestCase2<MoodListActivity> {
+public class MoodListActivityTest {
 
     //private Solo solo;
     private EmptyActivity activity;
 
     public MoodListActivityTest() {
-        super(com.example.android.sendmoods.MoodListActivity.class);
-
         activity = new EmptyActivity();
     }
 
-    public void testMoodList(){
+    @Test
+    public void listSizeTest(){
+        MoodList testList= new MoodList(activity);
+
+        MoodEvent mood = new MoodEvent();
+        testList.add(mood);
+
+        Assert.assertEquals(testList.size(),1);
+    }
+
+    @Test
+    public void testMoodList() throws Exception {
         MoodList testList = new MoodList(activity);
         assertEquals(testList.size(), 0);
-        testList.add(new MoodEvent());
+        MoodEvent moodEvent = new MoodEvent();
+        testList.add(moodEvent);
         assertEquals(testList.size(), 1);
+        moodEvent.setDate("April 01, 2000");
+        MoodEvent newMood = new MoodEvent();
+        testList.add(newMood);
+
+        assertEquals(newMood, testList.getMostRecent());
     }
 
-    /*public void setUp() throws Exception{
-        solo = new Solo(getInstrumentation(), getActivity());
-    }
+    @Test
+    public void addRecentMood(){
+        MoodEvent mood = new MoodEvent();
 
-    public void testStart() throws Exception {
-        Activity activity = getActivity();
-    }
+        mood.setAddress("123 fake street");
 
-    public void testNewMood(){
-        assertTrue("not true", true);
+        MoodList testList= new MoodList(activity);
+        testList.add(mood);
+        Assert.assertEquals(testList.size(),1);
 
-        /*
-        solo.assertCurrentActivity("Wrong Activity!", EditMoodActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.reason_text), "im sad");
-
-        solo.clickOnButton("sad");
-
-        solo.clickOnButton("save");*?
-
+        assertEquals("123 fake street",testList.getMostRecent().getAddress());
 
     }
+    @Test
+    public void removeRecentMood(){
+        MoodEvent mood = new MoodEvent();
 
-    @Override
-    public void tearDown() throws Exception {
-        solo.finishOpenedActivities();
-    }*/
+        MoodList testList= new MoodList(activity);
+        testList.add(mood);
+        testList.deleteLast();
+        Assert.assertEquals(testList.size(),0);
+    }
+
+    @Test
+    public void verifyList(){
+
+        MoodList testList= new MoodList(activity);
+        MoodEvent mood = new MoodEvent();
+        MoodEvent mood2 = new MoodEvent();
+
+
+        mood.setUsername("First");
+        testList.add(mood);
+
+        mood2.setUsername("Second");
+        testList.add(mood2);
+
+        Assert.assertEquals(testList.size(),2);
+
+
+        assertEquals(testList.getUsernames().size(),2);
+
+
+    }
+
+
 
 }
 

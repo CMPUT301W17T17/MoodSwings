@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 /**
- * Created by Etiennera on 4/3/2017.
+ * Empty Activity used for Unit Testing.
  */
 
 public class EmptyActivity extends Activity {

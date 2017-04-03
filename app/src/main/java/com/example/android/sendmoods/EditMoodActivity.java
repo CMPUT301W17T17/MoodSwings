@@ -74,6 +74,10 @@ import static com.example.android.sendmoods.Constants.SURPRISED_ICON;
 import static com.example.android.sendmoods.Constants.SURPRISED_ICON_BW;
 import static com.example.android.sendmoods.Constants.SURPRISED_WORD;
 
+/**
+ * This class allows the user to edit a mood object.
+ * Allows user to attach all mandatory and optional characteristics of the moodEvent object.
+ */
 public class EditMoodActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private EditText reasonText;
     private TextView dateText;

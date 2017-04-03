@@ -31,9 +31,8 @@ import static com.example.android.sendmoods.Constants.SAD_WORD;
 import static com.example.android.sendmoods.Constants.SURPRISED_WORD;
 
 /**
- * Created by Matt on 2017-03-21.
+ * Maps fragment that shows user's filtered moodList as emoji pins on the map, pinned by location.
  */
-
 public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;

@@ -4,10 +4,6 @@ import android.graphics.Color;
 
 import static com.example.android.sendmoods.Constants.*;
 
-/**
- * Created by Etiennera on 2017-03-17.
- */
-
 public class DisgustedMood extends Mood {
     public DisgustedMood(){
         color = Color.parseColor(DISGUSTED_COLOR);

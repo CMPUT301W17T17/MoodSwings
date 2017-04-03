@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter used for showing the mood history in MoodListACtivity's list view.
+ */
 public class MoodListAdapter extends BaseAdapter {
     private static ArrayList<MoodEvent> moodEventList;
 
@@ -36,6 +39,15 @@ public class MoodListAdapter extends BaseAdapter {
         return position;
     }
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     *
+     * Gets the list view and attaches the values for the view of each value of that adapter.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;

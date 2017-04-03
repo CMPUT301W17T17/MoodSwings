@@ -26,6 +26,9 @@ import static com.example.android.sendmoods.Constants.SORT_ALL_TIME;
 import static com.example.android.sendmoods.Constants.WEEK_IN_MSEC;
 
 
+/**
+ * Funtionality to append mood events to the mood list.
+ */
 public class MoodList implements Parcelable {
     private ArrayList<MoodEvent> moodEvents;
     private ArrayList<MoodEvent> moodEventList;
@@ -40,6 +43,10 @@ public class MoodList implements Parcelable {
 
     }
 
+
+    /**
+     * Initializations of MoodList array
+     */
     public static final Creator<MoodList> CREATOR = new Creator<MoodList>() {
         @Override
         public MoodList createFromParcel(Parcel in) {
@@ -68,6 +75,16 @@ public class MoodList implements Parcelable {
         return moodEvents.size();
     }
 
+    /**
+     *
+     * @param username
+     * @param mood
+     * @param date
+     *
+     * Checks the filter applied by the user, and creates a mood list with the filtered values inside.
+     *
+     * It also sorts the mood events by date.
+     */
     public void filterEvents(String username, String mood, Boolean date) {
         moodEventList.clear();
         for (int i = 0; i < moodEvents.size(); i++) {
@@ -109,6 +126,12 @@ public class MoodList implements Parcelable {
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     *
+     * @return
+     *
+     * Gets an array of usernames for all the mood events.
+     */
     public ArrayList<String> getUsernames() {
         ArrayList<String> names = new ArrayList<>();
         for (int i = 0; i < moodEvents.size(); i++) {
@@ -129,6 +152,12 @@ public class MoodList implements Parcelable {
         return moodEvents.get(index);
     }
 
+    /**
+     *
+     * @return
+     *
+     * Get the most recent mood from the end of the sorted array.
+     */
     public MoodEvent getMostRecent() {
         Collections.sort(moodEvents, new Comparator<MoodEvent>() {
             public int compare(MoodEvent mood1, MoodEvent mood2) {

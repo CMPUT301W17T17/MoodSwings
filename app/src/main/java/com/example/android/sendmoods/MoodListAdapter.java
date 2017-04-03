@@ -36,6 +36,15 @@ public class MoodListAdapter extends BaseAdapter {
         return position;
     }
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     *
+     * Gets the list view and attaches the values for the view of each value of that adapter.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;

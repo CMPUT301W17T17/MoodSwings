@@ -37,6 +37,13 @@ public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCall
 
     private GoogleMap mMap;
 
+
+    /**
+     *
+     * @param savedInstanceState
+     *
+     * Launches the Map UI
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +96,10 @@ public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCall
         Bundle bundle = getIntent().getParcelableExtra("mapBundle");
         MoodList moodEventList = bundle.getParcelable("myList");
 
+
+        /**
+         * Generates the respective mood as the pin for the map UI.
+         */
         for (int i = 0; i < moodEventList.size(); i++) {
             String icon = moodEventList.getMoodEvent(i).getMood().getText();
 
@@ -149,6 +160,9 @@ public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCall
         }
 
 
+        /**
+         * Try Catch blocks to verify that location is found.
+         */
         try {
             mMap.setMyLocationEnabled(true);
             Context context2 = getApplicationContext();
@@ -169,9 +183,9 @@ public class MoodMapsActivity extends FragmentActivity implements OnMapReadyCall
 
     }
 
-    public Bitmap resizeMapIcons(String iconName, int width, int height) {
+    /*public Bitmap resizeMapIcons(String iconName, int width, int height) {
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(iconName, "drawable", getPackageName()));
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
         return resizedBitmap;
-    }
+    }*/
 }

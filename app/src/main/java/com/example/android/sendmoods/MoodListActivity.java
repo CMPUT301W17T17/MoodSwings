@@ -72,6 +72,14 @@ public class MoodListActivity extends AppCompatActivity {
     private MoodEvent testMoodEvent6 = new MoodEvent();
 
 
+    /**
+     *
+     * @param savedInstanceState
+     *
+     * Launches the Mood List UI, and enables capabilities for app drawer in this UI.
+     *
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +101,8 @@ public class MoodListActivity extends AppCompatActivity {
 
         /**
          * Mood spinner
+         *
+         * Enables functionality for filtering by mood
          **/
         moodSpinner = (Spinner) findViewById(R.id.mood_spinner);
         moodArray = new ArrayList<>();
@@ -210,7 +220,7 @@ public class MoodListActivity extends AppCompatActivity {
         });
 
         /**
-         * Allows the + button to redirect user to edit_mood from mood_list.
+         * If the add button is selected, user is redirected to new UI to edit the mood they want to create.
          */
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -226,6 +236,11 @@ public class MoodListActivity extends AppCompatActivity {
         nameText = (TextView) hView.findViewById(R.id.drawer_header_username);
         headerBox = hView.findViewById(R.id.header_box);
 
+
+        /**
+         * Allows user to see the pins of the moods that have pinned their locations.
+         * Adjusts to filtering to specific moods or moods from the last week.
+         */
         mapButton = (FloatingActionButton) findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -288,6 +303,15 @@ public class MoodListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     *
+     * Updates the mood list to add a newly created one or delete the selected mood from the list.
+     * will also update the background colour of the preview based on the mood.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQ_CODE_NEW && resultCode == RES_CODE_EDITED) {

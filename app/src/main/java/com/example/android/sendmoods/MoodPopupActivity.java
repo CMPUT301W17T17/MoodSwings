@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 /**
  * This class allows popup layout to show the edited information for an existing mood.
- * Shows the views similarly to edit_mood.
+ * Shows the views similarly to edit_mood UI, no option to edit the mood from here.
  */
 public class MoodPopupActivity extends AppCompatActivity {
 
@@ -25,12 +25,16 @@ public class MoodPopupActivity extends AppCompatActivity {
     private TextView addressText;
     private View popupBox;
     private ImageView popupIcon;
-    private FloatingActionButton editButton;
     private RelativeLayout popupMargin;
     private ImageView photo;
     private Integer people;
     private TextView social;
 
+    /**
+     *
+     * @param savedInstanceState
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +64,8 @@ public class MoodPopupActivity extends AppCompatActivity {
     }
 
     /**
-     * This method contains try/catch blocks to ensure correct input in the EditTexts and TextViews.
+     * Launches the popup with the edited information of the respective mood.
+     *
      */
     public void onStart() {
         super.onStart();

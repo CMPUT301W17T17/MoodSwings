@@ -60,6 +60,7 @@ public class MoodListActivity extends AppCompatActivity{
     private int pos;
 
     private MoodEvent newMoodEvent;
+    private ElasticSearchController elasticSearchController;
 
     private Intent changeIntent, mapIntent;
 
@@ -89,6 +90,8 @@ public class MoodListActivity extends AppCompatActivity{
         moodEventList.loadFromFile();
         adapter = moodEventList.getAdapter();
         moodListView.setAdapter(adapter);
+
+        elasticSearchController = new ElasticSearchController();
 
         /**
          * Mood spinner
@@ -305,9 +308,17 @@ public class MoodListActivity extends AppCompatActivity{
         moodEventList.filterEvents(filterName, filterMood, filterDate);
         moodEventList.saveInFile();
 
+
         newMoodEvent = moodEventList.getMostRecent();
+
+        ElasticSearchController.updateRecentTask updateRecent
+                = new ElasticSearchController.updateRecentTask();
+        updateRecent.execute(newMoodEvent);
+
+
         moodIcon.setImageResource(newMoodEvent.getMood().getIcon());
         nameText.setText(newMoodEvent.getMood().getText());
         headerBox.setBackground(ContextCompat.getDrawable(this, newMoodEvent.getMood().getShape()));
+
     }
 }

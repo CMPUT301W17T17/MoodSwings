@@ -2,6 +2,7 @@ package com.example.android.sendmoods;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
@@ -12,15 +13,23 @@ import com.robotium.solo.Solo;
 
 public class MoodListActivityTest extends ActivityInstrumentationTestCase2<MoodListActivity> {
 
-
-    private Solo solo;
-
+    //private Solo solo;
+    private EmptyActivity activity;
 
     public MoodListActivityTest() {
         super(com.example.android.sendmoods.MoodListActivity.class);
+
+        activity = new EmptyActivity();
     }
 
-    public void setUp() throws Exception{
+    public void testMoodList(){
+        MoodList testList = new MoodList(activity);
+        assertEquals(testList.size(), 0);
+        testList.add(new MoodEvent());
+        assertEquals(testList.size(), 1);
+    }
+
+    /*public void setUp() throws Exception{
         solo = new Solo(getInstrumentation(), getActivity());
     }
 
@@ -37,7 +46,7 @@ public class MoodListActivityTest extends ActivityInstrumentationTestCase2<MoodL
 
         solo.clickOnButton("sad");
 
-        solo.clickOnButton("save");*? */
+        solo.clickOnButton("save");*?
 
 
     }
@@ -45,7 +54,7 @@ public class MoodListActivityTest extends ActivityInstrumentationTestCase2<MoodL
     @Override
     public void tearDown() throws Exception {
         solo.finishOpenedActivities();
-    }
+    }*/
 
 }
 

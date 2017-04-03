@@ -103,7 +103,7 @@ public class MoodList implements Parcelable {
                 } catch (ParseException e) {
                     return 1;
                 }
-                return Long.valueOf(t1).compareTo(t2);
+                return Long.valueOf(t2).compareTo(t1);
             }
         });
         adapter.notifyDataSetChanged();
@@ -130,7 +130,24 @@ public class MoodList implements Parcelable {
     }
 
     public MoodEvent getMostRecent() {
-        return getMoodEvent(moodEvents.size() - 1);
+        Collections.sort(moodEvents, new Comparator<MoodEvent>() {
+            public int compare(MoodEvent mood1, MoodEvent mood2) {
+                long t1 = 0;
+                long t2 = 0;
+                try {
+                    t1 = COMBINED_DATE_FORMAT.parse(
+                            String.format("%1$s %2$s", mood1.getDate(), mood1.getTime()))
+                            .getTime();
+                    t2 = COMBINED_DATE_FORMAT.parse(
+                            String.format("%1$s %2$s", mood2.getDate(), mood2.getTime()))
+                            .getTime();
+                } catch (ParseException e) {
+                    return 1;
+                }
+                return Long.valueOf(t2).compareTo(t1);
+            }
+        });
+        return getMoodEvent(0);//(moodEvents.size() - 1);
     }
 
     public boolean hasMoodEvent(MoodEvent moodEvent) {

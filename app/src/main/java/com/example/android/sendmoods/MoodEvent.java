@@ -3,10 +3,16 @@ package com.example.android.sendmoods;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.JsonWriter;
 
 import com.example.android.sendmoods.Moods.Mood;
+import com.google.gson.Gson;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.transform.Source;
 
 import static com.example.android.sendmoods.Constants.SIMPLE_DATE_FORMAT;
 import static com.example.android.sendmoods.Constants.SIMPLE_TIME_FORMAT;
@@ -22,6 +28,8 @@ public class MoodEvent implements Parcelable{
     private double latitude;
     private Mood mood;
     private Bitmap photo;
+    private String id;
+    private Boolean hasId;
 
     /**
      * Getters and setters for all the objects that make up the mood.
@@ -35,7 +43,20 @@ public class MoodEvent implements Parcelable{
         this.address = "SAMPLE_ADDRESS";
         this.latitude = 0.0;
         this.longitude = 0.0;
+        this.hasId = false;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+        this.hasId = true;
+    }
+
+    public String getId(){
+        return id;
+    }
+
+    public Boolean hasId(){
+        return hasId;
     }
 
     public String getDate() {
@@ -120,11 +141,28 @@ public class MoodEvent implements Parcelable{
         this.longitude = in.readDouble();
         this.latitude = in.readDouble();
         this.photo = in.readParcelable(Bitmap.class.getClassLoader());
+        this.hasId = in.readByte() != 0;
     }
 
     @Override
     public int describeContents(){
         return 0;
+    }
+
+    @Override
+    public String toString(){
+        Map<String, Object> json = new HashMap<String, Object>();
+        json.put("Mood", mood.getText());
+        /*json.put("username", username);
+        json.put("date", date);
+        json.put("time", time);
+        json.put("address", address);
+        json.put("reason", reason);
+        json.put("longitude", longitude);
+        json.put("photo", latitude);
+        json.put("hasId", hasId);*/
+
+        return (new Gson()).toJson(json);
     }
 
     /**
@@ -147,6 +185,7 @@ public class MoodEvent implements Parcelable{
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
         dest.writeParcelable(photo, 0);
+        dest.writeByte((byte) (hasId ? 1 : 0));
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MoodEvent createFromParcel(Parcel in) {

@@ -1,16 +1,22 @@
 package com.example.android.sendmoods;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Base64;
 
 import com.example.android.sendmoods.Moods.Mood;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 import static com.example.android.sendmoods.Constants.SIMPLE_DATE_FORMAT;
 import static com.example.android.sendmoods.Constants.SIMPLE_TIME_FORMAT;
 
+/**
+ * MoodEvent class to keep track of the MoodEvent objects.
+ */
 public class MoodEvent implements Parcelable{
 
     private String date;
@@ -24,8 +30,11 @@ public class MoodEvent implements Parcelable{
     private Bitmap photo;
     private Integer social;
 
+    private String bitmapString;
+
+
     /**
-     * Getters and setters for all the objects that make up the mood.
+     * initializing the objects of the mood that is created, to be stored.
      */
     public MoodEvent(){
         this.mood = new Mood();
@@ -39,6 +48,12 @@ public class MoodEvent implements Parcelable{
         this.social=0;
 
     }
+
+    /**
+     * @return
+     *
+     * Getters and setters for the objects of the mood.
+     */
 
     public String getDate() {
         return date;
@@ -104,9 +119,28 @@ public class MoodEvent implements Parcelable{
         this.latitude = latitude;
     }
 
-    public Bitmap getPhoto() { return photo; }
+    /**
+     *
+     * @return
+     *
+     * Get for String format of photo, which then calls String to Bitmap to convert it to Bitmap format.
+     *
+     * EditMoodActivity and MoodPopupActivity will need Bitmap format to display photo in the UI.
+     */
+    public Bitmap getPhoto() {
+        return StringToBitMap(getBitmapString());
 
-    public void setPhoto(Bitmap photo) { this.photo = photo; }
+    }
+
+    /**
+     * @param photo
+     *
+     * Setter for Bitmap photo, which then calls BitMapToString to convert it to String format.
+     */
+    public void setPhoto(Bitmap photo) {
+        setBitmapString(BitMapToString(this.photo = photo));
+
+    }
 
     public Integer getSocial() {
         return social;
@@ -114,6 +148,15 @@ public class MoodEvent implements Parcelable{
 
     public void setSocial(Integer social) {
         this.social = social;
+    }
+
+    public String getBitmapString() {
+
+        return bitmapString;
+    }
+
+    public void setBitmapString(String bitmapString) {
+        this.bitmapString = bitmapString;
     }
 
 
@@ -131,8 +174,9 @@ public class MoodEvent implements Parcelable{
         this.reason = in.readString();
         this.longitude = in.readDouble();
         this.latitude = in.readDouble();
-        this.photo = in.readParcelable(Bitmap.class.getClassLoader());
+        //this.photo = in.readParcelable(Bitmap.class.getClassLoader());
         this.social= in.readInt();
+        this.bitmapString=in.readString();
     }
 
     @Override
@@ -159,8 +203,9 @@ public class MoodEvent implements Parcelable{
         dest.writeString(reason);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
-        dest.writeParcelable(photo, 0);
+        //dest.writeParcelable(photo, 0);
         dest.writeInt(social);
+        dest.writeString(bitmapString);
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MoodEvent createFromParcel(Parcel in) {
@@ -171,4 +216,44 @@ public class MoodEvent implements Parcelable{
             return new MoodEvent[size];
         }
     };
+
+    /**
+     *
+     * @param bitmap
+     * @return a String value for the Bitmap photo.
+     *
+     * This is to aid in persistence.
+     *
+     * Source: http://stackoverflow.com/questions/13562429/how-many-ways-to-convert-bitmap-to-string-and-vice-versa
+     */
+    public String BitMapToString(Bitmap bitmap){
+
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String temp= Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
+    }
+
+    /**
+     *
+     * @param encodedString
+     * @return a Bitmap value after reverting the photo format from a String.
+     *
+     * This is to aid in persistence.
+     *
+     * Source: http://stackoverflow.com/questions/13562429/how-many-ways-to-convert-bitmap-to-string-and-vice-versa
+     *
+     */
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
 }
+

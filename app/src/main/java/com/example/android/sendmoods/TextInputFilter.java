@@ -35,7 +35,7 @@ public class TextInputFilter implements InputFilter {
 
         if (TextUtils.isEmpty(source))
             return dest.subSequence(dstart, dend);
-        else{
+        else {
             Toast.makeText(
                     context
                     , "Reason is at most three words, and must be shorter than 20 characters"

@@ -14,7 +14,7 @@ import android.widget.TextView;
  * Created by Etiennera on 2017-03-20.
  */
 
-public class DrawerFragment extends AppCompatActivity{
+public class DrawerFragment extends AppCompatActivity {
     private ImageView moodIcon;
     private TextView nameText;
     private View headerBox;
@@ -34,7 +34,7 @@ public class DrawerFragment extends AppCompatActivity{
         headerBox = findViewById(R.id.header_box);
     }
 
-    public void setStyle(int color, int shape, String text){
+    public void setStyle(int color, int shape, String text) {
         moodIcon.setImageResource(shape);
         nameText.setText(text);
         headerBox.setBackground(ContextCompat.getDrawable(this, color));

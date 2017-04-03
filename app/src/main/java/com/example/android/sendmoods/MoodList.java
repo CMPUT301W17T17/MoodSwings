@@ -29,7 +29,7 @@ import static com.example.android.sendmoods.Constants.WEEK_IN_MSEC;
  * Created by Etiennera on 2017-03-12.
  */
 
-public class MoodList implements Parcelable{
+public class MoodList implements Parcelable {
     private ArrayList<MoodEvent> moodEvents;
     private ArrayList<MoodEvent> moodEventList;
     private MoodListAdapter adapter;
@@ -55,7 +55,7 @@ public class MoodList implements Parcelable{
         }
     };
 
-    public MoodListAdapter getAdapter(){
+    public MoodListAdapter getAdapter() {
         return adapter;
     }
 
@@ -63,29 +63,29 @@ public class MoodList implements Parcelable{
         moodEvents.add(moodEvent);
     }
 
-    public void set(int pos,MoodEvent moodEvent){
+    public void set(int pos, MoodEvent moodEvent) {
         moodEvents.set(pos, moodEvent);
     }
 
-    public int size(){
+    public int size() {
         return moodEvents.size();
     }
 
-    public void filterEvents(String username, String mood, Boolean date){
+    public void filterEvents(String username, String mood, Boolean date) {
         moodEventList.clear();
-        for (int i = 0; i < moodEvents.size(); i++){
+        for (int i = 0; i < moodEvents.size(); i++) {
             MoodEvent mood_i = moodEvents.get(i);
-            if (mood_i.getUsername().equals(username) || username.equals("All Users")){
-                if (mood_i.getMood().getText().equals(mood) || mood.equals("All Moods")){
-                    try{
-                        if(new Date().getTime() - COMBINED_DATE_FORMAT.parse(
+            if (mood_i.getUsername().equals(username) || username.equals("All Users")) {
+                if (mood_i.getMood().getText().equals(mood) || mood.equals("All Moods")) {
+                    try {
+                        if (new Date().getTime() - COMBINED_DATE_FORMAT.parse(
                                 String.format("%1$s %2$s", mood_i.getDate(), mood_i.getTime()))
                                 .getTime()
                                 < WEEK_IN_MSEC
-                                        || date == SORT_ALL_TIME) {
+                                || date == SORT_ALL_TIME) {
                             moodEventList.add(moodEvents.get(i));
                         }
-                    } catch (ParseException e){
+                    } catch (ParseException e) {
                         moodEventList.add(moodEvents.get(i));
                     }
                 }
@@ -103,7 +103,7 @@ public class MoodList implements Parcelable{
                     t2 = COMBINED_DATE_FORMAT.parse(
                             String.format("%1$s %2$s", mood2.getDate(), mood2.getTime()))
                             .getTime();
-                } catch (ParseException e){
+                } catch (ParseException e) {
                     return 1;
                 }
                 return Long.valueOf(t1).compareTo(t2);
@@ -114,8 +114,8 @@ public class MoodList implements Parcelable{
 
     public ArrayList<String> getUsernames() {
         ArrayList<String> names = new ArrayList<>();
-        for (int i = 0; i < moodEvents.size(); i++){
-            if (!names.contains(moodEvents.get(i).getUsername())){
+        for (int i = 0; i < moodEvents.size(); i++) {
+            if (!names.contains(moodEvents.get(i).getUsername())) {
                 names.add(moodEvents.get(i).getUsername());
             }
         }
@@ -128,13 +128,15 @@ public class MoodList implements Parcelable{
         return names;
     }
 
-    public MoodEvent getMoodEvent(int index){
+    public MoodEvent getMoodEvent(int index) {
         return moodEvents.get(index);
     }
 
-    public MoodEvent getMostRecent() { return getMoodEvent(moodEvents.size() - 1); }
+    public MoodEvent getMostRecent() {
+        return getMoodEvent(moodEvents.size() - 1);
+    }
 
-    public boolean hasMoodEvent(MoodEvent moodEvent){
+    public boolean hasMoodEvent(MoodEvent moodEvent) {
         return moodEvents.contains(moodEvent);
     }
 
@@ -146,7 +148,7 @@ public class MoodList implements Parcelable{
         moodEvents.remove(moodEvents.size() - 1);
     }
 
-    public void clear(){
+    public void clear() {
         moodEvents.clear();
     }
 
@@ -156,7 +158,8 @@ public class MoodList implements Parcelable{
             FileInputStream fis = context.openFileInput(SAVEFILE_NAME);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
             Gson gson = new Gson();
-            moodEvents = gson.fromJson(in, new TypeToken<ArrayList<MoodEvent>>(){}.getType());
+            moodEvents = gson.fromJson(in, new TypeToken<ArrayList<MoodEvent>>() {
+            }.getType());
         } catch (FileNotFoundException e) {
             moodEvents = new ArrayList<>();
         }
@@ -165,7 +168,7 @@ public class MoodList implements Parcelable{
 
     public void saveInFile() {
         try {
-            FileOutputStream fos = context.openFileOutput(SAVEFILE_NAME,0);
+            FileOutputStream fos = context.openFileOutput(SAVEFILE_NAME, 0);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
             Gson gson = new Gson();
             gson.toJson(moodEvents, writer);

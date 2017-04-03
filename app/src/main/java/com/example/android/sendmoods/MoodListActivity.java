@@ -36,7 +36,7 @@ import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
 import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
 import static com.example.android.sendmoods.Constants.SORT_ALL_TIME;
 
-public class MoodListActivity extends AppCompatActivity{
+public class MoodListActivity extends AppCompatActivity {
 
     private ListView moodListView;
     private MoodList moodEventList;
@@ -70,6 +70,7 @@ public class MoodListActivity extends AppCompatActivity{
     private MoodEvent testMoodEvent4 = new MoodEvent();
     private MoodEvent testMoodEvent5 = new MoodEvent();
     private MoodEvent testMoodEvent6 = new MoodEvent();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,10 +115,11 @@ public class MoodListActivity extends AppCompatActivity{
 
         moodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View v, int position, long id){
+            public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
                 filterMood = moodSpinner.getSelectedItem().toString();
                 moodEventList.filterEvents(filterName, filterMood, filterDate);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -156,10 +158,11 @@ public class MoodListActivity extends AppCompatActivity{
 
         nameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View v, int position, long id){
+            public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
                 filterName = nameSpinner.getSelectedItem().toString();
                 moodEventList.filterEvents(filterName, filterMood, filterDate);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -218,7 +221,7 @@ public class MoodListActivity extends AppCompatActivity{
             }
         });
 
-        View hView =  navigationView.getHeaderView(0);
+        View hView = navigationView.getHeaderView(0);
         moodIcon = (ImageView) hView.findViewById(R.id.drawer_header_icon);
         nameText = (TextView) hView.findViewById(R.id.drawer_header_username);
         headerBox = hView.findViewById(R.id.header_box);
@@ -231,14 +234,13 @@ public class MoodListActivity extends AppCompatActivity{
 
 
                 if (filterMood.matches("All Moods")) {
-                    bundle.putParcelable("myList",moodEventList);
+                    bundle.putParcelable("myList", moodEventList);
                     mapIntent.putExtra("mapBundle", bundle);
 
-                }
-                else{
-                    bundle.putParcelable("myList",moodEventList);
+                } else {
+                    bundle.putParcelable("myList", moodEventList);
                     mapIntent.putExtra("mapBundle", bundle);
-                    String x="s";
+                    String x = "s";
                 }
                 startActivity(mapIntent);
             }
@@ -248,7 +250,7 @@ public class MoodListActivity extends AppCompatActivity{
          * Initialize a few test mood events *
          **/
 
-        testMoodEvent1.setMood(new AngryMood().toMood());
+        /*testMoodEvent1.setMood(new AngryMood().toMood());
         testMoodEvent1.setUsername("machung");
         testMoodEvent1.setLongitude(51.440270);
         testMoodEvent1.setLatitude(-114.062019);
@@ -282,22 +284,22 @@ public class MoodListActivity extends AppCompatActivity{
         testMoodEvent6.setUsername("machung");
         testMoodEvent6.setLongitude(51.180202);
         testMoodEvent6.setLatitude(-115.565704);
-        moodEventList.add(testMoodEvent6);
+        moodEventList.add(testMoodEvent6);*/
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQ_CODE_NEW && resultCode == RES_CODE_EDITED){
+        if (requestCode == REQ_CODE_NEW && resultCode == RES_CODE_EDITED) {
             //Get the new MoodEvent and append it to the list
             newMoodEvent = data.getExtras().getParcelable("updatedMood");
             moodEventList.add(newMoodEvent);
         }
-        if(requestCode == REQ_CODE_EDIT && resultCode == RES_CODE_DELETED){
+        if (requestCode == REQ_CODE_EDIT && resultCode == RES_CODE_DELETED) {
             //Delete the viewed MoodEvent
             moodEventList.delete(pos);
         }
-        if(requestCode == REQ_CODE_EDIT && resultCode == RES_CODE_EDITED){
+        if (requestCode == REQ_CODE_EDIT && resultCode == RES_CODE_EDITED) {
             //Update the viewed MoodEvent
             newMoodEvent = data.getExtras().getParcelable("updatedMood");
             moodEventList.set(pos, newMoodEvent);

@@ -17,13 +17,15 @@ public class Constants {
             = new SimpleDateFormat("h:mm a", Locale.CANADA);
     public static final SimpleDateFormat COMBINED_DATE_FORMAT
             = new SimpleDateFormat("MMMM dd, yyyy h:mm a", Locale.CANADA);
-    public static final int WEEK_IN_MSEC = (1000*60*60*24*7);
+    public static final int WEEK_IN_MSEC = (1000 * 60 * 60 * 24 * 7);
 
     public static final Boolean SORT_RECENT_ONLY = true;
     public static final Boolean SORT_ALL_TIME = false;
 
     /**
      * Constants for Empty Mood
+     *
+     * Sets background of mood event to white when no mood is selected.
      */
 
     public static final int DEFAULT_POPUP_BOX = R.drawable.popup_shape_gray;
@@ -32,6 +34,8 @@ public class Constants {
     public static final String DEFAULT_COLOR = "#E0E0E0";
     /**
      * Constants for Happy Mood
+     *
+     * Sets background of mood event to
      */
 
     public static final int HAPPY_POPUP_BOX = R.drawable.popup_shape_pink;

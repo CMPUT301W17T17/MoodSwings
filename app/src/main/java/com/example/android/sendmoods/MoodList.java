@@ -27,7 +27,9 @@ import static com.example.android.sendmoods.Constants.WEEK_IN_MSEC;
 
 
 /**
- * Funtionality to append mood events to the mood list.
+ * MoodList object containing moodEvent objects for displaying in ListView of MoodListActivity.
+ * Contains user filtered mood list.
+ * Contains sorted by date mood list.
  */
 public class MoodList implements Parcelable {
     private ArrayList<MoodEvent> moodEvents;

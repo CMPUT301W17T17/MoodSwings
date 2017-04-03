@@ -5,10 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 /**
- * Created by Moe on 2017-03-11.
- * This class contains the constants
- */
-
+ * This class contains the constants used throughout the program to match moods and to set request
+ * and result codes.
+**/
 public class Constants {
     public static final String SAVEFILE_NAME = "local.sav";
     public static final SimpleDateFormat SIMPLE_DATE_FORMAT

@@ -4,10 +4,6 @@ import android.graphics.Color;
 
 import static com.example.android.sendmoods.Constants.*;
 
-/**
- * Created by Etiennera on 2017-03-17.
- */
-
 public class ConfusedMood extends Mood {
     public ConfusedMood(){
         color = Color.parseColor(CONFUSED_COLOR);

@@ -10,9 +10,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Etiennera on 2017-02-05.
  * Adapted from: http://stackoverflow.com/questions/5357455/limit-decimal-places-in-android-edittext/24632346#24632346
  * Credit to user: android_dev
+ *
+ * Filters EditText Field to be no more than 20 characters or 3 words long.
  */
 
 public class TextInputFilter implements InputFilter {

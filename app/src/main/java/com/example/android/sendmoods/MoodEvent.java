@@ -16,6 +16,8 @@ import static com.example.android.sendmoods.Constants.SIMPLE_TIME_FORMAT;
 
 /**
  * MoodEvent class to keep track of the MoodEvent objects.
+ *
+ * Primary objects user to identify and inidividual mood and its respective characteristics.
  */
 public class MoodEvent implements Parcelable{
 

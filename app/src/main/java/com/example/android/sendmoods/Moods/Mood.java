@@ -8,8 +8,9 @@ import static com.example.android.sendmoods.Constants.DEFAULT_WORD;
 import static com.example.android.sendmoods.Constants.DEFAULT_ICON;
 
 /**
- * Created by Etiennera on 2017-03-17.
- */
+ * Contains the attributes of a mood "emotion".
+ * All other moods in the folder "Moods" inherit from this class.
+ **/
 
 public class Mood{
     protected int color;

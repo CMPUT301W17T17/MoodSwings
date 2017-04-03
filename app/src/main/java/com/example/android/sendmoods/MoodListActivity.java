@@ -36,6 +36,13 @@ import static com.example.android.sendmoods.Constants.RES_CODE_DELETED;
 import static com.example.android.sendmoods.Constants.RES_CODE_EDITED;
 import static com.example.android.sendmoods.Constants.SORT_ALL_TIME;
 
+/**
+ * Main page of application.
+ * Allows user to create a new mood to edit.
+ * Allows user to be redirected to the map to view pins of already created moods.
+ * Allows user to view filtered moodList.
+ * Allows user to view popup view of the details of the selected mood event.
+ */
 public class MoodListActivity extends AppCompatActivity {
 
     private ListView moodListView;

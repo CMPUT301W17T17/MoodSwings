@@ -135,6 +135,9 @@ public class MoodList implements Parcelable {
      * Gets an array of usernames for all the mood events.
      */
     public ArrayList<String> getUsernames() {
+        if (moodEvents.size() == 0){
+            return new ArrayList<>();
+        }
         ArrayList<String> names = new ArrayList<>();
         for (int i = 0; i < moodEvents.size(); i++) {
             if (!names.contains(moodEvents.get(i).getUsername())) {
@@ -197,18 +200,20 @@ public class MoodList implements Parcelable {
         moodEvents.clear();
     }
 
-
     public void loadFromFile() {
         try {
             FileInputStream fis = context.openFileInput(SAVEFILE_NAME);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
             Gson gson = new Gson();
-            moodEvents = gson.fromJson(in, new TypeToken<ArrayList<MoodEvent>>() {
-            }.getType());
+            moodEvents = gson.fromJson(in, new TypeToken<ArrayList<MoodEvent>>(){}.getType());
         } catch (FileNotFoundException e) {
             moodEvents = new ArrayList<>();
         }
-        filterEvents("All Users", "All Moods", SORT_ALL_TIME);
+        if (moodEvents.size() > 0) {
+            filterEvents("All Users", "All Moods", SORT_ALL_TIME);
+        } else {
+            moodEvents = new ArrayList<>();
+        }
     }
 
     public void saveInFile() {

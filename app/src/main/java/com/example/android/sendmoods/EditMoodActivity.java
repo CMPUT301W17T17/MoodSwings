@@ -427,7 +427,8 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         try {
-            photo = scaleDown((Bitmap) data.getExtras().get("data"), 8, true);
+            //photo = scaleDown((Bitmap) data.getExtras().get("data"), 8, true);
+            photo = (Bitmap) data.getExtras().get("data");
         } catch (Exception e) {
             photo = null;
         }
@@ -653,7 +654,7 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
         }
     }
 
-    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
+    /*public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
                                    boolean filter) {
         double ratio = Math.min(
                 (double) maxImageSize / realImage.getWidth(),
@@ -664,7 +665,7 @@ public class EditMoodActivity extends Activity implements GoogleApiClient.Connec
         Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
                 height, filter);
         return newBitmap;
-    }
+    }*/
 
 
 }
